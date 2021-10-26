@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L iotAirMonitoring-rescue:USB_C_Receptacle_USB2.0-Connector J1
+L iotAirMonitoring-rescue:USB_C_Receptacle_USB2.0-Connector-iotAirMonitoring-rescue J1
 U 1 1 617675BE
 P 1500 2000
 AR Path="/617675BE" Ref="J1"  Part="1" 
@@ -643,4 +643,75 @@ Wire Wire Line
 Wire Wire Line
 	2150 2100 2350 2100
 Connection ~ 2150 2100
+$Comp
+L Regulator_Linear:AMS1117-3.3 U2
+U 1 1 6177D292
+P 8800 4100
+F 0 "U2" H 8800 4342 50  0000 C CNN
+F 1 "AMS1117-3.3" H 8800 4251 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 8800 4300 50  0001 C CNN
+F 3 "http://www.advanced-monolithic.com/pdf/ds1117.pdf" H 8900 3850 50  0001 C CNN
+F 4 "C6186" H 8800 4100 50  0001 C CNN "LCSC"
+	1    8800 4100
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C13
+U 1 1 6177EB7E
+P 9200 4350
+F 0 "C13" H 9315 4396 50  0000 L CNN
+F 1 "22u" H 9315 4305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 9238 4200 50  0001 C CNN
+F 3 "~" H 9200 4350 50  0001 C CNN
+F 4 "C45783" H 9200 4350 50  0001 C CNN "LCSC"
+	1    9200 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9100 4100 9200 4100
+Wire Wire Line
+	9200 4100 9200 4200
+Wire Wire Line
+	9200 4100 9300 4100
+Connection ~ 9200 4100
+Text HLabel 9300 4100 2    50   Output ~ 0
+3V3_L
+Text HLabel 8800 4700 3    50   UnSpc ~ 0
+GND
+Wire Wire Line
+	8800 4400 8800 4550
+Wire Wire Line
+	8800 4550 9200 4550
+Wire Wire Line
+	9200 4550 9200 4500
+Connection ~ 8800 4550
+Wire Wire Line
+	8800 4550 8800 4700
+$Comp
+L Device:C C12
+U 1 1 6178E735
+P 8300 4350
+F 0 "C12" H 8415 4396 50  0000 L CNN
+F 1 "22u" H 8415 4305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 8338 4200 50  0001 C CNN
+F 3 "~" H 8300 4350 50  0001 C CNN
+F 4 "C45783" H 8300 4350 50  0001 C CNN "LCSC"
+	1    8300 4350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8300 4200 8300 4100
+Wire Wire Line
+	8300 4100 8500 4100
+Wire Wire Line
+	8300 4500 8300 4550
+Wire Wire Line
+	8300 4550 8800 4550
+Wire Wire Line
+	8300 4100 8200 4100
+Connection ~ 8300 4100
+Text HLabel 8200 4100 0    50   Output ~ 0
+VDD
+Text Notes 8200 3750 0    50   ~ 0
+3V3 LDO FOR ANALOG SENSORS
 $EndSCHEMATC
