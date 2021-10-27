@@ -14,53 +14,252 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 1900 1750 650  800 
+S 1100 1100 650  800 
 U 61767442
 F0 "powerManagement" 50
 F1 "powerManagement.sch" 50
-F2 "GND" U R 2550 2450 50 
-F3 "PWR_ON" I R 2550 2150 50 
-F4 "PWR_OFF" I R 2550 2250 50 
-F5 "VDD" O R 2550 1850 50 
-F6 "3V3_L" O R 2550 2050 50 
-F7 "3V3" O R 2550 1950 50 
+F2 "GND" U R 1750 1800 50 
+F3 "PWR_ON" I R 1750 1500 50 
+F4 "PWR_OFF" I R 1750 1600 50 
+F5 "VDD" O R 1750 1200 50 
+F6 "3V3_L" O R 1750 1400 50 
+F7 "3V3" O R 1750 1300 50 
 $EndSheet
-Text GLabel 2550 1850 2    50   Input ~ 0
+Text GLabel 1750 1200 2    50   Input ~ 0
 VDD
-Text GLabel 2550 1950 2    50   Input ~ 0
+Text GLabel 1750 1300 2    50   Input ~ 0
 3V3
-Text GLabel 2550 2150 2    50   Input ~ 0
+Text GLabel 1750 1500 2    50   Input ~ 0
 PWR_ON
-Text GLabel 2550 2250 2    50   Input ~ 0
+Text GLabel 1750 1600 2    50   Input ~ 0
 PWR_OFF
-Text GLabel 2550 2450 2    50   Input ~ 0
+Text GLabel 1750 1800 2    50   Input ~ 0
 GND
-Text GLabel 2550 2050 2    50   Input ~ 0
+Text GLabel 1750 1400 2    50   Input ~ 0
 3V3_L
 $Comp
-L RF_Module:ESP32-WROOM-32 U?
+L RF_Module:ESP32-WROOM-32 U3
 U 1 1 6179D141
-P 6350 3400
-F 0 "U?" H 5900 4850 50  0000 C CNN
-F 1 "ESP32-WROOM-32" H 5900 4750 50  0000 C CNN
-F 2 "RF_Module:ESP32-WROOM-32" H 6350 1900 50  0001 C CNN
-F 3 "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf" H 6050 3450 50  0001 C CNN
-F 4 "C82899" H 6350 3400 50  0001 C CNN "LCSC"
-	1    6350 3400
+P 5100 3300
+F 0 "U3" H 4650 4750 50  0000 C CNN
+F 1 "ESP32-WROOM-32" H 4650 4650 50  0000 C CNN
+F 2 "RF_Module:ESP32-WROOM-32" H 5100 1800 50  0001 C CNN
+F 3 "https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf" H 4800 3350 50  0001 C CNN
+F 4 "C82899" H 5100 3300 50  0001 C CNN "LCSC"
+	1    5100 3300
 	1    0    0    -1  
 $EndComp
-Text HLabel 6350 4850 3    50   UnSpc ~ 0
+Text HLabel 5100 4750 3    50   UnSpc ~ 0
 GND
 Wire Wire Line
-	6350 4850 6350 4800
-NoConn ~ 5750 3400
-NoConn ~ 5750 3500
-NoConn ~ 5750 3600
-NoConn ~ 5750 3700
-NoConn ~ 5750 3800
-NoConn ~ 5750 3900
-Text HLabel 6350 1900 1    50   Output ~ 0
+	5100 4750 5100 4700
+NoConn ~ 4500 3300
+NoConn ~ 4500 3400
+NoConn ~ 4500 3500
+NoConn ~ 4500 3600
+NoConn ~ 4500 3700
+NoConn ~ 4500 3800
+Text HLabel 5100 1400 1    50   Output ~ 0
+VDD
+$Comp
+L Device:C C14
+U 1 1 6179104A
+P 5300 1700
+F 0 "C14" H 5415 1746 50  0000 L CNN
+F 1 "22u" H 5415 1655 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric" H 5338 1550 50  0001 C CNN
+F 3 "~" H 5300 1700 50  0001 C CNN
+F 4 "C45783" H 5300 1700 50  0001 C CNN "LCSC"
+	1    5300 1700
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5100 1400 5100 1500
+Wire Wire Line
+	5100 1500 5300 1500
+Wire Wire Line
+	5300 1500 5300 1550
+Wire Wire Line
+	5100 1500 5100 1900
+Connection ~ 5100 1500
+Text HLabel 5350 1900 2    50   Input ~ 0
+GND
+Wire Wire Line
+	5300 1850 5300 1900
+Wire Wire Line
+	5300 1900 5350 1900
+$Comp
+L Switch:SW_Push SW1
+U 1 1 617962E4
+P 10300 1150
+F 0 "SW1" H 10300 1435 50  0000 C CNN
+F 1 "SW_Push" H 10300 1344 50  0000 C CNN
+F 2 "" H 10300 1350 50  0001 C CNN
+F 3 "~" H 10300 1350 50  0001 C CNN
+	1    10300 1150
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW2
+U 1 1 61796687
+P 10300 1950
+F 0 "SW2" H 10300 2235 50  0000 C CNN
+F 1 "SW_Push" H 10300 2144 50  0000 C CNN
+F 2 "" H 10300 2150 50  0001 C CNN
+F 3 "~" H 10300 2150 50  0001 C CNN
+	1    10300 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C15
+U 1 1 61796A93
+P 10000 1350
+F 0 "C15" H 10115 1396 50  0000 L CNN
+F 1 "100n" H 10115 1305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 10038 1200 50  0001 C CNN
+F 3 "~" H 10000 1350 50  0001 C CNN
+F 4 "C1525" H 10000 1350 50  0001 C CNN "LCSC"
+	1    10000 1350
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C16
+U 1 1 61796D19
+P 10000 2150
+F 0 "C16" H 10115 2196 50  0000 L CNN
+F 1 "100n" H 10115 2105 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 10038 2000 50  0001 C CNN
+F 3 "~" H 10000 2150 50  0001 C CNN
+F 4 "C1525" H 10000 2150 50  0001 C CNN "LCSC"
+	1    10000 2150
+	1    0    0    -1  
+$EndComp
+Text GLabel 9900 1150 0    50   Input ~ 0
+PWR_ON
+Text GLabel 9900 1950 0    50   Input ~ 0
+PWR_OFF
+Wire Wire Line
+	9900 1950 10000 1950
+Wire Wire Line
+	10000 2000 10000 1950
+Connection ~ 10000 1950
+Wire Wire Line
+	10000 1950 10100 1950
+Wire Wire Line
+	9900 1150 10000 1150
+Wire Wire Line
+	10000 1200 10000 1150
+Connection ~ 10000 1150
+Wire Wire Line
+	10000 1150 10100 1150
+Text HLabel 10600 1150 2    50   Input ~ 0
+GND
+Text HLabel 10000 1550 3    50   Input ~ 0
+GND
+Text HLabel 10000 2350 3    50   Input ~ 0
+GND
+Text HLabel 10600 1950 2    50   Input ~ 0
+GND
+Wire Wire Line
+	10600 1950 10500 1950
+Wire Wire Line
+	10500 1150 10600 1150
+Wire Wire Line
+	10000 2350 10000 2300
+Wire Wire Line
+	10000 1550 10000 1500
+Text GLabel 5750 2200 2    50   Input ~ 0
+TX
+Text GLabel 5750 2300 2    50   Input ~ 0
+RX
+Wire Wire Line
+	5750 2200 5700 2200
+Wire Wire Line
+	5700 2300 5750 2300
+Text Notes 3800 3600 0    50   ~ 0
+UNUSABLE\n(FLASH MEMORY)
+Text Label 5850 3500 0    50   ~ 0
+SDA
+Text Label 5850 3600 0    50   ~ 0
+SCL
+$Comp
+L Device:R R10
+U 1 1 6179C68A
+P 6850 3300
+F 0 "R10" H 6920 3346 50  0000 L CNN
+F 1 "3k3" H 6920 3255 50  0000 L CNN
+F 2 "" V 6780 3300 50  0001 C CNN
+F 3 "~" H 6850 3300 50  0001 C CNN
+	1    6850 3300
+	1    0    0    -1  
+$EndComp
+Text HLabel 6850 3100 1    50   Input ~ 0
 VDD
 Wire Wire Line
-	6350 1900 6350 2000
+	6850 3500 6850 3450
+Wire Wire Line
+	5700 3500 6450 3500
+Wire Wire Line
+	6850 3500 6950 3500
+Connection ~ 6850 3500
+Wire Wire Line
+	6850 3100 6850 3150
+Text HLabel 6950 3500 2    50   Input ~ 0
+SDA
+Wire Wire Line
+	5700 3600 6450 3600
+Text HLabel 6950 3600 2    50   Input ~ 0
+SCL
+$Comp
+L Device:R R11
+U 1 1 6179EA1B
+P 6850 3800
+F 0 "R11" H 6920 3846 50  0000 L CNN
+F 1 "3k3" H 6920 3755 50  0000 L CNN
+F 2 "" V 6780 3800 50  0001 C CNN
+F 3 "~" H 6850 3800 50  0001 C CNN
+	1    6850 3800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6850 3650 6850 3600
+Connection ~ 6850 3600
+Wire Wire Line
+	6850 3600 6950 3600
+Text HLabel 6850 4000 3    50   Input ~ 0
+VDD
+Wire Wire Line
+	6850 4000 6850 3950
+$Comp
+L Connector:TestPoint TP1
+U 1 1 6179FB4C
+P 6450 3450
+F 0 "TP1" H 6508 3568 50  0000 L CNN
+F 1 "TP_SDA" H 6508 3477 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 3450 50  0001 C CNN
+F 3 "~" H 6650 3450 50  0001 C CNN
+	1    6450 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Connector:TestPoint TP2
+U 1 1 617A03D3
+P 6450 3650
+F 0 "TP2" H 6392 3676 50  0000 R CNN
+F 1 "TP_SCL" H 6392 3767 50  0000 R CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 3650 50  0001 C CNN
+F 3 "~" H 6650 3650 50  0001 C CNN
+	1    6450 3650
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6450 3600 6450 3650
+Connection ~ 6450 3600
+Wire Wire Line
+	6450 3600 6850 3600
+Wire Wire Line
+	6450 3500 6450 3450
+Connection ~ 6450 3500
+Wire Wire Line
+	6450 3500 6850 3500
 $EndSCHEMATC
