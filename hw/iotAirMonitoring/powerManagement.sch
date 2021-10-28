@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L iotAirMonitoring-rescue:USB_C_Receptacle_USB2.0-Connector-iotAirMonitoring-rescue J1
+L iotAirMonitoring-rescue:USB_C_Receptacle_USB2.0-Connector-iotAirMonitoring-rescue-iotAirMonitoring-rescue J1
 U 1 1 617675BE
 P 1500 2000
 AR Path="/617675BE" Ref="J1"  Part="1" 
@@ -707,11 +707,62 @@ Wire Wire Line
 	8300 4500 8300 4550
 Wire Wire Line
 	8300 4550 8800 4550
-Wire Wire Line
-	8300 4100 8200 4100
 Connection ~ 8300 4100
-Text HLabel 8200 4100 0    50   Output ~ 0
+Text HLabel 7450 4100 0    50   Output ~ 0
 VDD
 Text Notes 8200 3750 0    50   ~ 0
 3V3 LDO FOR ANALOG SENSORS
+$Comp
+L Transistor_FET:2N7002 Q5
+U 1 1 618169C2
+P 4600 1350
+F 0 "Q5" H 4805 1396 50  0000 L CNN
+F 1 "2N7002" H 4805 1305 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 4800 1275 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 4600 1350 50  0001 L CNN
+	1    4600 1350
+	-1   0    0    -1  
+$EndComp
+Connection ~ 4800 1350
+$Comp
+L Device:Q_NMOS_GSD Q6
+U 1 1 618707CD
+P 7700 4200
+F 0 "Q6" V 8042 4200 50  0000 C CNN
+F 1 "AO3400A" V 7951 4200 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 7900 4300 50  0001 C CNN
+F 3 "https://datasheet.lcsc.com/lcsc/1811081213_Alpha-&-Omega-Semicon-AO3400A_C20917.pdf" H 7700 4200 50  0001 C CNN
+F 4 "C20917" V 7700 4200 50  0001 C CNN "LCSC"
+	1    7700 4200
+	0    -1   -1   0   
+$EndComp
+Text HLabel 7750 4450 2    50   Input ~ 0
+LDO_EN
+Wire Wire Line
+	7700 4400 7700 4450
+Wire Wire Line
+	7700 4450 7750 4450
+Wire Wire Line
+	7450 4100 7500 4100
+Wire Wire Line
+	7900 4100 8300 4100
+$Comp
+L Device:R R19
+U 1 1 618898DE
+P 7700 4650
+F 0 "R19" H 7770 4696 50  0000 L CNN
+F 1 "10k" H 7770 4605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 7630 4650 50  0001 C CNN
+F 3 "~" H 7700 4650 50  0001 C CNN
+F 4 "C25744" H 7700 4650 50  0001 C CNN "LCSC"
+	1    7700 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7700 4500 7700 4450
+Connection ~ 7700 4450
+Text HLabel 7700 4850 3    50   UnSpc ~ 0
+GND
+Wire Wire Line
+	7700 4800 7700 4850
 $EndSCHEMATC
