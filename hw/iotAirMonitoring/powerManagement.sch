@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 2
+Sheet 2 3
 Title ""
 Date ""
 Rev ""
@@ -701,7 +701,7 @@ LDO_EN
 Wire Wire Line
 	7300 4100 7400 4100
 Wire Wire Line
-	7900 4100 8300 4100
+	7900 4100 8200 4100
 $Comp
 L power:PWR_FLAG #FLG01
 U 1 1 617C9D81
@@ -859,4 +859,18 @@ Text HLabel 3250 2200 0    50   Input ~ 0
 GND
 Wire Wire Line
 	1900 1000 2050 1000
+$Comp
+L power:PWR_FLAG #FLG0102
+U 1 1 6188BF27
+P 8200 4100
+F 0 "#FLG0102" H 8200 4175 50  0001 C CNN
+F 1 "PWR_FLAG" H 8200 4273 50  0000 C CNN
+F 2 "" H 8200 4100 50  0001 C CNN
+F 3 "~" H 8200 4100 50  0001 C CNN
+	1    8200 4100
+	1    0    0    -1  
+$EndComp
+Connection ~ 8200 4100
+Wire Wire Line
+	8200 4100 8300 4100
 $EndSCHEMATC

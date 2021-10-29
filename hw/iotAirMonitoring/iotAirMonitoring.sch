@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 2
+Sheet 1 3
 Title ""
 Date ""
 Rev ""
@@ -26,17 +26,17 @@ F6 "3V3_L" O R 1400 1000 50
 F7 "3V3" O R 1400 900 50 
 F8 "LDO_EN" I R 1400 1300 50 
 $EndSheet
-Text GLabel 1400 800  2    50   Input ~ 0
+Text GLabel 1450 800  2    50   Input ~ 0
 VDD
-Text GLabel 1400 900  2    50   Input ~ 0
+Text GLabel 1450 900  2    50   Input ~ 0
 3V3
-Text GLabel 1400 1100 2    50   Input ~ 0
+Text GLabel 1450 1100 2    50   Input ~ 0
 PWR_ON
-Text GLabel 1400 1200 2    50   Input ~ 0
+Text GLabel 1450 1200 2    50   Input ~ 0
 PWR_OFF
-Text GLabel 1400 1400 2    50   Input ~ 0
+Text GLabel 1450 1400 2    50   Input ~ 0
 GND
-Text GLabel 1400 1000 2    50   Input ~ 0
+Text GLabel 1450 1000 2    50   Input ~ 0
 3V3_L
 $Comp
 L RF_Module:ESP32-WROOM-32 U1
@@ -50,8 +50,6 @@ F 4 "C82899" H 5100 3300 50  0001 C CNN "LCSC"
 	1    5100 3300
 	1    0    0    -1  
 $EndComp
-Text HLabel 5100 4750 3    50   UnSpc ~ 0
-GND
 Wire Wire Line
 	5100 4750 5100 4700
 NoConn ~ 4500 3300
@@ -60,8 +58,6 @@ NoConn ~ 4500 3500
 NoConn ~ 4500 3600
 NoConn ~ 4500 3700
 NoConn ~ 4500 3800
-Text HLabel 5100 1400 1    50   Output ~ 0
-3V3
 $Comp
 L Device:C C2
 U 1 1 6179104A
@@ -83,8 +79,6 @@ Wire Wire Line
 Wire Wire Line
 	5100 1500 5100 1900
 Connection ~ 5100 1500
-Text HLabel 5800 1900 2    50   Input ~ 0
-GND
 Wire Wire Line
 	5300 1850 5300 1900
 Wire Wire Line
@@ -92,90 +86,82 @@ Wire Wire Line
 $Comp
 L Switch:SW_Push SW1
 U 1 1 617962E4
-P 10300 1150
-F 0 "SW1" H 10300 1435 50  0000 C CNN
-F 1 "SW_Push" H 10300 1344 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_PUSH_6mm" H 10300 1350 50  0001 C CNN
-F 3 "~" H 10300 1350 50  0001 C CNN
-	1    10300 1150
+P 10300 1050
+F 0 "SW1" H 10300 1335 50  0000 C CNN
+F 1 "PWR_ON" H 10300 1244 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 10300 1250 50  0001 C CNN
+F 3 "~" H 10300 1250 50  0001 C CNN
+	1    10300 1050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Switch:SW_Push SW2
 U 1 1 61796687
-P 10300 1950
-F 0 "SW2" H 10300 2235 50  0000 C CNN
-F 1 "SW_Push" H 10300 2144 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_PUSH_6mm" H 10300 2150 50  0001 C CNN
-F 3 "~" H 10300 2150 50  0001 C CNN
-	1    10300 1950
+P 10300 1850
+F 0 "SW2" H 10300 2135 50  0000 C CNN
+F 1 "PWR_OFF" H 10300 2044 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 10300 2050 50  0001 C CNN
+F 3 "~" H 10300 2050 50  0001 C CNN
+	1    10300 1850
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C1
 U 1 1 61796A93
-P 10000 1350
-F 0 "C1" H 10115 1396 50  0000 L CNN
-F 1 "100n" H 10115 1305 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 10038 1200 50  0001 C CNN
-F 3 "~" H 10000 1350 50  0001 C CNN
-F 4 "C1525" H 10000 1350 50  0001 C CNN "LCSC"
-	1    10000 1350
+P 10000 1250
+F 0 "C1" H 10115 1296 50  0000 L CNN
+F 1 "100n" H 10115 1205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 10038 1100 50  0001 C CNN
+F 3 "~" H 10000 1250 50  0001 C CNN
+F 4 "C1525" H 10000 1250 50  0001 C CNN "LCSC"
+	1    10000 1250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C4
 U 1 1 61796D19
-P 10000 2150
-F 0 "C4" H 10115 2196 50  0000 L CNN
-F 1 "100n" H 10115 2105 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 10038 2000 50  0001 C CNN
-F 3 "~" H 10000 2150 50  0001 C CNN
-F 4 "C1525" H 10000 2150 50  0001 C CNN "LCSC"
-	1    10000 2150
+P 10000 2050
+F 0 "C4" H 10115 2096 50  0000 L CNN
+F 1 "100n" H 10115 2005 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 10038 1900 50  0001 C CNN
+F 3 "~" H 10000 2050 50  0001 C CNN
+F 4 "C1525" H 10000 2050 50  0001 C CNN "LCSC"
+	1    10000 2050
 	1    0    0    -1  
 $EndComp
-Text GLabel 9900 1150 0    50   Input ~ 0
+Text GLabel 9900 1050 0    50   Input ~ 0
 PWR_ON
-Text GLabel 9900 1950 0    50   Input ~ 0
+Text GLabel 9900 1850 0    50   Input ~ 0
 PWR_OFF
 Wire Wire Line
-	9900 1950 10000 1950
+	9900 1850 10000 1850
 Wire Wire Line
-	10000 2000 10000 1950
-Connection ~ 10000 1950
+	10000 1900 10000 1850
+Connection ~ 10000 1850
 Wire Wire Line
-	10000 1950 10100 1950
+	10000 1850 10100 1850
 Wire Wire Line
-	9900 1150 10000 1150
+	9900 1050 10000 1050
 Wire Wire Line
-	10000 1200 10000 1150
-Connection ~ 10000 1150
+	10000 1100 10000 1050
+Connection ~ 10000 1050
 Wire Wire Line
-	10000 1150 10100 1150
-Text HLabel 10600 1150 2    50   Input ~ 0
-GND
-Text HLabel 10000 1550 3    50   Input ~ 0
-GND
-Text HLabel 10000 2350 3    50   Input ~ 0
-GND
-Text HLabel 10600 1950 2    50   Input ~ 0
-GND
+	10000 1050 10100 1050
 Wire Wire Line
-	10600 1950 10500 1950
+	10600 1850 10500 1850
 Wire Wire Line
-	10500 1150 10600 1150
+	10500 1050 10600 1050
 Wire Wire Line
-	10000 2350 10000 2300
+	10000 2250 10000 2200
 Wire Wire Line
-	10000 1550 10000 1500
+	10000 1450 10000 1400
 Text GLabel 5750 2200 2    50   Input ~ 0
 TX
 Text GLabel 5750 2400 2    50   Input ~ 0
 RX
 Wire Wire Line
 	5750 2200 5700 2200
-Text Notes 3800 3600 0    50   ~ 0
+Text Notes 3950 3000 0    50   ~ 0
 UNUSABLE\n(FLASH MEMORY)
 Text Label 6050 3500 0    50   ~ 0
 SDA
@@ -193,8 +179,6 @@ F 4 "C25890" H 6850 3300 50  0001 C CNN "LCSC"
 	1    6850 3300
 	1    0    0    -1  
 $EndComp
-Text HLabel 6850 3100 1    50   Input ~ 0
-3V3
 Wire Wire Line
 	6850 3500 6850 3450
 Wire Wire Line
@@ -204,12 +188,8 @@ Wire Wire Line
 Connection ~ 6850 3500
 Wire Wire Line
 	6850 3100 6850 3150
-Text HLabel 6950 3500 2    50   Input ~ 0
-SDA
 Wire Wire Line
 	5700 3600 6450 3600
-Text HLabel 6950 3600 2    50   Input ~ 0
-SCL
 $Comp
 L Device:R R16
 U 1 1 6179EA1B
@@ -227,8 +207,6 @@ Wire Wire Line
 Connection ~ 6850 3600
 Wire Wire Line
 	6850 3600 6950 3600
-Text HLabel 6850 4000 3    50   Input ~ 0
-3V3
 Wire Wire Line
 	6850 4000 6850 3950
 $Comp
@@ -274,8 +252,6 @@ F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/21034D.pdf" H 9900 5850 50 
 	1    9900 5650
 	1    0    0    -1  
 $EndComp
-Text HLabel 9900 4450 1    50   Input ~ 0
-3V3_L
 Wire Wire Line
 	5700 1850 5700 1900
 Connection ~ 5700 1900
@@ -298,8 +274,6 @@ F 4 "C1525" H 5700 1700 50  0001 C CNN "LCSC"
 	1    5700 1700
 	1    0    0    -1  
 $EndComp
-Text HLabel 9900 6200 3    50   Input ~ 0
-GND
 Wire Wire Line
 	9900 6200 9900 6150
 Text GLabel 10650 5450 2    50   Input ~ 0
@@ -334,94 +308,6 @@ Text GLabel 5750 3400 2    50   Input ~ 0
 MISO
 Text GLabel 5750 3700 2    50   Input ~ 0
 MOSI
-$Comp
-L Connector_Generic:Conn_01x04 J3
-U 1 1 617AD5D9
-P 1000 5450
-F 0 "J3" H 918 5025 50  0000 C CNN
-F 1 "SHT40" H 918 5116 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 1000 5450 50  0001 C CNN
-F 3 "~" H 1000 5450 50  0001 C CNN
-	1    1000 5450
-	-1   0    0    1   
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x05 J2
-U 1 1 617B1D83
-P 1000 4550
-F 0 "J2" H 918 4125 50  0000 C CNN
-F 1 "VEML7700" H 918 4216 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical" H 1000 4550 50  0001 C CNN
-F 3 "~" H 1000 4550 50  0001 C CNN
-	1    1000 4550
-	-1   0    0    1   
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x05 J5
-U 1 1 617B4268
-P 1000 6150
-F 0 "J5" H 918 5725 50  0000 C CNN
-F 1 "ML8511" H 918 5816 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x05_P2.54mm_Vertical" H 1000 6150 50  0001 C CNN
-F 3 "~" H 1000 6150 50  0001 C CNN
-	1    1000 6150
-	-1   0    0    1   
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J7
-U 1 1 617B5191
-P 1000 7200
-F 0 "J7" H 918 6575 50  0000 C CNN
-F 1 "BMP388" H 918 6666 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical" H 1000 7200 50  0001 C CNN
-F 3 "~" H 1000 7200 50  0001 C CNN
-	1    1000 7200
-	-1   0    0    1   
-$EndComp
-$Comp
-L Connector_Generic:Conn_01x04 J1
-U 1 1 617B69C7
-P 1000 3850
-F 0 "J1" H 918 3425 50  0000 C CNN
-F 1 "MQ-7" H 918 3516 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_1x04_P2.54mm_Vertical" H 1000 3850 50  0001 C CNN
-F 3 "~" H 1000 3850 50  0001 C CNN
-	1    1000 3850
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	1200 3850 1300 3850
-NoConn ~ 1200 3750
-Wire Wire Line
-	1200 3650 1300 3650
-Text GLabel 1300 3650 2    50   Input ~ 0
-ADC_0
-Wire Wire Line
-	1200 4750 1300 4750
-Wire Wire Line
-	1200 4650 1300 4650
-Text GLabel 1300 4750 2    50   Input ~ 0
-SDA
-Text GLabel 1300 4650 2    50   Input ~ 0
-SCL
-Wire Wire Line
-	1200 4550 1300 4550
-NoConn ~ 1200 4450
-Wire Wire Line
-	1300 4350 1200 4350
-Text GLabel 1300 5350 2    50   Input ~ 0
-SDA
-Text GLabel 1300 5250 2    50   Input ~ 0
-SCL
-Wire Wire Line
-	1200 5250 1300 5250
-Wire Wire Line
-	1300 5350 1200 5350
-Wire Wire Line
-	1200 5450 1300 5450
-Wire Wire Line
-	1300 5550 1200 5550
-NoConn ~ 4500 2400
 Wire Wire Line
 	4500 2100 4450 2100
 Text GLabel 4450 2100 0    50   Input ~ 0
@@ -437,8 +323,6 @@ F 3 "~" H 10350 3500 50  0001 C CNN
 	1    10350 3300
 	1    0    0    -1  
 $EndComp
-Text HLabel 10650 3300 2    50   Input ~ 0
-GND
 Wire Wire Line
 	10650 3300 10550 3300
 $Comp
@@ -472,18 +356,8 @@ Wire Wire Line
 Wire Wire Line
 	10050 3300 10100 3300
 Connection ~ 10100 3300
-Text HLabel 10100 3700 3    50   Input ~ 0
-GND
 Wire Wire Line
 	10100 3700 10100 3650
-Text HLabel 1300 3850 2    50   Input ~ 0
-GND
-Text HLabel 1300 4550 2    50   Input ~ 0
-GND
-Text HLabel 1300 5450 2    50   Input ~ 0
-GND
-Text HLabel 1300 5550 2    50   Input ~ 0
-3V3
 $Comp
 L Device:C C6
 U 1 1 617E047B
@@ -515,12 +389,8 @@ Wire Wire Line
 Connection ~ 9550 3300
 Wire Wire Line
 	9550 3300 9550 3200
-Text HLabel 9550 2850 1    50   Input ~ 0
-3V3
 Wire Wire Line
 	9550 2850 9550 2900
-Text HLabel 9550 3750 3    50   Input ~ 0
-GND
 Wire Wire Line
 	9550 3750 9550 3700
 Text GLabel 9500 3300 0    50   Input ~ 0
@@ -529,41 +399,6 @@ Wire Wire Line
 	9500 3300 9550 3300
 Wire Wire Line
 	5700 2400 5750 2400
-$Comp
-L Connector_Generic:Conn_01x08 J8
-U 1 1 617EFABF
-P 2550 7200
-F 0 "J8" H 2468 6575 50  0000 C CNN
-F 1 "PMS5003" H 2468 6666 50  0000 C CNN
-F 2 "" H 2550 7200 50  0001 C CNN
-F 3 "~" H 2550 7200 50  0001 C CNN
-	1    2550 7200
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	2750 7400 2850 7400
-Wire Wire Line
-	2750 7300 2850 7300
-Wire Wire Line
-	2750 7200 2850 7200
-Wire Wire Line
-	2750 7100 2850 7100
-Wire Wire Line
-	2750 7000 2850 7000
-NoConn ~ 2750 6800
-NoConn ~ 2750 6900
-Text GLabel 5000 6550 2    50   Input ~ 0
-VDD
-Text GLabel 2850 7400 2    50   Input ~ 0
-GND
-Text GLabel 2850 7300 2    50   Input ~ 0
-SET_CONTROL
-Text GLabel 2850 7200 2    50   Input ~ 0
-TX1
-Text GLabel 2850 7100 2    50   Input ~ 0
-RX1
-Text GLabel 2850 7000 2    50   Input ~ 0
-RST_CONTROL
 Wire Wire Line
 	5700 3100 5750 3100
 Wire Wire Line
@@ -572,19 +407,6 @@ Text GLabel 6200 3100 2    50   Input ~ 0
 RX1
 Text GLabel 6200 3200 2    50   Input ~ 0
 TX1
-$Comp
-L Transistor_FET:2N7002 Q8
-U 1 1 6181AFD2
-P 4650 7200
-F 0 "Q8" V 4992 7200 50  0000 C CNN
-F 1 "2N7002" V 4901 7200 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 4850 7125 50  0001 L CIN
-F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 4650 7200 50  0001 L CNN
-	1    4650 7200
-	-1   0    0    -1  
-$EndComp
-Text GLabel 5150 7200 2    50   Input ~ 0
-PMS_EN
 Wire Wire Line
 	5700 2500 5750 2500
 Text GLabel 6200 2500 2    50   Input ~ 0
@@ -644,7 +466,7 @@ F 4 "C1525" H 10150 4800 50  0001 C CNN "LCSC"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	9900 4450 9900 4550
+	9900 4500 9900 4550
 Wire Wire Line
 	9900 4550 10150 4550
 Wire Wire Line
@@ -652,13 +474,9 @@ Wire Wire Line
 Wire Wire Line
 	9900 4550 9900 5150
 Connection ~ 9900 4550
-Text HLabel 10200 5050 2    50   Input ~ 0
-GND
 Wire Wire Line
-	10150 4950 10150 5050
-Wire Wire Line
-	10150 5050 10200 5050
-Text GLabel 1400 1300 2    50   Input ~ 0
+	10150 4950 10150 5000
+Text GLabel 1450 1300 2    50   Input ~ 0
 LDO_EN
 Wire Wire Line
 	5700 2800 5750 2800
@@ -666,7 +484,7 @@ $Comp
 L Device:R R9
 U 1 1 6188439F
 P 5900 2800
-F 0 "R9" V 5850 3000 50  0000 C CNN
+F 0 "R9" V 5950 3000 50  0000 C CNN
 F 1 "220" V 5900 2800 50  0000 C CNN
 F 2 "Resistor_SMD:R_0402_1005Metric" V 5830 2800 50  0001 C CNN
 F 3 "~" H 5900 2800 50  0001 C CNN
@@ -686,28 +504,7 @@ Text GLabel 9300 5450 0    50   Input ~ 0
 ADC_0
 Text GLabel 9300 5850 0    50   Input ~ 0
 ADC_1
-Wire Wire Line
-	1300 5950 1200 5950
-NoConn ~ 1200 6050
-Text HLabel 1300 6150 2    50   Input ~ 0
-GND
-Wire Wire Line
-	1300 6150 1200 6150
-Wire Wire Line
-	1200 6250 1300 6250
-Wire Wire Line
-	1200 6350 1300 6350
-Text GLabel 1300 6350 2    50   Input ~ 0
-UV_EN
-Text GLabel 1300 6250 2    50   Input ~ 0
-ADC_1
-Text Notes 650  3850 0    50   ~ 0
-5V\n150mA
-Text Notes 750  6150 0    50   ~ 0
-5V
-Text Notes 750  5400 0    50   ~ 0
-3V3
-Text Notes 10600 2700 0    50   ~ 0
+Text Notes 10600 2750 0    50   ~ 0
 Reset ESP
 Wire Notes Line
 	9100 2600 11050 2600
@@ -717,33 +514,6 @@ Wire Notes Line
 	11050 4000 9100 4000
 Wire Notes Line
 	9100 4000 9100 2600
-Text Notes 800  4550 0    50   ~ 0
-5V
-Wire Wire Line
-	1200 6800 1300 6800
-NoConn ~ 1200 6900
-Text HLabel 1300 7000 2    50   Input ~ 0
-GND
-Wire Wire Line
-	1300 7000 1200 7000
-Text GLabel 1300 7100 2    50   Input ~ 0
-SCL
-Wire Wire Line
-	1300 7100 1200 7100
-NoConn ~ 1200 7200
-Text GLabel 1300 7300 2    50   Input ~ 0
-SDA
-Wire Wire Line
-	1300 7300 1200 7300
-NoConn ~ 1200 7400
-Wire Wire Line
-	1200 7500 1300 7500
-Text GLabel 1300 7500 2    50   Input ~ 0
-BMP_INT
-Text Notes 1050 7750 0    50   ~ 0
-BMP_INT\n-> interrupt, not used
-Text Notes 800  7200 0    50   ~ 0
-5V
 $Comp
 L Device:LED D1
 U 1 1 61907B69
@@ -789,12 +559,6 @@ F 4 "C11702" H 7850 1700 50  0001 C CNN "LCSC"
 	1    7850 1700
 	1    0    0    -1  
 $EndComp
-Text HLabel 7850 2250 3    50   Input ~ 0
-GND
-Text HLabel 8200 2250 3    50   Input ~ 0
-GND
-Text HLabel 8550 2250 3    50   Input ~ 0
-GND
 $Comp
 L Device:R R4
 U 1 1 6191770E
@@ -848,12 +612,6 @@ Wire Wire Line
 	8200 1500 8200 1550
 Wire Wire Line
 	8550 1500 8550 1550
-Text HLabel 7850 1150 1    50   Input ~ 0
-VDD
-Text HLabel 8200 1150 1    50   Input ~ 0
-3V3
-Text HLabel 8550 1150 1    50   Input ~ 0
-3V3_L
 Wire Wire Line
 	7850 1150 7850 1200
 Wire Wire Line
@@ -889,367 +647,172 @@ IO0
 $Comp
 L Device:Q_NPN_BEC Q1
 U 1 1 61970EC3
-P 2250 2250
-F 0 "Q1" H 2441 2296 50  0000 L CNN
-F 1 "MMBT3904" H 2441 2205 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 2450 2350 50  0001 C CNN
-F 3 "~" H 2250 2250 50  0001 C CNN
-F 4 "C20526" H 2250 2250 50  0001 C CNN "LCSC"
-	1    2250 2250
+P 2300 4050
+F 0 "Q1" H 2491 4096 50  0000 L CNN
+F 1 "MMBT3904" H 2491 4005 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 2500 4150 50  0001 C CNN
+F 3 "~" H 2300 4050 50  0001 C CNN
+F 4 "C20526" H 2300 4050 50  0001 C CNN "LCSC"
+	1    2300 4050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:Q_NPN_BEC Q2
 U 1 1 6197466E
-P 1700 2700
-F 0 "Q2" H 1891 2654 50  0000 L CNN
-F 1 "MMBT3904" H 1891 2745 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 1900 2800 50  0001 C CNN
-F 3 "~" H 1700 2700 50  0001 C CNN
-F 4 "C20526" H 1700 2700 50  0001 C CNN "LCSC"
-	1    1700 2700
+P 1750 4500
+F 0 "Q2" H 1941 4454 50  0000 L CNN
+F 1 "MMBT3904" H 1941 4545 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 1950 4600 50  0001 C CNN
+F 3 "~" H 1750 4500 50  0001 C CNN
+F 4 "C20526" H 1750 4500 50  0001 C CNN "LCSC"
+	1    1750 4500
 	1    0    0    1   
 $EndComp
 $Comp
 L Device:R R8
 U 1 1 61975489
-P 1300 2700
-F 0 "R8" V 1093 2700 50  0000 C CNN
-F 1 "10k" V 1184 2700 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 1230 2700 50  0001 C CNN
-F 3 "~" H 1300 2700 50  0001 C CNN
-F 4 "C25744" H 1300 2700 50  0001 C CNN "LCSC"
-	1    1300 2700
+P 1350 4500
+F 0 "R8" V 1143 4500 50  0000 C CNN
+F 1 "10k" V 1234 4500 50  0000 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 1280 4500 50  0001 C CNN
+F 3 "~" H 1350 4500 50  0001 C CNN
+F 4 "C25744" H 1350 4500 50  0001 C CNN "LCSC"
+	1    1350 4500
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R6
 U 1 1 61975D36
-P 1650 2250
-F 0 "R6" V 1443 2250 50  0000 C CNN
-F 1 "10k" V 1534 2250 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 1580 2250 50  0001 C CNN
-F 3 "~" H 1650 2250 50  0001 C CNN
-F 4 "C25744" H 1650 2250 50  0001 C CNN "LCSC"
-	1    1650 2250
+P 1700 4050
+F 0 "R6" V 1493 4050 50  0000 C CNN
+F 1 "10k" V 1584 4050 50  0000 C CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 1630 4050 50  0001 C CNN
+F 3 "~" H 1700 4050 50  0001 C CNN
+F 4 "C25744" H 1700 4050 50  0001 C CNN "LCSC"
+	1    1700 4050
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	2350 2050 2350 2000
+	2400 3850 2400 3800
 Wire Wire Line
-	2350 2000 2400 2000
-Text GLabel 2400 2000 2    50   Input ~ 0
+	2400 3800 2450 3800
+Text GLabel 2450 3800 2    50   Input ~ 0
 IO0
 Wire Wire Line
-	1500 2250 1450 2250
+	1550 4050 1500 4050
 Wire Wire Line
-	1450 2250 1450 2400
+	1500 4050 1500 4200
 Wire Wire Line
-	1450 2400 1800 2400
+	1500 4200 1850 4200
 Wire Wire Line
-	1800 2400 1800 2500
+	1850 4200 1850 4300
 Wire Wire Line
-	1800 2900 1800 2950
+	1850 4700 1850 4750
 Wire Wire Line
-	1800 2950 1900 2950
-Text GLabel 1900 2950 2    50   Input ~ 0
+	1850 4750 1950 4750
+Text GLabel 1950 4750 2    50   Input ~ 0
 EN
 Wire Wire Line
-	1800 2250 2050 2250
+	1850 4050 2100 4050
 Wire Wire Line
-	2350 2450 2350 3050
+	2400 4250 2400 4850
 Wire Wire Line
-	2350 3050 1100 3050
+	1150 4850 1150 4500
 Wire Wire Line
-	1100 3050 1100 2700
+	1150 4500 1200 4500
 Wire Wire Line
-	1100 2700 1150 2700
+	1500 4500 1550 4500
 Wire Wire Line
-	1450 2700 1500 2700
+	1500 4050 1100 4050
+Connection ~ 1500 4050
 Wire Wire Line
-	1450 2250 1050 2250
-Connection ~ 1450 2250
-Wire Wire Line
-	1100 2700 1050 2700
-Connection ~ 1100 2700
-Text GLabel 1050 2250 0    50   Input ~ 0
+	1150 4500 1100 4500
+Connection ~ 1150 4500
+Text GLabel 1100 4050 0    50   Input ~ 0
 RTS
-Text GLabel 1050 2700 0    50   Input ~ 0
+Text GLabel 1100 4500 0    50   Input ~ 0
 DTR
 Wire Notes Line
-	750  1750 3000 1750
-Wire Notes Line
-	3000 1750 3000 3200
-Wire Notes Line
-	3000 3200 750  3200
-Wire Notes Line
-	750  3200 750  1750
-Text Notes 800  1850 0    50   ~ 0
-Programming logic
-$Comp
-L Device:Q_PMOS_GSD Q?
-U 1 1 6184EA4B
-P 4550 6650
-AR Path="/61767442/6184EA4B" Ref="Q?"  Part="1" 
-AR Path="/6184EA4B" Ref="Q7"  Part="1" 
-F 0 "Q7" V 4892 6650 50  0000 C CNN
-F 1 "AO3401A" V 4801 6650 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 4750 6750 50  0001 C CNN
-F 3 "https://datasheet.lcsc.com/lcsc/1810171817_Alpha-&-Omega-Semicon-AO3401A_C15127.pdf" H 4550 6650 50  0001 C CNN
-F 4 "C15127" V 4550 6650 50  0001 C CNN "LCSC"
-	1    4550 6650
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 61856FBB
-P 4850 6750
-AR Path="/61767442/61856FBB" Ref="R?"  Part="1" 
-AR Path="/61856FBB" Ref="R25"  Part="1" 
-F 0 "R25" H 4920 6796 50  0000 L CNN
-F 1 "100k" H 4920 6705 50  0000 L CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 4780 6750 50  0001 C CNN
-F 3 "~" H 4850 6750 50  0001 C CNN
-F 4 "C25741" H 4850 6750 50  0001 C CNN "LCSC"
-	1    4850 6750
-	1    0    0    -1  
-$EndComp
-Text HLabel 4500 7600 0    50   UnSpc ~ 0
-GND
-Wire Wire Line
-	4750 6550 4850 6550
-Wire Wire Line
-	4850 6600 4850 6550
-Connection ~ 4850 6550
-Wire Wire Line
-	4850 6550 5000 6550
-Wire Wire Line
-	4550 6850 4550 6950
-Wire Wire Line
-	4550 6950 4850 6950
-Wire Wire Line
-	4850 6950 4850 6900
-Connection ~ 4550 6950
-Wire Wire Line
-	4550 6950 4550 7000
-$Comp
-L Device:R R?
-U 1 1 618859FA
-P 4900 7400
-AR Path="/61767442/618859FA" Ref="R?"  Part="1" 
-AR Path="/618859FA" Ref="R26"  Part="1" 
-F 0 "R26" H 4970 7446 50  0000 L CNN
-F 1 "100k" H 4970 7355 50  0000 L CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 4830 7400 50  0001 C CNN
-F 3 "~" H 4900 7400 50  0001 C CNN
-F 4 "C25741" H 4900 7400 50  0001 C CNN "LCSC"
-	1    4900 7400
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	4850 7200 4900 7200
-Wire Wire Line
-	4900 7200 4900 7250
-Wire Wire Line
-	4900 7200 5150 7200
-Connection ~ 4900 7200
-Wire Wire Line
-	4550 7400 4550 7600
-Wire Wire Line
-	4550 7600 4900 7600
-Wire Wire Line
-	4900 7600 4900 7550
-Wire Wire Line
-	3950 7500 3950 6550
-Wire Wire Line
-	3950 6550 4350 6550
-Wire Wire Line
-	2750 7500 3950 7500
-Wire Wire Line
-	4500 7600 4550 7600
-Connection ~ 4550 7600
-Text GLabel 3300 3650 2    50   Input ~ 0
-VDD
-$Comp
-L Transistor_FET:2N7002 Q4
-U 1 1 618BAED6
-P 2950 4300
-F 0 "Q4" V 3292 4300 50  0000 C CNN
-F 1 "2N7002" V 3201 4300 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 3150 4225 50  0001 L CIN
-F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 2950 4300 50  0001 L CNN
-	1    2950 4300
-	-1   0    0    -1  
-$EndComp
-Text GLabel 3950 4300 2    50   Input ~ 0
-MQ_EN
-$Comp
-L Device:Q_PMOS_GSD Q?
-U 1 1 618BAEDE
-P 2850 3750
-AR Path="/61767442/618BAEDE" Ref="Q?"  Part="1" 
-AR Path="/618BAEDE" Ref="Q3"  Part="1" 
-F 0 "Q3" V 3192 3750 50  0000 C CNN
-F 1 "AO3401A" V 3101 3750 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 3050 3850 50  0001 C CNN
-F 3 "https://datasheet.lcsc.com/lcsc/1810171817_Alpha-&-Omega-Semicon-AO3401A_C15127.pdf" H 2850 3750 50  0001 C CNN
-F 4 "C15127" V 2850 3750 50  0001 C CNN "LCSC"
-	1    2850 3750
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 618BAEE5
-P 3150 3850
-AR Path="/61767442/618BAEE5" Ref="R?"  Part="1" 
-AR Path="/618BAEE5" Ref="R17"  Part="1" 
-F 0 "R17" H 3220 3896 50  0000 L CNN
-F 1 "100k" H 3220 3805 50  0000 L CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 3080 3850 50  0001 C CNN
-F 3 "~" H 3150 3850 50  0001 C CNN
-F 4 "C25741" H 3150 3850 50  0001 C CNN "LCSC"
-	1    3150 3850
-	1    0    0    -1  
-$EndComp
-Text HLabel 2850 4750 3    50   UnSpc ~ 0
-GND
-Wire Wire Line
-	3050 3650 3150 3650
-Wire Wire Line
-	3150 3700 3150 3650
-Connection ~ 3150 3650
-Wire Wire Line
-	3150 3650 3300 3650
-Wire Wire Line
-	2850 3950 2850 4050
-Wire Wire Line
-	2850 4050 3150 4050
-Wire Wire Line
-	3150 4050 3150 4000
-Connection ~ 2850 4050
-Wire Wire Line
-	2850 4050 2850 4100
-$Comp
-L Device:R R?
-U 1 1 618BAEF6
-P 3200 4500
-AR Path="/61767442/618BAEF6" Ref="R?"  Part="1" 
-AR Path="/618BAEF6" Ref="R20"  Part="1" 
-F 0 "R20" H 3270 4546 50  0000 L CNN
-F 1 "100k" H 3270 4455 50  0000 L CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 3130 4500 50  0001 C CNN
-F 3 "~" H 3200 4500 50  0001 C CNN
-F 4 "C25741" H 3200 4500 50  0001 C CNN "LCSC"
-	1    3200 4500
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3150 4300 3200 4300
-Wire Wire Line
-	3200 4300 3200 4350
-Wire Wire Line
-	3200 4300 3450 4300
-Connection ~ 3200 4300
-Wire Wire Line
-	2850 4500 2850 4700
-Wire Wire Line
-	2850 4700 3200 4700
-Wire Wire Line
-	3200 4700 3200 4650
-Wire Wire Line
-	1900 3950 1900 3650
-Wire Wire Line
-	1200 3950 1900 3950
-Wire Wire Line
-	1900 3650 2650 3650
-Wire Wire Line
-	2850 4700 2850 4750
-Connection ~ 2850 4700
+	800  5000 800  3550
+Text Notes 850  3650 0    50   ~ 0
+Programming logic & connector
 $Comp
 L Device:R R1
 U 1 1 618EBDFB
-P 3300 1050
-F 0 "R1" H 3370 1096 50  0000 L CNN
-F 1 "R" H 3370 1005 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3230 1050 50  0001 C CNN
-F 3 "~" H 3300 1050 50  0001 C CNN
-	1    3300 1050
+P 7650 5250
+F 0 "R1" H 7720 5296 50  0000 L CNN
+F 1 "R" H 7720 5205 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7580 5250 50  0001 C CNN
+F 3 "~" H 7650 5250 50  0001 C CNN
+	1    7650 5250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:R R2
 U 1 1 618EC174
-P 3300 1450
-F 0 "R2" H 3370 1496 50  0000 L CNN
-F 1 "R" H 3370 1405 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 3230 1450 50  0001 C CNN
-F 3 "~" H 3300 1450 50  0001 C CNN
-	1    3300 1450
+P 7650 5650
+F 0 "R2" H 7720 5696 50  0000 L CNN
+F 1 "R" H 7720 5605 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7580 5650 50  0001 C CNN
+F 3 "~" H 7650 5650 50  0001 C CNN
+	1    7650 5650
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3300 1200 3300 1250
+	7650 5400 7650 5450
 Wire Wire Line
-	3300 1250 3400 1250
-Connection ~ 3300 1250
+	7650 5450 7750 5450
+Connection ~ 7650 5450
 Wire Wire Line
-	3300 1250 3300 1300
-Text GLabel 3400 1250 2    50   Input ~ 0
+	7650 5450 7650 5500
+Text GLabel 7750 5450 2    50   Input ~ 0
 ADC_VIN
 Wire Wire Line
-	3300 900  3300 850 
+	7650 5100 7650 5050
 Wire Wire Line
-	3300 1600 3300 1650
-Text HLabel 3300 850  1    50   Input ~ 0
-VDD
-Text HLabel 3300 1650 3    50   Input ~ 0
-GND
+	7650 5800 7650 5850
 Wire Wire Line
 	5700 4300 5750 4300
 Text GLabel 5750 4300 2    50   Input ~ 0
 ADC_VIN
-Text Notes 3450 850  0    50   ~ 0
+Text Notes 7800 5050 0    50   ~ 0
 Optional voltage\ndivider for Vin
 $Comp
 L Switch:SW_Push SW4
 U 1 1 61938F02
-P 8350 3400
-F 0 "SW4" H 8350 3685 50  0000 C CNN
-F 1 "SW_Push" H 8350 3594 50  0000 C CNN
-F 2 "Button_Switch_THT:SW_PUSH_6mm" H 8350 3600 50  0001 C CNN
-F 3 "~" H 8350 3600 50  0001 C CNN
-	1    8350 3400
+P 8200 3450
+F 0 "SW4" H 8200 3735 50  0000 C CNN
+F 1 "SW_Push" H 8200 3644 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_PUSH_6mm" H 8200 3650 50  0001 C CNN
+F 3 "~" H 8200 3650 50  0001 C CNN
+	1    8200 3450
 	1    0    0    -1  
 $EndComp
 $Comp
 L Device:C C7
 U 1 1 61938F09
-P 8050 3600
-F 0 "C7" H 8165 3646 50  0000 L CNN
-F 1 "100n" H 8165 3555 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0402_1005Metric" H 8088 3450 50  0001 C CNN
-F 3 "~" H 8050 3600 50  0001 C CNN
-F 4 "C1525" H 8050 3600 50  0001 C CNN "LCSC"
-	1    8050 3600
+P 7900 3650
+F 0 "C7" H 8015 3696 50  0000 L CNN
+F 1 "100n" H 8015 3605 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0402_1005Metric" H 7938 3500 50  0001 C CNN
+F 3 "~" H 7900 3650 50  0001 C CNN
+F 4 "C1525" H 7900 3650 50  0001 C CNN "LCSC"
+	1    7900 3650
 	1    0    0    -1  
 $EndComp
-Text GLabel 7950 3400 0    50   Input ~ 0
+Text GLabel 7800 3450 0    50   Input ~ 0
 SWITCH
 Wire Wire Line
-	7950 3400 8050 3400
+	7800 3450 7900 3450
 Wire Wire Line
-	8050 3450 8050 3400
-Connection ~ 8050 3400
+	7900 3500 7900 3450
+Connection ~ 7900 3450
 Wire Wire Line
-	8050 3400 8150 3400
-Text HLabel 8650 3400 2    50   Input ~ 0
-GND
-Text HLabel 8050 3800 3    50   Input ~ 0
-GND
+	7900 3450 8000 3450
 Wire Wire Line
-	8550 3400 8650 3400
+	8400 3450 8500 3450
 Wire Wire Line
-	8050 3800 8050 3750
+	7900 3850 7900 3800
 Wire Wire Line
 	5700 4400 5750 4400
 Text GLabel 6200 4400 2    50   Input ~ 0
@@ -1257,23 +820,21 @@ SWITCH
 $Comp
 L Device:R R?
 U 1 1 6194C72D
-P 8050 3200
+P 7900 3250
 AR Path="/61767442/6194C72D" Ref="R?"  Part="1" 
 AR Path="/6194C72D" Ref="R13"  Part="1" 
-F 0 "R13" H 8100 3350 50  0000 L CNN
-F 1 "100k" V 8050 3100 50  0000 L CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 7980 3200 50  0001 C CNN
-F 3 "~" H 8050 3200 50  0001 C CNN
-F 4 "C25741" H 8050 3200 50  0001 C CNN "LCSC"
-	1    8050 3200
+F 0 "R13" H 7950 3400 50  0000 L CNN
+F 1 "100k" V 7900 3150 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 7830 3250 50  0001 C CNN
+F 3 "~" H 7900 3250 50  0001 C CNN
+F 4 "C25741" H 7900 3250 50  0001 C CNN "LCSC"
+	1    7900 3250
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8050 3350 8050 3400
-Text HLabel 8050 3000 1    50   Input ~ 0
-3V3
+	7900 3400 7900 3450
 Wire Wire Line
-	8050 3000 8050 3050
+	7900 3050 7900 3100
 $Comp
 L Device:R R19
 U 1 1 6196F54D
@@ -1288,109 +849,6 @@ F 4 "C25091" V 5900 4400 50  0001 C CNN "LCSC"
 $EndComp
 Wire Wire Line
 	6050 4400 6200 4400
-Text GLabel 3300 5300 2    50   Input ~ 0
-VDD
-$Comp
-L Transistor_FET:2N7002 Q6
-U 1 1 61993F2D
-P 2950 5950
-F 0 "Q6" V 3292 5950 50  0000 C CNN
-F 1 "2N7002" V 3201 5950 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 3150 5875 50  0001 L CIN
-F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 2950 5950 50  0001 L CNN
-	1    2950 5950
-	-1   0    0    -1  
-$EndComp
-Text GLabel 3950 5950 2    50   Input ~ 0
-SEN_VDD_EN
-$Comp
-L Device:Q_PMOS_GSD Q?
-U 1 1 61993F35
-P 2850 5400
-AR Path="/61767442/61993F35" Ref="Q?"  Part="1" 
-AR Path="/61993F35" Ref="Q5"  Part="1" 
-F 0 "Q5" V 3192 5400 50  0000 C CNN
-F 1 "AO3401A" V 3101 5400 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 3050 5500 50  0001 C CNN
-F 3 "https://datasheet.lcsc.com/lcsc/1810171817_Alpha-&-Omega-Semicon-AO3401A_C15127.pdf" H 2850 5400 50  0001 C CNN
-F 4 "C15127" V 2850 5400 50  0001 C CNN "LCSC"
-	1    2850 5400
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Device:R R?
-U 1 1 61993F3C
-P 3150 5500
-AR Path="/61767442/61993F3C" Ref="R?"  Part="1" 
-AR Path="/61993F3C" Ref="R22"  Part="1" 
-F 0 "R22" H 3220 5546 50  0000 L CNN
-F 1 "100k" H 3220 5455 50  0000 L CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 3080 5500 50  0001 C CNN
-F 3 "~" H 3150 5500 50  0001 C CNN
-F 4 "C25741" H 3150 5500 50  0001 C CNN "LCSC"
-	1    3150 5500
-	1    0    0    -1  
-$EndComp
-Text HLabel 2850 6400 3    50   UnSpc ~ 0
-GND
-Wire Wire Line
-	3050 5300 3150 5300
-Wire Wire Line
-	3150 5350 3150 5300
-Connection ~ 3150 5300
-Wire Wire Line
-	3150 5300 3300 5300
-Wire Wire Line
-	2850 5600 2850 5700
-Wire Wire Line
-	2850 5700 3150 5700
-Wire Wire Line
-	3150 5700 3150 5650
-Connection ~ 2850 5700
-Wire Wire Line
-	2850 5700 2850 5750
-$Comp
-L Device:R R?
-U 1 1 61993F4D
-P 3200 6150
-AR Path="/61767442/61993F4D" Ref="R?"  Part="1" 
-AR Path="/61993F4D" Ref="R24"  Part="1" 
-F 0 "R24" H 3270 6196 50  0000 L CNN
-F 1 "100k" H 3270 6105 50  0000 L CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 3130 6150 50  0001 C CNN
-F 3 "~" H 3200 6150 50  0001 C CNN
-F 4 "C25741" H 3200 6150 50  0001 C CNN "LCSC"
-	1    3200 6150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	3150 5950 3200 5950
-Wire Wire Line
-	3200 5950 3200 6000
-Wire Wire Line
-	3200 5950 3450 5950
-Connection ~ 3200 5950
-Wire Wire Line
-	2850 6150 2850 6350
-Wire Wire Line
-	2850 6350 3200 6350
-Wire Wire Line
-	3200 6350 3200 6300
-Wire Wire Line
-	2550 5300 2650 5300
-Wire Wire Line
-	2850 6350 2850 6400
-Connection ~ 2850 6350
-Text Label 1950 3650 0    50   ~ 0
-MQ_7-VDD
-Text GLabel 2550 5300 0    50   Input ~ 0
-SEN_VDD
-Text GLabel 1300 4350 2    50   Input ~ 0
-SEN_VDD
-Text GLabel 1300 5950 2    50   Input ~ 0
-SEN_VDD
-Text GLabel 1300 6800 2    50   Input ~ 0
-SEN_VDD
 Wire Wire Line
 	5700 3800 5750 3800
 Text GLabel 5750 3800 2    50   Input ~ 0
@@ -1401,72 +859,40 @@ Text GLabel 5750 3900 2    50   Input ~ 0
 MQ_EN
 Wire Wire Line
 	5700 4100 5750 4100
-Text GLabel 5750 4100 2    50   Input ~ 0
-LED
 $Comp
 L Device:LED D4
 U 1 1 61A022D2
-P 8350 5800
-F 0 "D4" V 8389 5682 50  0000 R CNN
-F 1 "LED" V 8298 5682 50  0000 R CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8350 5800 50  0001 C CNN
-F 3 "~" H 8350 5800 50  0001 C CNN
-	1    8350 5800
+P 7400 1700
+F 0 "D4" V 7439 1582 50  0000 R CNN
+F 1 "LED" V 7348 1582 50  0000 R CNN
+F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7400 1700 50  0001 C CNN
+F 3 "~" H 7400 1700 50  0001 C CNN
+	1    7400 1700
 	0    -1   -1   0   
 $EndComp
 $Comp
 L Device:R R21
 U 1 1 61A0488A
-P 8350 5450
-F 0 "R21" H 8420 5496 50  0000 L CNN
-F 1 "R" H 8420 5405 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 8280 5450 50  0001 C CNN
-F 3 "~" H 8350 5450 50  0001 C CNN
-	1    8350 5450
+P 7400 1350
+F 0 "R21" H 7470 1396 50  0000 L CNN
+F 1 "R" H 7470 1305 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7330 1350 50  0001 C CNN
+F 3 "~" H 7400 1350 50  0001 C CNN
+	1    7400 1350
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	8350 5600 8350 5650
-Text HLabel 8350 6000 3    50   Input ~ 0
-GND
+	7400 1500 7400 1550
 Wire Wire Line
-	8350 6000 8350 5950
+	7400 1900 7400 1850
 Wire Wire Line
-	8350 5300 8350 5250
+	7400 1200 7400 1150
 Wire Wire Line
-	8350 5250 8300 5250
-Text GLabel 8300 5250 0    50   Input ~ 0
+	7400 1150 7350 1150
+Text GLabel 7350 1150 0    50   Input ~ 0
 LED
-Text Notes 7800 5700 0    50   ~ 0
+Text Notes 7100 1000 0    50   ~ 0
 Optional LED
-$Comp
-L Device:R R18
-U 1 1 61A48029
-P 3600 4300
-F 0 "R18" V 3550 4550 50  0000 C CNN
-F 1 "220" V 3600 4300 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 3530 4300 50  0001 C CNN
-F 3 "~" H 3600 4300 50  0001 C CNN
-F 4 "C25091" V 3600 4300 50  0001 C CNN "LCSC"
-	1    3600 4300
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	3950 4300 3750 4300
-$Comp
-L Device:R R23
-U 1 1 61A5747B
-P 3600 5950
-F 0 "R23" V 3550 6200 50  0000 C CNN
-F 1 "220" V 3600 5950 50  0000 C CNN
-F 2 "Resistor_SMD:R_0402_1005Metric" V 3530 5950 50  0001 C CNN
-F 3 "~" H 3600 5950 50  0001 C CNN
-F 4 "C25091" V 3600 5950 50  0001 C CNN "LCSC"
-	1    3600 5950
-	0    1    1    0   
-$EndComp
-Wire Wire Line
-	3750 5950 3950 5950
 Text GLabel 4450 2300 0    50   Input ~ 0
 BMP_INT
 Wire Wire Line
@@ -1478,97 +904,489 @@ PWR_OFF
 $Comp
 L Connector_Generic:Conn_01x02 J6
 U 1 1 61AC9156
-P 5850 6200
-F 0 "J6" H 5768 5875 50  0000 C CNN
-F 1 "EN_3V3_PROGRAMMER" H 5768 5966 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 5850 6200 50  0001 C CNN
-F 3 "~" H 5850 6200 50  0001 C CNN
-	1    5850 6200
+P 3100 4850
+F 0 "J6" H 3018 4525 50  0000 C CNN
+F 1 "EN_3V3_PROGRAMMER" H 3018 4616 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3100 4850 50  0001 C CNN
+F 3 "~" H 3100 4850 50  0001 C CNN
+	1    3100 4850
 	-1   0    0    1   
 $EndComp
 $Comp
 L Connector_Generic:Conn_01x06 J4
 U 1 1 61ACA5FE
-P 5850 5550
-F 0 "J4" H 5768 5025 50  0000 C CNN
-F 1 "PROGRAMMER" H 5768 5116 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 5850 5550 50  0001 C CNN
-F 3 "~" H 5850 5550 50  0001 C CNN
-	1    5850 5550
+P 3100 4200
+F 0 "J4" H 3018 3675 50  0000 C CNN
+F 1 "PROGRAMMER" H 3018 3766 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 3100 4200 50  0001 C CNN
+F 3 "~" H 3100 4200 50  0001 C CNN
+	1    3100 4200
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	6050 6200 6100 6200
+	3300 4750 3700 4750
 Wire Wire Line
-	6050 6100 6450 6100
+	3700 4750 3700 4400
 Wire Wire Line
-	6450 6100 6450 5750
-Wire Wire Line
-	6450 5750 6050 5750
-Text GLabel 6100 6200 2    50   Input ~ 0
+	3700 4400 3300 4400
+Text GLabel 3350 4850 2    50   Input ~ 0
 3V3
 $Comp
 L Mechanical:MountingHole H1
 U 1 1 61AF5C93
-P 6100 6900
-F 0 "H1" H 6200 6946 50  0000 L CNN
-F 1 "MountingHole" H 6200 6855 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 6100 6900 50  0001 C CNN
-F 3 "~" H 6100 6900 50  0001 C CNN
-	1    6100 6900
+P 5950 6850
+F 0 "H1" H 6050 6896 50  0000 L CNN
+F 1 "MountingHole" H 6050 6805 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 5950 6850 50  0001 C CNN
+F 3 "~" H 5950 6850 50  0001 C CNN
+	1    5950 6850
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H2
 U 1 1 61B15B7C
-P 6100 7100
-F 0 "H2" H 6200 7146 50  0000 L CNN
-F 1 "MountingHole" H 6200 7055 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 6100 7100 50  0001 C CNN
-F 3 "~" H 6100 7100 50  0001 C CNN
-	1    6100 7100
+P 5950 7050
+F 0 "H2" H 6050 7096 50  0000 L CNN
+F 1 "MountingHole" H 6050 7005 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 5950 7050 50  0001 C CNN
+F 3 "~" H 5950 7050 50  0001 C CNN
+	1    5950 7050
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H3
 U 1 1 61B15E61
-P 6100 7300
-F 0 "H3" H 6200 7346 50  0000 L CNN
-F 1 "MountingHole" H 6200 7255 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 6100 7300 50  0001 C CNN
-F 3 "~" H 6100 7300 50  0001 C CNN
-	1    6100 7300
+P 5950 7250
+F 0 "H3" H 6050 7296 50  0000 L CNN
+F 1 "MountingHole" H 6050 7205 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 5950 7250 50  0001 C CNN
+F 3 "~" H 5950 7250 50  0001 C CNN
+	1    5950 7250
 	1    0    0    -1  
 $EndComp
 $Comp
 L Mechanical:MountingHole H4
 U 1 1 61B160AC
-P 6100 7500
-F 0 "H4" H 6200 7546 50  0000 L CNN
-F 1 "MountingHole" H 6200 7455 50  0000 L CNN
-F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 6100 7500 50  0001 C CNN
-F 3 "~" H 6100 7500 50  0001 C CNN
-	1    6100 7500
+P 5950 7450
+F 0 "H4" H 6050 7496 50  0000 L CNN
+F 1 "MountingHole" H 6050 7405 50  0000 L CNN
+F 2 "MountingHole:MountingHole_3.2mm_M3_Pad_Via" H 5950 7450 50  0001 C CNN
+F 3 "~" H 5950 7450 50  0001 C CNN
+	1    5950 7450
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	6050 5650 6100 5650
-Text GLabel 6100 5650 2    50   Input ~ 0
+	3300 4300 3350 4300
+Text GLabel 3350 4300 2    50   Input ~ 0
 GND
 Wire Wire Line
-	6050 5550 6100 5550
+	3300 4200 3350 4200
 Wire Wire Line
-	6050 5450 6100 5450
+	3300 4100 3350 4100
 Wire Wire Line
-	6050 5350 6100 5350
+	3300 4000 3350 4000
 Wire Wire Line
-	6050 5250 6100 5250
-Text GLabel 6100 5550 2    50   Input ~ 0
+	3300 3900 3350 3900
+Text GLabel 3350 4200 2    50   Input ~ 0
 RX
-Text GLabel 6100 5450 2    50   Input ~ 0
+Text GLabel 3350 4100 2    50   Input ~ 0
 TX
-Text GLabel 6100 5350 2    50   Input ~ 0
+Text GLabel 3350 4000 2    50   Input ~ 0
 DTR
-Text GLabel 6100 5250 2    50   Input ~ 0
+Text GLabel 3350 3900 2    50   Input ~ 0
 RTS
+Wire Wire Line
+	1400 1000 1450 1000
+Text GLabel 9900 4500 1    50   Input ~ 0
+3V3_L
+Wire Wire Line
+	1400 900  1450 900 
+Wire Wire Line
+	1400 800  1450 800 
+Wire Wire Line
+	1400 1400 1450 1400
+Wire Wire Line
+	1450 1300 1400 1300
+Wire Wire Line
+	1400 1200 1450 1200
+Wire Wire Line
+	1450 1100 1400 1100
+Text GLabel 7650 5050 1    50   Input ~ 0
+VDD
+Text GLabel 7650 5850 3    50   Input ~ 0
+GND
+Text GLabel 5100 1400 1    50   Input ~ 0
+3V3
+Text GLabel 5800 1900 2    50   Input ~ 0
+GND
+Text GLabel 6850 3100 1    50   Input ~ 0
+3V3
+Text GLabel 6850 4000 3    50   Input ~ 0
+3V3
+Text GLabel 6950 3500 2    50   Input ~ 0
+SDA
+Text GLabel 6950 3600 2    50   Input ~ 0
+SCL
+Text GLabel 7900 3050 1    50   Input ~ 0
+3V3
+Text GLabel 5100 4750 3    50   Input ~ 0
+GND
+Text GLabel 7900 3850 3    50   Input ~ 0
+GND
+Text GLabel 8500 3450 2    50   Input ~ 0
+GND
+Text GLabel 9550 2850 1    50   Input ~ 0
+3V3
+Text GLabel 9550 3750 3    50   Input ~ 0
+GND
+Text GLabel 10100 3700 3    50   Input ~ 0
+GND
+Text GLabel 10650 3300 2    50   Input ~ 0
+GND
+Text GLabel 10000 2250 3    50   Input ~ 0
+GND
+Text GLabel 10600 1850 2    50   Input ~ 0
+GND
+Text GLabel 10000 1450 3    50   Input ~ 0
+GND
+Text GLabel 10600 1050 2    50   Input ~ 0
+GND
+Text GLabel 7850 2250 3    50   Input ~ 0
+GND
+Text GLabel 8200 2250 3    50   Input ~ 0
+GND
+Text GLabel 8550 2250 3    50   Input ~ 0
+GND
+Text GLabel 7850 1150 1    50   Input ~ 0
+VDD
+Text GLabel 8200 1150 1    50   Input ~ 0
+3V3
+Text GLabel 8550 1150 1    50   Input ~ 0
+3V3_L
+Text GLabel 10200 5000 2    50   Input ~ 0
+GND
+Wire Wire Line
+	10150 5000 10200 5000
+Text GLabel 7400 1900 3    50   Input ~ 0
+GND
+Text GLabel 9900 6200 3    50   Input ~ 0
+GND
+$Comp
+L power:PWR_FLAG #FLG0101
+U 1 1 6188414C
+P 5700 1500
+F 0 "#FLG0101" H 5700 1575 50  0001 C CNN
+F 1 "PWR_FLAG" H 5700 1673 50  0000 C CNN
+F 2 "" H 5700 1500 50  0001 C CNN
+F 3 "~" H 5700 1500 50  0001 C CNN
+	1    5700 1500
+	1    0    0    -1  
+$EndComp
+Connection ~ 5700 1500
+Wire Notes Line
+	8900 4150 11050 4150
+Wire Notes Line
+	11050 4150 11050 6450
+Wire Notes Line
+	11050 6450 8900 6450
+Wire Notes Line
+	8900 6450 8900 4150
+Text Notes 10750 4300 0    50   ~ 0
+ADC
+NoConn ~ 5700 2300
+$Comp
+L RF_Module:RFM95W-868S2 U5
+U 1 1 61A1C37B
+P 3500 6100
+F 0 "U5" H 3650 6650 50  0000 C CNN
+F 1 "RFM95W-868S2" H 3850 6550 50  0000 C CNN
+F 2 "RF_Module:HOPERF_RFM9XW_THT" H 200 7750 50  0001 C CNN
+F 3 "https://www.hoperf.com/data/upload/portal/20181127/5bfcbea20e9ef.pdf" H 200 7750 50  0001 C CNN
+	1    3500 6100
+	1    0    0    -1  
+$EndComp
+Text GLabel 3500 6850 3    50   Input ~ 0
+GND
+Wire Wire Line
+	3400 6700 3400 6750
+Wire Wire Line
+	3400 6750 3500 6750
+Wire Wire Line
+	3500 6750 3500 6700
+Wire Wire Line
+	3500 6750 3600 6750
+Wire Wire Line
+	3600 6750 3600 6700
+Connection ~ 3500 6750
+Wire Wire Line
+	3500 6850 3500 6750
+Wire Wire Line
+	5700 2700 5750 2700
+Text GLabel 5750 2700 2    50   Input ~ 0
+CS_LORA
+Wire Wire Line
+	3000 6100 2950 6100
+Text GLabel 2950 6100 0    50   Input ~ 0
+CS_LORA
+Wire Wire Line
+	2950 6000 3000 6000
+Wire Wire Line
+	3000 5900 2950 5900
+Wire Wire Line
+	2950 5800 3000 5800
+Text GLabel 2950 5800 0    50   Input ~ 0
+SCLK
+Text GLabel 2950 5900 0    50   Input ~ 0
+MOSI
+Text GLabel 2950 6000 0    50   Input ~ 0
+MISO
+Wire Wire Line
+	4000 6500 4050 6500
+Wire Wire Line
+	4050 6400 4000 6400
+NoConn ~ 4000 6300
+NoConn ~ 4000 6200
+NoConn ~ 4000 6100
+NoConn ~ 4000 6000
+Text GLabel 4050 6500 2    50   Input ~ 0
+DIO0
+Text GLabel 4050 6400 2    50   Input ~ 0
+DIO1
+Wire Wire Line
+	5700 4200 5750 4200
+Wire Wire Line
+	4500 2400 4450 2400
+Text GLabel 5750 4200 2    50   Input ~ 0
+DIO0
+Text GLabel 4450 2400 0    50   Input ~ 0
+DIO1
+$Comp
+L Device:Antenna AE1
+U 1 1 61B559CE
+P 4200 5550
+F 0 "AE1" H 4280 5539 50  0000 L CNN
+F 1 "Antenna" H 4280 5448 50  0000 L CNN
+F 2 "RF_Antenna:Texas_SWRA416_868MHz_915MHz" H 4200 5550 50  0001 C CNN
+F 3 "~" H 4200 5550 50  0001 C CNN
+	1    4200 5550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 5800 4200 5800
+Wire Wire Line
+	4200 5800 4200 5750
+Wire Notes Line
+	800  3550 3750 3550
+Wire Notes Line
+	3750 3550 3750 5000
+Wire Notes Line
+	800  5000 3750 5000
+$Comp
+L Transistor_FET:2N7002 Q15
+U 1 1 61C48088
+P 1800 6650
+F 0 "Q15" V 2142 6650 50  0000 C CNN
+F 1 "2N7002" V 2051 6650 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 2000 6575 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 1800 6650 50  0001 L CNN
+	1    1800 6650
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:Q_PMOS_GSD Q?
+U 1 1 61C4808F
+P 1700 6100
+AR Path="/61767442/61C4808F" Ref="Q?"  Part="1" 
+AR Path="/61C4808F" Ref="Q14"  Part="1" 
+F 0 "Q14" V 2042 6100 50  0000 C CNN
+F 1 "AO3401A" V 1951 6100 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 1900 6200 50  0001 C CNN
+F 3 "https://datasheet.lcsc.com/lcsc/1810171817_Alpha-&-Omega-Semicon-AO3401A_C15127.pdf" H 1700 6100 50  0001 C CNN
+F 4 "C15127" V 1700 6100 50  0001 C CNN "LCSC"
+	1    1700 6100
+	0    1    -1   0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 61C48096
+P 1350 6200
+AR Path="/61767442/61C48096" Ref="R?"  Part="1" 
+AR Path="/61C48096" Ref="R41"  Part="1" 
+F 0 "R41" H 1420 6246 50  0000 L CNN
+F 1 "100k" H 1420 6155 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 1280 6200 50  0001 C CNN
+F 3 "~" H 1350 6200 50  0001 C CNN
+F 4 "C25741" H 1350 6200 50  0001 C CNN "LCSC"
+	1    1350 6200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1700 6300 1700 6400
+Connection ~ 1700 6400
+Wire Wire Line
+	1700 6400 1700 6450
+$Comp
+L Device:R R?
+U 1 1 61C480A6
+P 2050 6850
+AR Path="/61767442/61C480A6" Ref="R?"  Part="1" 
+AR Path="/61C480A6" Ref="R42"  Part="1" 
+F 0 "R42" H 2120 6896 50  0000 L CNN
+F 1 "100k" H 2120 6805 50  0000 L CNN
+F 2 "Resistor_SMD:R_0402_1005Metric" V 1980 6850 50  0001 C CNN
+F 3 "~" H 2050 6850 50  0001 C CNN
+F 4 "C25741" H 2050 6850 50  0001 C CNN "LCSC"
+	1    2050 6850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2000 6650 2050 6650
+Wire Wire Line
+	2050 6650 2050 6700
+Wire Wire Line
+	2050 6650 2300 6650
+Connection ~ 2050 6650
+Wire Wire Line
+	1700 6850 1700 7050
+Wire Wire Line
+	1700 7050 2050 7050
+Wire Wire Line
+	2050 7050 2050 7000
+Wire Wire Line
+	1650 7050 1700 7050
+Connection ~ 1700 7050
+Text GLabel 1650 7050 0    50   Input ~ 0
+GND
+Wire Wire Line
+	1350 6000 1350 6050
+Wire Wire Line
+	1350 6000 1500 6000
+Wire Wire Line
+	1350 6350 1350 6400
+Wire Wire Line
+	1350 6400 1700 6400
+Wire Wire Line
+	1350 6000 1250 6000
+Connection ~ 1350 6000
+Text GLabel 1250 6000 0    50   Input ~ 0
+3V3
+Text GLabel 2300 6650 2    50   Input ~ 0
+LORA_EN
+Wire Wire Line
+	2550 6000 2550 5450
+Wire Wire Line
+	2550 5450 3500 5450
+Wire Wire Line
+	3500 5450 3500 5600
+Wire Wire Line
+	1900 6000 2550 6000
+Wire Wire Line
+	5700 2900 5750 2900
+Text GLabel 5750 2900 2    50   Input ~ 0
+LORA_EN
+Wire Wire Line
+	5700 3000 5750 3000
+Text GLabel 5750 3000 2    50   Input ~ 0
+LED
+Wire Wire Line
+	3000 6300 2950 6300
+Text GLabel 2950 6300 0    50   Input ~ 0
+LORA_RST
+Text GLabel 5750 4100 2    50   Input ~ 0
+LORA_RST
+$Sheet
+S 750  1750 650  1450
+U 61D2D467
+F0 "interface" 50
+F1 "interface.sch" 50
+F2 "TX1" I R 1400 2050 50 
+F3 "RX1" I R 1400 2150 50 
+F4 "GND" I R 1400 3100 50 
+F5 "3V3" I R 1400 1950 50 
+F6 "BMP_INT" I R 1400 2350 50 
+F7 "SDA" I R 1400 2550 50 
+F8 "SCL" I R 1400 2650 50 
+F9 "ADC_1" I R 1400 2750 50 
+F10 "ADC_0" I R 1400 2850 50 
+F11 "PMS_EN" I R 1400 2250 50 
+F12 "VDD" I R 1400 1850 50 
+F13 "SEN_VDD_EN" I R 1400 2950 50 
+F14 "MQ_EN" I R 1400 2450 50 
+$EndSheet
+Wire Wire Line
+	3300 4850 3350 4850
+Wire Wire Line
+	2400 4850 1150 4850
+Wire Notes Line
+	11050 2500 11050 550 
+Wire Notes Line
+	11050 550  9200 550 
+Wire Notes Line
+	9200 550  9200 2500
+Wire Notes Line
+	9200 2500 11050 2500
+Text Notes 10450 700  0    50   ~ 0
+Board ON/OFF
+Wire Notes Line
+	800  5250 800  7500
+Wire Notes Line
+	800  7500 4750 7500
+Wire Notes Line
+	4750 7500 4750 5250
+Wire Notes Line
+	4750 5250 800  5250
+Text Notes 900  5400 0    50   ~ 0
+Optional LoRa module
+Wire Wire Line
+	1400 1850 1450 1850
+Wire Wire Line
+	1450 1950 1400 1950
+Wire Wire Line
+	1450 2050 1400 2050
+Wire Wire Line
+	1450 2150 1400 2150
+Wire Wire Line
+	1450 2250 1400 2250
+Wire Wire Line
+	1450 2350 1400 2350
+Wire Wire Line
+	1450 2450 1400 2450
+Wire Wire Line
+	1450 2550 1400 2550
+Wire Wire Line
+	1450 2650 1400 2650
+Wire Wire Line
+	1450 2750 1400 2750
+Wire Wire Line
+	1450 2850 1400 2850
+Wire Wire Line
+	1450 2950 1400 2950
+Wire Wire Line
+	1450 3100 1400 3100
+Text GLabel 1450 1850 2    50   Input ~ 0
+VDD
+Text GLabel 1450 1950 2    50   Input ~ 0
+3V3
+Text GLabel 1450 2050 2    50   Input ~ 0
+TX1
+Text GLabel 1450 2150 2    50   Input ~ 0
+RX1
+Text GLabel 1450 2250 2    50   Input ~ 0
+PMS_EN
+Text GLabel 1450 2350 2    50   Input ~ 0
+BMP_INT
+Text GLabel 1450 2450 2    50   Input ~ 0
+MQ_EN
+Text GLabel 1450 2550 2    50   Input ~ 0
+SDA
+Text GLabel 1450 2650 2    50   Input ~ 0
+SCL
+Text GLabel 1450 2750 2    50   Input ~ 0
+ADC_1
+Text GLabel 1450 2850 2    50   Input ~ 0
+ADC_0
+Text GLabel 1450 2950 2    50   Input ~ 0
+SEN_VDD_EN
+Text GLabel 1450 3100 2    50   Input ~ 0
+GND
 $EndSCHEMATC
