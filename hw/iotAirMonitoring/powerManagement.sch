@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L iotAirMonitoring-rescue:USB_C_Receptacle_USB2.0-Connector-iotAirMonitoring-rescue-iotAirMonitoring-rescue J?
+L iotAirMonitoring-rescue:USB_C_Receptacle_USB2.0-Connector-iotAirMonitoring-rescue-iotAirMonitoring-rescue-iotAirMonitoring-rescue J?
 U 1 1 617675BE
 P 1300 1600
 AR Path="/617675BE" Ref="J?"  Part="1" 
@@ -796,9 +796,11 @@ Wire Wire Line
 	8050 4900 8250 4900
 Connection ~ 8050 4900
 $Comp
-L Connector:USB_B_Micro J12
+L iotAirMonitoring-rescue:USB_B_Micro-Connector J12
 U 1 1 617FE196
 P 1050 3450
+AR Path="/617FE196" Ref="J12"  Part="1" 
+AR Path="/61767442/617FE196" Ref="J12"  Part="1" 
 F 0 "J12" H 1107 3917 50  0000 C CNN
 F 1 "USB_B_Micro" H 1107 3826 50  0000 C CNN
 F 2 "Connector_USB:USB_Micro-B_Amphenol_10118194_Horizontal" H 1200 3400 50  0001 C CNN
