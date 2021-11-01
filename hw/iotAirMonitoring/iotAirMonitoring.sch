@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 3
-Title ""
+Title "iotAirMonitoring"
 Date ""
-Rev ""
+Rev "v0.1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -1389,4 +1389,34 @@ Text GLabel 1450 2950 2    50   Input ~ 0
 SEN_VDD_EN
 Text GLabel 1450 3100 2    50   Input ~ 0
 GND
+$Comp
+L Connector:TestPoint TP3
+U 1 1 6181341E
+P 6450 5150
+F 0 "TP3" V 6350 5150 50  0000 L CNN
+F 1 "TP_RX1" V 6450 5350 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 5150 50  0001 C CNN
+F 3 "~" H 6650 5150 50  0001 C CNN
+	1    6450 5150
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP4
+U 1 1 618164A5
+P 6450 5350
+F 0 "TP4" V 6350 5350 50  0000 L CNN
+F 1 "TP_TX1" V 6450 5550 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 5350 50  0001 C CNN
+F 3 "~" H 6650 5350 50  0001 C CNN
+	1    6450 5350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6450 5150 6400 5150
+Wire Wire Line
+	6450 5350 6400 5350
+Text GLabel 6400 5150 0    50   Input ~ 0
+RX1
+Text GLabel 6400 5350 0    50   Input ~ 0
+TX1
 $EndSCHEMATC

@@ -4,9 +4,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 2 3
-Title ""
+Title "iotAirMonitoring"
 Date ""
-Rev ""
+Rev "v0.1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -14,7 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L iotAirMonitoring-rescue:USB_C_Receptacle_USB2.0-Connector-iotAirMonitoring-rescue-iotAirMonitoring-rescue-iotAirMonitoring-rescue J?
+L iotAirMonitoring-rescue:USB_C_Receptacle_USB2.0-Connector-iotAirMonitoring-rescue-iotAirMonitoring-rescue-iotAirMonitoring-rescue-iotAirMonitoring-rescue J?
 U 1 1 617675BE
 P 1300 1600
 AR Path="/617675BE" Ref="J?"  Part="1" 
@@ -796,7 +796,7 @@ Wire Wire Line
 	8050 4900 8250 4900
 Connection ~ 8050 4900
 $Comp
-L iotAirMonitoring-rescue:USB_B_Micro-Connector J12
+L iotAirMonitoring-rescue:USB_B_Micro-Connector-iotAirMonitoring-rescue J12
 U 1 1 617FE196
 P 1050 3450
 AR Path="/617FE196" Ref="J12"  Part="1" 
