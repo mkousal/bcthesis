@@ -1472,4 +1472,79 @@ Wire Wire Line
 	4650 5850 4650 6500
 Wire Wire Line
 	4650 6500 5100 6500
+$Comp
+L Connector:TestPoint TP5
+U 1 1 6182AB5D
+P 6450 5550
+F 0 "TP5" V 6350 5550 50  0000 L CNN
+F 1 "TP_VDD" V 6450 5750 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 5550 50  0001 C CNN
+F 3 "~" H 6650 5550 50  0001 C CNN
+	1    6450 5550
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP6
+U 1 1 6182B01D
+P 6450 5750
+F 0 "TP6" V 6350 5750 50  0000 L CNN
+F 1 "TP_3V3" V 6450 5950 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 5750 50  0001 C CNN
+F 3 "~" H 6650 5750 50  0001 C CNN
+	1    6450 5750
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP7
+U 1 1 6182B3F1
+P 6450 5950
+F 0 "TP7" V 6350 5950 50  0000 L CNN
+F 1 "TP_3V3_L" V 6450 6150 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 5950 50  0001 C CNN
+F 3 "~" H 6650 5950 50  0001 C CNN
+	1    6450 5950
+	0    1    1    0   
+$EndComp
+Text GLabel 6400 5550 0    50   Input ~ 0
+VDD
+Text GLabel 6400 5750 0    50   Input ~ 0
+3V3
+Text GLabel 6400 5950 0    50   Input ~ 0
+3V3_L
+Wire Wire Line
+	6400 5950 6450 5950
+Wire Wire Line
+	6450 5750 6400 5750
+Wire Wire Line
+	6400 5550 6450 5550
+$Comp
+L Connector:TestPoint TP8
+U 1 1 6185F485
+P 6450 6150
+F 0 "TP8" V 6350 6150 50  0000 L CNN
+F 1 "TP_GND" V 6450 6350 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 6150 50  0001 C CNN
+F 3 "~" H 6650 6150 50  0001 C CNN
+	1    6450 6150
+	0    1    1    0   
+$EndComp
+$Comp
+L Connector:TestPoint TP9
+U 1 1 6185F92C
+P 6450 6350
+F 0 "TP9" V 6350 6350 50  0000 L CNN
+F 1 "TP_GND" V 6450 6550 50  0000 L CNN
+F 2 "TestPoint:TestPoint_Pad_D1.5mm" H 6650 6350 50  0001 C CNN
+F 3 "~" H 6650 6350 50  0001 C CNN
+	1    6450 6350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	6450 6150 6400 6150
+Wire Wire Line
+	6400 6350 6450 6350
+Text GLabel 6400 6150 0    50   Input ~ 0
+GND
+Text GLabel 6400 6350 0    50   Input ~ 0
+GND
 $EndSCHEMATC
