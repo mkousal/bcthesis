@@ -124,6 +124,7 @@ F 0 "Q11" H 6805 2396 50  0000 L CNN
 F 1 "2N7002" H 6805 2305 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 6800 2275 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 6600 2350 50  0001 L CNN
+F 4 "C8545" H 6600 2350 50  0001 C CNN "LCSC"
 	1    6600 2350
 	-1   0    0    -1  
 $EndComp
@@ -276,6 +277,7 @@ F 0 "U4" H 3500 5075 50  0000 C CNN
 F 1 "TPS54331" H 3500 4984 50  0000 C CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 3500 4700 50  0001 C CNN
 F 3 "https://datasheet.lcsc.com/lcsc/1808272040_Texas-Instruments-TPS54331DR_C9865.pdf" H 3500 4700 50  0001 C CNN
+F 4 "C9865" H 3500 4700 50  0001 C CNN "LCSC"
 	1    3500 4700
 	1    0    0    -1  
 $EndComp
@@ -724,6 +726,7 @@ F 0 "Q13" H 8005 4946 50  0000 L CNN
 F 1 "2N7002" H 8005 4855 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 8000 4825 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 7800 4900 50  0001 L CNN
+F 4 "C8545" H 7800 4900 50  0001 C CNN "LCSC"
 	1    7800 4900
 	-1   0    0    -1  
 $EndComp

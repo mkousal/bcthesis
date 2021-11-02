@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 3
+Sheet 2 3
 Title "iotAirMonitoring"
 Date ""
 Rev "v0.1"
@@ -123,6 +123,7 @@ F 0 "Q6" V 9092 3850 50  0000 C CNN
 F 1 "2N7002" V 9001 3850 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 8950 3775 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 8750 3850 50  0001 L CNN
+F 4 "C8545" V 8750 3850 50  0001 C CNN "LCSC"
 	1    8750 3850
 	-1   0    0    -1  
 $EndComp
@@ -391,6 +392,7 @@ F 0 "Q4" V 9092 2150 50  0000 C CNN
 F 1 "2N7002" V 9001 2150 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 8950 2075 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 8750 2150 50  0001 L CNN
+F 4 "C8545" V 8750 2150 50  0001 C CNN "LCSC"
 	1    8750 2150
 	-1   0    0    -1  
 $EndComp
@@ -448,6 +450,7 @@ F 0 "Q8" V 9092 5600 50  0000 C CNN
 F 1 "2N7002" V 9001 5600 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 8950 5525 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 8750 5600 50  0001 L CNN
+F 4 "C8545" V 8750 5600 50  0001 C CNN "LCSC"
 	1    8750 5600
 	-1   0    0    -1  
 $EndComp
@@ -650,6 +653,7 @@ F 0 "Q16" V 5892 5800 50  0000 C CNN
 F 1 "2N7002" V 5801 5800 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 5750 5725 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 5550 5800 50  0001 L CNN
+F 4 "C8545" V 5550 5800 50  0001 C CNN "LCSC"
 	1    5550 5800
 	0    1    1    0   
 $EndComp
@@ -718,6 +722,7 @@ F 0 "Q17" V 5892 7050 50  0000 C CNN
 F 1 "2N7002" V 5801 7050 50  0000 C CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 5750 6975 50  0001 L CIN
 F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 5550 7050 50  0001 L CNN
+F 4 "C8545" V 5550 7050 50  0001 C CNN "LCSC"
 	1    5550 7050
 	0    1    1    0   
 $EndComp
