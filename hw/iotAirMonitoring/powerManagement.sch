@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 3
+Sheet 3 3
 Title "iotAirMonitoring"
 Date ""
 Rev "v0.1"
@@ -875,4 +875,82 @@ $EndComp
 Connection ~ 8200 4100
 Wire Wire Line
 	8200 4100 8300 4100
+$Comp
+L Connector_Generic:Conn_02x02_Counter_Clockwise J14
+U 1 1 6182A26C
+P 3450 2950
+F 0 "J14" H 3500 3167 50  0000 C CNN
+F 1 "Battery_shield" H 3500 3076 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical" H 3450 2950 50  0001 C CNN
+F 3 "~" H 3450 2950 50  0001 C CNN
+	1    3450 2950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3250 2950 3200 2950
+Wire Wire Line
+	3200 2950 3200 3050
+Wire Wire Line
+	3200 3050 3250 3050
+Wire Wire Line
+	3750 2950 3800 2950
+Wire Wire Line
+	3800 2950 3800 3050
+Wire Wire Line
+	3800 3050 3750 3050
+Text GLabel 3150 2950 0    50   Input ~ 0
+USB_VDD
+Wire Wire Line
+	3150 2950 3200 2950
+Connection ~ 3200 2950
+Text HLabel 3850 2950 2    50   Input ~ 0
+GND
+Wire Wire Line
+	3800 2950 3850 2950
+Connection ~ 3800 2950
+$Comp
+L Device:R R?
+U 1 1 6188824F
+P 9200 1400
+AR Path="/6188824F" Ref="R?"  Part="1" 
+AR Path="/61767442/6188824F" Ref="R1"  Part="1" 
+F 0 "R1" H 9270 1446 50  0000 L CNN
+F 1 "R" H 9270 1355 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9130 1400 50  0001 C CNN
+F 3 "~" H 9200 1400 50  0001 C CNN
+	1    9200 1400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 61888255
+P 9200 1800
+AR Path="/61888255" Ref="R?"  Part="1" 
+AR Path="/61767442/61888255" Ref="R2"  Part="1" 
+F 0 "R2" H 9270 1846 50  0000 L CNN
+F 1 "R" H 9270 1755 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 9130 1800 50  0001 C CNN
+F 3 "~" H 9200 1800 50  0001 C CNN
+	1    9200 1800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9200 1550 9200 1600
+Wire Wire Line
+	9200 1600 9300 1600
+Connection ~ 9200 1600
+Wire Wire Line
+	9200 1600 9200 1650
+Wire Wire Line
+	9200 1250 9200 1200
+Wire Wire Line
+	9200 1950 9200 2000
+Text Notes 9350 1200 0    50   ~ 0
+Optional voltage\ndivider for Vin
+Text GLabel 9200 1200 1    50   Input ~ 0
+USB_VDD
+Text GLabel 9200 2000 3    50   Input ~ 0
+GND
+Text HLabel 9300 1600 2    50   Output ~ 0
+ADC_VIN
 $EndSCHEMATC

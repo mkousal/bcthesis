@@ -13,19 +13,6 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-$Sheet
-S 750  700  650  800 
-U 61767442
-F0 "powerManagement" 50
-F1 "powerManagement.sch" 50
-F2 "GND" U R 1400 1400 50 
-F3 "PWR_ON" I R 1400 1100 50 
-F4 "PWR_OFF" I R 1400 1200 50 
-F5 "VDD" O R 1400 800 50 
-F6 "3V3_L" O R 1400 1000 50 
-F7 "3V3" O R 1400 900 50 
-F8 "LDO_EN" I R 1400 1300 50 
-$EndSheet
 Text GLabel 1450 800  2    50   Input ~ 0
 VDD
 Text GLabel 1450 900  2    50   Input ~ 0
@@ -34,7 +21,7 @@ Text GLabel 1450 1100 2    50   Input ~ 0
 PWR_ON
 Text GLabel 1450 1200 2    50   Input ~ 0
 PWR_OFF
-Text GLabel 1450 1400 2    50   Input ~ 0
+Text GLabel 1450 1500 2    50   Input ~ 0
 GND
 Text GLabel 1450 1000 2    50   Input ~ 0
 3V3_L
@@ -736,47 +723,10 @@ Wire Notes Line
 	800  5000 800  3550
 Text Notes 850  3650 0    50   ~ 0
 Programming logic & connector
-$Comp
-L Device:R R1
-U 1 1 618EBDFB
-P 7650 5250
-F 0 "R1" H 7720 5296 50  0000 L CNN
-F 1 "R" H 7720 5205 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7580 5250 50  0001 C CNN
-F 3 "~" H 7650 5250 50  0001 C CNN
-	1    7650 5250
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R R2
-U 1 1 618EC174
-P 7650 5650
-F 0 "R2" H 7720 5696 50  0000 L CNN
-F 1 "R" H 7720 5605 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" V 7580 5650 50  0001 C CNN
-F 3 "~" H 7650 5650 50  0001 C CNN
-	1    7650 5650
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	7650 5400 7650 5450
-Wire Wire Line
-	7650 5450 7750 5450
-Connection ~ 7650 5450
-Wire Wire Line
-	7650 5450 7650 5500
-Text GLabel 7750 5450 2    50   Input ~ 0
-ADC_VIN
-Wire Wire Line
-	7650 5100 7650 5050
-Wire Wire Line
-	7650 5800 7650 5850
 Wire Wire Line
 	5700 4300 5750 4300
 Text GLabel 5750 4300 2    50   Input ~ 0
 ADC_VIN
-Text Notes 7800 5050 0    50   ~ 0
-Optional voltage\ndivider for Vin
 $Comp
 L Switch:SW_Push SW4
 U 1 1 61938F02
@@ -1004,17 +954,11 @@ Wire Wire Line
 Wire Wire Line
 	1400 800  1450 800 
 Wire Wire Line
-	1400 1400 1450 1400
-Wire Wire Line
 	1450 1300 1400 1300
 Wire Wire Line
 	1400 1200 1450 1200
 Wire Wire Line
 	1450 1100 1400 1100
-Text GLabel 7650 5050 1    50   Input ~ 0
-VDD
-Text GLabel 7650 5850 3    50   Input ~ 0
-GND
 Text GLabel 5100 1400 1    50   Input ~ 0
 3V3
 Text GLabel 5800 1900 2    50   Input ~ 0
@@ -1163,18 +1107,14 @@ DIO1
 $Comp
 L Device:Antenna AE1
 U 1 1 61B559CE
-P 4200 5550
-F 0 "AE1" H 4280 5539 50  0000 L CNN
-F 1 "Antenna" H 4280 5448 50  0000 L CNN
-F 2 "RF_Antenna:Texas_SWRA416_868MHz_915MHz" H 4200 5550 50  0001 C CNN
-F 3 "~" H 4200 5550 50  0001 C CNN
-	1    4200 5550
+P 5300 5400
+F 0 "AE1" H 5380 5389 50  0000 L CNN
+F 1 "Antenna" H 5380 5298 50  0000 L CNN
+F 2 "RF_Antenna:Texas_SWRA416_868MHz_915MHz" H 5300 5400 50  0001 C CNN
+F 3 "~" H 5300 5400 50  0001 C CNN
+	1    5300 5400
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4000 5800 4200 5800
-Wire Wire Line
-	4200 5800 4200 5750
 Wire Notes Line
 	800  3550 3750 3550
 Wire Notes Line
@@ -1294,25 +1234,6 @@ Text GLabel 2950 6300 0    50   Input ~ 0
 LORA_RST
 Text GLabel 5750 4100 2    50   Input ~ 0
 LORA_RST
-$Sheet
-S 750  1750 650  1450
-U 61D2D467
-F0 "interface" 50
-F1 "interface.sch" 50
-F2 "TX1" I R 1400 2050 50 
-F3 "RX1" I R 1400 2150 50 
-F4 "GND" I R 1400 3100 50 
-F5 "3V3" I R 1400 1950 50 
-F6 "BMP_INT" I R 1400 2350 50 
-F7 "SDA" I R 1400 2550 50 
-F8 "SCL" I R 1400 2650 50 
-F9 "ADC_1" I R 1400 2750 50 
-F10 "ADC_0" I R 1400 2850 50 
-F11 "PMS_EN" I R 1400 2250 50 
-F12 "VDD" I R 1400 1850 50 
-F13 "SEN_VDD_EN" I R 1400 2950 50 
-F14 "MQ_EN" I R 1400 2450 50 
-$EndSheet
 Wire Wire Line
 	3300 4850 3350 4850
 Wire Wire Line
@@ -1330,65 +1251,13 @@ Board ON/OFF
 Wire Notes Line
 	800  5250 800  7500
 Wire Notes Line
-	800  7500 4750 7500
+	800  7500 5750 7500
 Wire Notes Line
-	4750 7500 4750 5250
+	5750 7500 5750 5250
 Wire Notes Line
-	4750 5250 800  5250
+	5750 5250 800  5250
 Text Notes 900  5400 0    50   ~ 0
 Optional LoRa module
-Wire Wire Line
-	1400 1850 1450 1850
-Wire Wire Line
-	1450 1950 1400 1950
-Wire Wire Line
-	1450 2050 1400 2050
-Wire Wire Line
-	1450 2150 1400 2150
-Wire Wire Line
-	1450 2250 1400 2250
-Wire Wire Line
-	1450 2350 1400 2350
-Wire Wire Line
-	1450 2450 1400 2450
-Wire Wire Line
-	1450 2550 1400 2550
-Wire Wire Line
-	1450 2650 1400 2650
-Wire Wire Line
-	1450 2750 1400 2750
-Wire Wire Line
-	1450 2850 1400 2850
-Wire Wire Line
-	1450 2950 1400 2950
-Wire Wire Line
-	1450 3100 1400 3100
-Text GLabel 1450 1850 2    50   Input ~ 0
-VDD
-Text GLabel 1450 1950 2    50   Input ~ 0
-3V3
-Text GLabel 1450 2050 2    50   Input ~ 0
-TX1
-Text GLabel 1450 2150 2    50   Input ~ 0
-RX1
-Text GLabel 1450 2250 2    50   Input ~ 0
-PMS_EN
-Text GLabel 1450 2350 2    50   Input ~ 0
-BMP_INT
-Text GLabel 1450 2450 2    50   Input ~ 0
-MQ_EN
-Text GLabel 1450 2550 2    50   Input ~ 0
-SDA
-Text GLabel 1450 2650 2    50   Input ~ 0
-SCL
-Text GLabel 1450 2750 2    50   Input ~ 0
-ADC_1
-Text GLabel 1450 2850 2    50   Input ~ 0
-ADC_0
-Text GLabel 1450 2950 2    50   Input ~ 0
-SEN_VDD_EN
-Text GLabel 1450 3100 2    50   Input ~ 0
-GND
 $Comp
 L Connector:TestPoint TP3
 U 1 1 6181341E
@@ -1419,4 +1288,188 @@ Text GLabel 6400 5150 0    50   Input ~ 0
 RX1
 Text GLabel 6400 5350 0    50   Input ~ 0
 TX1
+Text GLabel 1450 3250 2    50   Input ~ 0
+GND
+Text GLabel 1450 3100 2    50   Input ~ 0
+SEN_VDD_EN
+Text GLabel 1450 3000 2    50   Input ~ 0
+ADC_0
+Text GLabel 1450 2900 2    50   Input ~ 0
+ADC_1
+Text GLabel 1450 2800 2    50   Input ~ 0
+SCL
+Text GLabel 1450 2700 2    50   Input ~ 0
+SDA
+Text GLabel 1450 2600 2    50   Input ~ 0
+MQ_EN
+Text GLabel 1450 2500 2    50   Input ~ 0
+BMP_INT
+Text GLabel 1450 2400 2    50   Input ~ 0
+PMS_EN
+Text GLabel 1450 2300 2    50   Input ~ 0
+RX1
+Text GLabel 1450 2200 2    50   Input ~ 0
+TX1
+Text GLabel 1450 2100 2    50   Input ~ 0
+3V3
+Text GLabel 1450 2000 2    50   Input ~ 0
+VDD
+Wire Wire Line
+	1450 3250 1400 3250
+Wire Wire Line
+	1450 3100 1400 3100
+Wire Wire Line
+	1450 3000 1400 3000
+Wire Wire Line
+	1450 2900 1400 2900
+Wire Wire Line
+	1450 2800 1400 2800
+Wire Wire Line
+	1450 2700 1400 2700
+Wire Wire Line
+	1450 2600 1400 2600
+Wire Wire Line
+	1450 2500 1400 2500
+Wire Wire Line
+	1450 2400 1400 2400
+Wire Wire Line
+	1450 2300 1400 2300
+Wire Wire Line
+	1450 2200 1400 2200
+Wire Wire Line
+	1450 2100 1400 2100
+Wire Wire Line
+	1400 2000 1450 2000
+$Sheet
+S 750  1900 650  1450
+U 61D2D467
+F0 "interface" 50
+F1 "interface.sch" 50
+F2 "TX1" I R 1400 2200 50 
+F3 "RX1" I R 1400 2300 50 
+F4 "GND" I R 1400 3250 50 
+F5 "3V3" I R 1400 2100 50 
+F6 "BMP_INT" I R 1400 2500 50 
+F7 "SDA" I R 1400 2700 50 
+F8 "SCL" I R 1400 2800 50 
+F9 "ADC_1" I R 1400 2900 50 
+F10 "ADC_0" I R 1400 3000 50 
+F11 "PMS_EN" I R 1400 2400 50 
+F12 "VDD" I R 1400 2000 50 
+F13 "SEN_VDD_EN" I R 1400 3100 50 
+F14 "MQ_EN" I R 1400 2600 50 
+$EndSheet
+$Sheet
+S 750  700  650  900 
+U 61767442
+F0 "powerManagement" 50
+F1 "powerManagement.sch" 50
+F2 "GND" U R 1400 1500 50 
+F3 "PWR_ON" I R 1400 1100 50 
+F4 "PWR_OFF" I R 1400 1200 50 
+F5 "VDD" O R 1400 800 50 
+F6 "3V3_L" O R 1400 1000 50 
+F7 "3V3" O R 1400 900 50 
+F8 "LDO_EN" I R 1400 1300 50 
+F9 "ADC_VIN" O R 1400 1400 50 
+$EndSheet
+Wire Wire Line
+	1450 1500 1400 1500
+Wire Wire Line
+	1400 1400 1450 1400
+Text GLabel 1450 1400 2    50   Input ~ 0
+ADC_VIN
+$Comp
+L Connector:Conn_Coaxial J15
+U 1 1 618F4FB3
+P 5300 6500
+F 0 "J15" H 5400 6475 50  0000 L CNN
+F 1 "SMA" H 5400 6384 50  0000 L CNN
+F 2 "Connector_Coaxial:SMA_Samtec_SMA-J-P-X-ST-EM1_EdgeMount" H 5300 6500 50  0001 C CNN
+F 3 "https://www.tme.eu/Document/b4dd5925cecd78bf6385fa91265dd943/RF2-145A-T-17-50-G-HDW.pdf" H 5300 6500 50  0001 C CNN
+	1    5300 6500
+	1    0    0    -1  
+$EndComp
+Text GLabel 5300 6750 3    50   Input ~ 0
+GND
+Wire Wire Line
+	5300 6750 5300 6700
+$Comp
+L Device:L L2
+U 1 1 6193ABDB
+P 5050 5650
+F 0 "L2" V 5240 5650 50  0000 C CNN
+F 1 "L" V 5149 5650 50  0000 C CNN
+F 2 "Inductor_SMD:L_0805_2012Metric_Pad1.05x1.20mm_HandSolder" H 5050 5650 50  0001 C CNN
+F 3 "~" H 5050 5650 50  0001 C CNN
+	1    5050 5650
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:C C22
+U 1 1 6193B857
+P 4850 5850
+F 0 "C22" H 4965 5896 50  0000 L CNN
+F 1 "C" H 4965 5805 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 4888 5700 50  0001 C CNN
+F 3 "~" H 4850 5850 50  0001 C CNN
+	1    4850 5850
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C23
+U 1 1 6193B9A0
+P 5250 5850
+F 0 "C23" H 5365 5896 50  0000 L CNN
+F 1 "C" H 5365 5805 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder" H 5288 5700 50  0001 C CNN
+F 3 "~" H 5250 5850 50  0001 C CNN
+	1    5250 5850
+	1    0    0    -1  
+$EndComp
+Text GLabel 4850 6050 3    50   Input ~ 0
+GND
+Text GLabel 5250 6050 3    50   Input ~ 0
+GND
+Wire Wire Line
+	5250 6050 5250 6000
+Wire Wire Line
+	4850 6050 4850 6000
+Wire Wire Line
+	4850 5700 4850 5650
+Wire Wire Line
+	4850 5650 4900 5650
+Wire Wire Line
+	5250 5700 5250 5650
+Wire Wire Line
+	5250 5650 5200 5650
+Wire Wire Line
+	5250 5650 5300 5650
+Wire Wire Line
+	5300 5650 5300 5600
+Connection ~ 5250 5650
+Wire Wire Line
+	4850 5650 4700 5650
+Connection ~ 4850 5650
+$Comp
+L iotAirMonitoring:RF_Splitter S1
+U 1 1 619D7D18
+P 4350 5800
+F 0 "S1" H 4350 6075 50  0000 C CNN
+F 1 "RF_Splitter" H 4350 5984 50  0000 C CNN
+F 2 "iotAirMonitoring:RF_Splitter" H 4350 5800 50  0001 C CNN
+F 3 "" H 4350 5800 50  0001 C CNN
+	1    4350 5800
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4000 5800 4050 5800
+Wire Wire Line
+	4650 5750 4700 5750
+Wire Wire Line
+	4700 5750 4700 5650
+Wire Wire Line
+	4650 5850 4650 6500
+Wire Wire Line
+	4650 6500 5100 6500
 $EndSCHEMATC
