@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name iotAirMonitoring)(type Legacy)(uri ${KIPRJMOD}/iotAirMonitoring.lib)(options "")(descr ""))
+  (lib (name iotAirMonitoring-rescue)(type Legacy)(uri ${KIPRJMOD}/iotAirMonitoring-rescue.lib)(options "")(descr ""))
+)
