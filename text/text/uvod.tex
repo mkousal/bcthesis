@@ -2,20 +2,10 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{Úvod}
 
+V dnešní době jsou sítě IoT téměř na každém kroku. Proto se snaží i velcí výrobci domácí elektroniky implementovat tuto konektivitu do svých zařízení. Většinou se jedná o uzavřený ekosystém senzorů, které spolu komunikují pomocí sítě využívající bezlicenční pásma a přenáší data na server, kde se dále zpracovávají a vyhodnocují. Lze je tedy dnes najít i v běžné domácnosti, kde se mohou zapojit do chytré domácnosti, či mnohem častěji v průmyslu při automatizaci výrobních procesů.
 
-Úvod studentské práce, např\,\dots
+V komerčním prostředí nejsou zatím dostupná žádná zařízení, která by umožňovala monitorovat kvalitu ovzduší v domácích podmínkách. Lze nalézt mnoho profesionálních zařízení, které jsou určeny na měření jedné konkrétní veličiny (např. koncentrace prachových částic), avšak takové zařízení stojí tisíce korun. Cílem této práce je tedy navrhnout, oživit a naprogramovat zařízení, které umožní monitorovat a vyhodnocovat základní veličiny o kvalitě ovzduší.
 
-Nečíslovaná kapitola Úvod obsahuje \uv{seznámení} čtenáře s~problematikou práce.
-Typicky se zde uvádí:
-(a) do jaké tematické oblasti práce spadá, (b) co jsou hlavní cíle celé práce a (c) jakým způsobem jich bylo dosaženo.
-Úvod zpravidla nepřesahuje jednu stranu.
-Poslední odstavec Úvodu standardně představuje základní strukturu celého dokumentu.
+Základní myšlenkou IoT sítí a zařízení do nich připojených je velice nízká spotřeba, díky čemuž dokáží vydržet v provozu na baterie i několik let. Nízké spotřeby je dosaženo nejen vybranými senzory a řídícím mikroprocesorem, ale hlavně díky nízkým nárokům na počet přenesených dat a vysílací výkon. Celé zařízení tedy bude navrhováno s ohledem na výslednou spotřebu při zachování uspokojivé přesnosti měření a také ceně použitých komponent.
 
-Tato práce se věnuje oblasti \acs{DSP} (\acl{DSP}), zejména jevům, které nastanou při nedodržení Nyquistovy podmínky pro \ac{symfvz}.%
-\footnote{Tato věta je pouze ukázkou použití příkazů pro sazbu zkratek.}
-
-Šablona je nastavena na \emph{dvoustranný tisk}.
-Nebuďte překvapeni, že ve vzniklém PDF jsou volné stránky.
-Je to proto, aby důležité stránky jako např.\ začátky kapitol začínaly po vytisknutí a svázání vždy na pravé straně.
-%
-Pokud máte nějaký závažný důvod sázet (a~zejména tisknout) jednostranně, nezapomeňte si přepnout volbu \texttt{twoside} na \texttt{oneside}!
+Výsledky měření budou přenášeny do databáze, odkud se mohou používat pro vykreslování do grafů či pro následné zpracování ve formě rychlých přehledů (např. průměrné denní hodnoty). Tyto výsledky budou předávány uživateli skrze webovou službu, takže si je bude moci zobrazit v podstatě na jakémkoli zařízení, které je připojeno k internetu.
