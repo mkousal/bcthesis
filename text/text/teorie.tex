@@ -22,4 +22,25 @@ Dříve používané LED mají nevýhodu v tom, že vyzařují široký paprsek 
 
 Poslední součástí těchto detektorů je mechanismus, kterým se do senzoru dostává čerstvý vzorek vzduchu. Nejjednodušší je využití malého ventilátoru, který bude do prostoru senzoru vhánět čerstvý vzduch z okolí. Nevýhodou takového řešení je hlučnost senzoru a také možnost zanášení senzoru nečistotami z okolí. Proto se objevují i senzory, které mají tento ventilátor nahrazeny topným elementem (nejčastěji výkonový rezistor), kterým protéká proud a ohřívá vzduch okolo. Ten pak díky rozdílné hustotě teplého a studeného vzduchu začne stoupat vzhůru a unáší s sebou prachové částice do měřeného prostoru. Zde je ovšem třeba dávat pozor na konstrukci takového senzoru a na výrobcem předepsané požadavky na montáž, jelikož jej nelze umístit téměř libovolně v prostoru, jako tomu může být u senzoru s ventilátorem.
 
-\section{Intenzita osvětlení}
+\begin{figure}
+    \includegraphics[width=0.70\textwidth]{obrazky/dustSensorPrinciple.png}
+    \label{fig_dustSensorPrinciple}
+    \caption{Blokové schéma senzoru prachových částic PM1003.}
+\end{figure}
+
+\section{Měření intenzity osvětlení}
+
+Intenzita osvětlení se měří na základě fotoefektu. To znamená, že při dopadu elektromagnetického záření na látku dojde k uvolnění elektronů z této látky a naopak k pohlcení fotonů. Nejčastěji se pro tento jev používají polovodiče.
+
+Prvním z používaných typů senzorů jsou fotodiody. U nich se využívá vnitřního fotoelektrického jevu, který je pro polovodiče typický. Dopadem fotonů na PN přechod fotodiody dochází ke zvyšování procházejícího proudu diodou. Tento proud jsme schopni následně měřit a vyhodnocovat. Fotodiody mají výhodu v jejich rychlé odezvě na skokovou změnu a citlivosti.
+
+Dalším často používaným prvkem pro měření intenzity osvětlení jsou fototranzistory. Zde se využívá nejčastěji tranzistor NPN, který má volnou bázi. Při výrobě jsou konstruovány tak, aby dopadající fotony dopadly do oblasti kolektoru a způsobily tak zvýšení protékajícího proudu tranzistorem. Díky tomu, že se díky fotonům řídí proud do báze tranzistoru, tak je tranzistor na světlo více citlivější než fotodioda. Nevýhodou fototranzistoru je shora omezené spektrum detekovaného světla a jeho pomalá reakce.
+
+\section{Měření UV záření}
+
+Měření UV záření probíhá v principu úplně stejně, jako měření intenzity osvětlení. Jediným podstatným rozdílem je vlnová délka záření, na které jsou dané senzitivní součástky nejvíce citlivé. Nejčastěji se vyskytuje UVA záření, které má rozsah vlnových délek mezi \SI{315}{\micro\metre} do \SI{400}{\micro\metre}. Toto záření je zcela běžně přítomné všude kolem nás, jelikož dokáže projít zemskou atmosférou. Při běžném kontaktu s tímto zářením nám nehrozí žádné zdravotní problémy, ale nedoporučuje se trvalejší vystavení tomuto záření. Běžně se také využívá při procesech luminiscence či různých světelných efektech. Lidské oko jako takové jej není schopné vnímat, narozdíl od některých zvířat.
+
+Dalším z UV záření, se kterým se můžeme setkat, je UVB záření s vlnovou délkou od \SI{280}{\micro\metre} do \SI{315}{\micro\metre}. Toto záření je pro živé organismy zhoubné, jelikož dokáže rozkládat bílkoviny. Při dopadu do lidského oka dokáže způsobit oslepnutí, neblahý efekt má též na rostliny, u kterých dokáže ovlivnit fotosyntézu a také způsobit jejich úhyn.
+
+Posledním z těchto záření je UVC záření, které je se svou vlnovou délkou menší než \SI{280}{\micro\metre} nejtvrdším z těchto záření. Při kontaktu s kyslíkem začíná vznikat ozon a je silně karcinogenní pro všechny živé organismy. Díky své krátké vlnové délce dokáže proniknout relativně hluboko do všech organických materiálu a je tak velice nebezpečné.
+
