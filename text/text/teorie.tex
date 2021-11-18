@@ -74,5 +74,13 @@ Pro potřeby obecného měření lze využít odporové senzory vyrobené z kov�
 
 Další z možností měření, založené na kovech, jsou termočlánky. Ty pracují na základě Seebeckova jevu, kde při spojení dvou různých kovů dochází při změně teploty k vygenerování malého napětí, které jsme schopni po zesílení dále měřit. Jejich velkou výhodou jsou malé rozměry a odolnost i při relativně vysokých teplotách (tisíce \SI{}{\degree}). Jsou tedy vhodné do aplikací, kde je potřeba velký rozsah teplot a zároveň jsme limitováni maximálními rozměry.
 
-\subsection{CMOS senzory}
+\subsection{Polovodičové senzory}
 
+Polovodiče obecně jsou závislé na teplotě, takže je lze použít pro měření teploty. Jejich charakteristika ovšem většinou není lineární a závisí na Shockleyho rovnicí \eqref{eq_Shockley}.
+\begin{equation}
+    I_A =I_S \cdot (\mathrm{e} ^{\frac{U_A}{n \cdot \frac{k \cdot T}{q}}} - 1)
+    \label{eq_Shockley}
+\end{equation}
+Nejvíce lineární a zároveň časově stálou závislost na teplotě má varikap, pro orientační měření (např. sepnutí aktivního chlazení) lze použít i diodu či tranzistor, který se umístí na společný chladič s výkonovými prvky a následně lze díky změně proudu jimi procházejícím řídit následnou logiku.
+
+Díky stále dokonalejším výrobním procesům pro integrované obvody lze integrovat teplotní senzory přímo na čip. Přímo na tomto čipu tak může být nejen teplotní senzor, ale i např. operační zesilovač či řídící čip pro digitální komunikační rozhraní.
