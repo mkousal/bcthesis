@@ -84,3 +84,26 @@ Polovodiče obecně jsou závislé na teplotě, takže je lze použít pro měř
 Nejvíce lineární a zároveň časově stálou závislost na teplotě má varikap, pro orientační měření (např. sepnutí aktivního chlazení) lze použít i diodu či tranzistor, který se umístí na společný chladič s výkonovými prvky a následně lze díky změně proudu jimi procházejícím řídit následnou logiku.
 
 Díky stále dokonalejším výrobním procesům pro integrované obvody lze integrovat teplotní senzory přímo na čip. Přímo na tomto čipu tak může být nejen teplotní senzor, ale i např. operační zesilovač či řídící čip pro digitální komunikační rozhraní.
+
+\section{Měření atmosférického tlaku}
+
+Pro měření atmosférického tlaku se nejčastěji používá měřidel založených na principu vytlačování kapaliny do předem známého prostoru se stupnicí vlivem působící síly. Takováto měřidla jsou v meteorologii stále hojně používána díky jejich jednoduchosti a velmi vysoké přesnosti. Ovšem takováto měřidla se hodí jen pro ruční odečítání, jelikož je nelze nijak zautomatizovat.
+
+\subsection{Piezoelektrické senzory}
+
+Jednou z možností, jak vyrobit elektronický senzor na měření tlaku, je využít piezoelektrického jevu. Tento jev se vyskytuje nejčastěji v krystalech křemíku, kde při působení síly (v tomto případě atmosférického tlaku) je díky mírné deformaci krystalu vygenerováno velice malé napětí, které úměrné aplikované síle. Toto napětí jsme schopni po adekvátním zesílení jednoduše změřit a pokud známe strukturu použitého krystalu, tak i zpětně přepočítat na původní působící tlak.
+
+\subsection{MEMS senzory}
+
+V dnešní době jsou velice rozšířené tzv. MEMS senzory. Jsou založeny na principu spojení mikro-mechanického principu s elektrickým principem. Nejčastěji je pro měření tlaku při tomto principu využíváno vlastností kondenzátorů či piezoelektrického efektu.
+
+Při využití principu kondenzátoru je jedna z elektrod pevně spojená s pouzdrem a následně je druhá elektroda upevněna nad tuto první, tím vznikne kondenzátor, jak je vidět na obrázku \ref{fig_memsCapacitiveSensor}. Druhá elektroda je mechanicky vyrobena tak, aby měla přístup k okolnímu prostoru a mohl na ni tudíž působit okolní atmosférický tlak. Díky jeho působení se začne prohýbat a přibližovat druhé elektrodě, čímž se mění celková kapacita tohoto kondenzátoru a tu jsme schopni následně měřit a na jejím základě určit působící atmosférický tlak.
+
+\begin{figure}
+    \includegraphics[width=0.7\textwidth]{obrazky/MEMS_capacitive_sensor.jpg}
+    \label{fig_memsCapacitiveSensor}
+    \caption{MEMS kapacitní senzor tlaku. \cite{AvnetMEMS}}
+\end{figure}
+
+\section{Měření vzdušné vlhkosti}
+
