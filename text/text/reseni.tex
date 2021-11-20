@@ -1,2 +1,26 @@
 \chapter{Návrh zařízení}
 
+Tato kapitola se bude zabývat návrhem hardwaru celého zařízení. Jedním z hlavních požadavků je nízká spotřeba, kterou bude třeba zohlednit při vybírání použitých senzorů, řídícího mikroprocesoru, komunikačního modulu a ostatních obvodových komponent. 
+
+\section{Výběr senzorů}
+Celé zařízení bude schopno měřit koncentraci prachových částic, koncentraci oxidu uhelnatého, intenzitu osvětlení, intenzitu UV záření, teplotu, atmosférický tlak a relativní vlhkost. V následujících částech tedy bude popsán výběr z dostupných senzorů.
+
+\subsection{Senzor koncentrace prachových částic}
+
+Na trhu je dostupných hned několik senzorů na měření koncentrace prachových částic. Jak již bylo zmíněno v teoretickém úvodu, budu vybírat senzor, který tuto koncentraci určuje na zákkladě osvícení daného vzorku vzduchu a následně měření odraženého světla. Nyní vyvstává otázka, jestli zvolit senzor, který bude vzorek vzduchu vhánět do měřícího prostoru nuceně pomocí ventilátoru nebo jen za využití stoupání teplého vzduchu nahoru. V následující tabulce jsou uvedeny senzory, které jsou relativně cenově přijatelné a daly by se využít.
+
+\newcommand{\ugcm}{\micro\gram\per\cubic\meter} % define new command used in '\SI' -> micro gram per cubic meter
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|cccc}
+    \textbf{Název}           & \textbf{Rozlišení}             & \textbf{Přesnost}                              & \textbf{Proud}                           & \textbf{Čas čtení}                \\ \hline
+    \multirow{2}{*}{PMS5003} & \multirow{2}{*}{\SI{1}{\ugcm}} & $0-100$\SI{}{\ugcm}:$\pm$\SI{10}{\micro\gram}  & \multirow{2}{*}{\SI{100}{\milli\ampere}} & \multirow{2}{*}{\SI{10}{\second}} \\
+                             &                                & $100-500$\SI{}{\ugcm}:$\pm$\SI{10}{\percent}   &                                          &                                   \\ \hline
+    \multirow{2}{*}{PM1003}  & \multirow{2}{*}{\SI{1}{\ugcm}} & $0-100$\SI{}{\ugcm}:$\pm$\SI{30}{\micro\gram}  & \multirow{2}{*}{\SI{90}{\milli\ampere}}  & \multirow{2}{*}{\SI{30}{\second}} \\
+                             &                                & $100-500$\SI{}{\ugcm}:$\pm$\SI{30}{\percent}   &                                          &                                   \\ \hline
+    \multirow{2}{*}{PM1006}  & \multirow{2}{*}{neuvedeno}     & $0-100$\SI{}{\ugcm}:$\pm$\SI{20}{\micro\gram}  & \multirow{2}{*}{\SI{30}{\milli\ampere}}  & \multirow{2}{*}{\SI{8}{\second}}  \\
+                             &                                & $100-500$\SI{}{\ugcm}:$\pm$\SI{20}{\percent}   &                                          &                                   \\ \hline
+    GP2Y1010AU0F             & záleží na ADC                  & záleží na ADC                                  & \SI{20}{\milli\ampere}                   & \SI{1}{\second}                           
+    \end{tabular}
+\end{table}
