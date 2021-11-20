@@ -121,7 +121,31 @@ LoRa (Long Range) je fyzická vrstva, kterou využívá síť LoRaWAN a~jak již
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{obrazky/ChirpSpreadSpectrum.eps}
-    \caption{Ukázka rozprostřeného spektra v čase.}
+    \includegraphics[width=0.8\textwidth]{obrazky/ChirpSpreadSpectrum.eps}
+    \caption{Ukázka průběhu rozprostřeného spektra v čase.}
     \label{fig_chirpSpreadSpectrum}
 \end{figure}
+
+\subsection{LoRaWAN}
+
+LoRaWAN definuje princip komunikační sítě a také použitý protokol, pro svou komunikaci využívá již víše zmíněnou fyzickou vrstvu LoRa. Nejčastěji se využívá zapojení sítě do hvězdy, což umožňuje jednoduše škálovat dostupnost sítě. Pro běh sítě je třeba server, který bude zpracovávat všechny příchozí zprávy a následně na ně reagovat, dále jsou třeba jednotlivé tzv.~gateway, což jsou zařízení, na které se připojují koncoví klienti (naše IoT zařízení). Ná obrázku \ref{fig_LoRaWANNetwork} je vidět příklad zapojení takovéto sítě. Je patrné, že koncová zařízení nemají pevně přiřazenou gateway na kterou se mají připojit, ale vysílají signál, který následně může přijmout libovolný počet těchto bran. Server, který tyto přijaté zprávy zpracvovává, tak musí filtrovat případné duplicitně přijaté zprávy. Tím, že zařízení vysílá zprávu "do neznáma" a nemusí řešit přihlašování k přístupovému bodu, případně do sítě, tak se tím zkracuje doba potřebná k vysílání a vede to k další úspoře energie.
+
+V dnešní době je čím dál tím víc nutné zajistit bezpečnost takto přenášených zpráv. U LoRaWAN je využit šifrovací algoritmus AES, kdy je po celou dobu přenosu zprávy od koncového zařízení až na aplikační server, který data zpracovává, jím zpráva zašifrována.
+
+Pro připojení zařízení lze využít existující komerčně nabízené sítě od např. Českých Radiokomunikací\footnote{\url{https://www.cra.cz/pripojeni-k-iot-siti-lorawan}} nebo open source sítě provozované komunitou, kde nejznámější je TTN (The Things Network)\footnote{\url{https://www.thethingsnetwork.org/}}. I v této komunitní síti však platí omezení, pokud chceme síť využívat zdarma. Jsme limitování na maximální vysílací čas \SI{30}{\second} pro uplink a maximálně 10 zpráv na downlink pro jednu node (zařízení) na den \cite{TTN_fair_use}. Hlavný výhodou však je možnost přiadt vlastní gateway a poskytovat tak připojení nejen pro sebe, ale i pro ostatní uživatele v okolí.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{obrazky/lorawanNetwork.png}
+    \caption{Typické zapojení LoRaWAN sítě. \cite{LoRaWAN_pdf}}
+    \label{fig_LoRaWANNetwork}
+\end{figure}
+
+\subsection{Sigfox}
+
+Síť Sigfox pochází z Francie a je docela podobná technologii LoRaWAN. Je opět určená pro malý přenos dat ze sledovaných zařízení skrze nelicencované frekvenční pásmo. Oproti LoRaWAN má ovšem nevýhody a to, že je třeba za přenos zpráv platit poskytovateli a provozovateli sítě. Síť totiž u nás spravuje jediný poskytovatel, ke kterému se musíme zaregistrovat a on nám poté poskytne připojení a přenos zpráv skrze jeho síť. Výhoda tohoto řešení může být v mnohem větším pokrytí daného území a odpadnutí nutnosti řešit vlastní gateway či server na zpracování přijatých dat.
+
+Přenos u nás probíhá v pásmu \SI{868}{\mega\hertz} se šířkou spektra \SI{192}{\kilo\hertz}, kde každý kanál má přiřazenou šířku \SI{100}{\hertz}. Vysílání zpráv probíhá na třech kanálech s drobným časovým odstupem, čímž se zvyšuje šance na zachycení takto vyslané zprávy. Pokrytí na našem území je zajištěno ve spojení s operátorem T-Mobile, čímž dosáhli umístění gateway na strategická místa. Dle jejich webových stránek uvádí pokrytí území ČR \SI{94}{\percent} \cite{Sigfox_pokryti}.
+
+\subsection{Nb-IoT}
+
