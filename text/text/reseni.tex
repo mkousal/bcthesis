@@ -7,7 +7,7 @@ Celé zařízení bude schopno měřit koncentraci prachových částic, koncent
 
 \subsection{Senzor koncentrace prachových částic}
 
-Na trhu je dostupných hned několik senzorů na měření koncentrace prachových částic. Jak již bylo zmíněno v teoretickém úvodu, budu vybírat senzor, který tuto koncentraci určuje na zákkladě osvícení daného vzorku vzduchu a následně měření odraženého světla. Nyní vyvstává otázka, jestli zvolit senzor, který bude vzorek vzduchu vhánět do měřícího prostoru nuceně pomocí ventilátoru nebo jen za využití stoupání teplého vzduchu nahoru. V tabulce \ref{tab_DustSensors} jsou uvedeny senzory, které jsou relativně cenově přijatelné, a~daly by se pro neprofesionální měření využít.
+Na trhu je dostupných hned několik senzorů na měření koncentrace prachových částic. Jak již bylo zmíněno v teoretickém úvodu, budu vybírat senzor, který tuto koncentraci určuje na základě osvícení daného vzorku vzduchu a následně měření odraženého světla. Nyní vyvstává otázka, jestli zvolit senzor, který bude vzorek vzduchu vhánět do měřícího prostoru nuceně pomocí ventilátoru nebo jen za využití stoupání teplého vzduchu nahoru. V tabulce \ref{tab_DustSensors} jsou uvedeny senzory, které jsou relativně cenově přijatelné, a~daly by se pro neprofesionální měření využít.
 
 \newcommand{\ugcm}{\micro\gram\per\cubic\meter} % define new command used in '\SI' -> micro gram per cubic meter
 
@@ -27,7 +27,7 @@ Na trhu je dostupných hned několik senzorů na měření koncentrace prachový
     \label{tab_DustSensors}
 \end{table}
 
-Po pečlivém prostudování jednotlivých parametrů jsem zvolil senzor PMS5003 od firmy PLANTOWER. Důležitým aspektem při výběru byla také cena tohoto senzoru, v době vypracovávání této práce jej šlo pořídit za zhruba 350~Kč. Dalším důležitým parametrem byla spotřeba proudu v aktivním stavu, na první pohled se může zdát, že oproti všem senzorům má spotřebu nejvyšší. Oproti PM1003 má však třetinový čas potřebný k získání měřených dat, takže spotřebovává sice vyšší proud, ale po kratší časový úsek. PM1006 má spotřebu proudu zhruba třetinovou, ale vzorek měřeného vzudchu se do měřícího prostoru dostává pomocí sálání a tak je nutné zajistit konstrukčně dostatečně a správně dimenzované průduchy a také konstantní polohu a hlavně náklon senzoru, což by mohlo být v praxi téměř nemožné, pokud má být zařízení používáno také ve volném prostranství. Poslední ze senzorů v tabulce \ref{tab_DustSensors} má zdánlivě nejlepší výsledky. Bohužel se jedná pouze o měřící modul samotný, který neobsahuje žádný ventilátor ani řídící logiku, je tedy třeba tyto věci zapojit a konstrukčně vyřešit. Nejjednodušší na obvodové zapojení, a i z hlediska parametrů přesnosti nejlepší, se tak jeví již zmíněný senzor PMS5003.
+Po pečlivém prostudování jednotlivých parametrů jsem zvolil senzor PMS5003 od firmy PLANTOWER. Důležitým aspektem při výběru byla také cena tohoto senzoru, v době vypracovávání této práce jej šlo pořídit za zhruba 350~Kč. Dalším důležitým parametrem byla spotřeba proudu v aktivním stavu, na první pohled se může zdát, že oproti všem senzorům má spotřebu nejvyšší. Oproti PM1003 má však třetinový čas potřebný k získání měřených dat, takže spotřebovává sice vyšší proud, ale po kratší časový úsek. PM1006 má spotřebu proudu zhruba třetinovou, ale vzorek měřeného vzduchu se do měřícího prostoru dostává pomocí sálání a tak je nutné zajistit konstrukčně dostatečně a správně dimenzované průduchy a také konstantní polohu a hlavně náklon senzoru, což by mohlo být v praxi téměř nemožné, pokud má být zařízení používáno také ve volném prostranství. Poslední ze senzorů v tabulce \ref{tab_DustSensors} má zdánlivě nejlepší výsledky. Bohužel se jedná pouze o měřící modul samotný, který neobsahuje žádný ventilátor ani řídící logiku, je tedy třeba tyto věci zapojit a konstrukčně vyřešit. Nejjednodušší na obvodové zapojení, a i z hlediska parametrů přesnosti nejlepší, se tak jeví již zmíněný senzor PMS5003. Senzor potřebuje pro svou funkci napájení \SI{5}{\volt}, a~komunikuje přes rozhraní UART.
 
 \begin{figure}
     \centering
@@ -37,4 +37,13 @@ Po pečlivém prostudování jednotlivých parametrů jsem zvolil senzor PMS5003
 \end{figure}
 
 \subsection{Senzor oxidu uhelnatého}
+
+U senzorů oxidu uhelnatého je situace o něco složitější. Na trhu neexistuje mnoho možností, ze kterých by se dalo v rozumné cenové kategorii vybírat. Pokud se podíváme do katalogů většiny (nejen českých) obchodů, zjistíme, že ceny čidel se pohybují ve vyšších stovkách korun až po několik tisíc. Tato cena je pro neprofesionální měření nepřijatelná. Jediným možným rozumným výběrem jsou čidla s označením série MQ od výrobce Hanwei electronics\footnote{\url{https://www.hwsensor.com/}}. Vybral jsem tedy čidlo s označením MQ-7, které je nejvíce citlivé právě na oxid uhelnatý. Funguje na principu ohřevu senzitivní vrstvy (zde konkrétně z materiálu $SnO_{2}$) a následně měření jejího odporu. Senzor je třeba napájet z \SI{5}{\volt} a jeho výstup je třeba přivést na AD převodník, jelikož má analogový výstup.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{obrazky/mq7.jpg}
+    \caption{Senzor pro měření koncentrace oxidu uhelnatého. \cite{img_mq7}}
+    \label{fig_MQ7}
+\end{figure}
 
