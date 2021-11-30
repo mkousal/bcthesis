@@ -47,3 +47,10 @@ U senzorů oxidu uhelnatého je situace o něco složitější. Na trhu neexistu
     \label{fig_MQ7}
 \end{figure}
 
+\subsection{Senzor UV záření}
+
+Na poli relativně levných UV senzorů je výběr opět o něco horší. Existují v podstatě dvě varianty použitelné pro neprofesionální měření a to senzor VEML6075 od výrobce VISHAY a senzor ML8511 výrobce LAPIS Semiconductor. Bohužel první ze zmíněných senzorů se nedá rozumně sehnat, skladové zásoby jsou vyprodané a několik obchodů udává, že se již nevyrábí.
+
+Volím tedy druhý zmíněný senzor ML8511. Tento senzor měří pouze intenzitu UV záření pomocí fotodiody, která je citlivá na UVA a UVB záření. Její největší citlivost je dle datasheetu \cite{dat_ML8511} na vlnovou délku \SI{365}{\nano\metre}. Pro svou činnost potřebuje napájení \SI{3,3}{\volt} a během měření je jeho maximální spotřeba \SI{500}{\micro\ampere}. Pokud jej uvedeme pomocí pinu EN do režimu standby, tak může být spotřeba maximálně \SI{1}{\micro\ampere}. Výstup senzoru je opět napěťový, takže musíme jeho výstup přivést na AD převodník. Rozsah těchto napětí je zhruba od \SI{1}{\volt} do \SI{3}{\volt}.
+
+\subsection{}
