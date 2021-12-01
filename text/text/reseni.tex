@@ -51,6 +51,23 @@ U senzorů oxidu uhelnatého je situace o něco složitější. Na trhu neexistu
 
 Na poli relativně levných UV senzorů je výběr opět o něco horší. Existují v podstatě dvě varianty použitelné pro neprofesionální měření a to senzor VEML6075 od výrobce VISHAY a senzor ML8511 výrobce LAPIS Semiconductor. Bohužel první ze zmíněných senzorů se nedá rozumně sehnat, skladové zásoby jsou vyprodané a několik obchodů udává, že se již nevyrábí.
 
-Volím tedy druhý zmíněný senzor ML8511. Tento senzor měří pouze intenzitu UV záření pomocí fotodiody, která je citlivá na UVA a UVB záření. Její největší citlivost je dle datasheetu \cite{dat_ML8511} na vlnovou délku \SI{365}{\nano\metre}. Pro svou činnost potřebuje napájení \SI{3,3}{\volt} a během měření je jeho maximální spotřeba \SI{500}{\micro\ampere}. Pokud jej uvedeme pomocí pinu EN do režimu standby, tak může být spotřeba maximálně \SI{1}{\micro\ampere}. Výstup senzoru je opět napěťový, takže musíme jeho výstup přivést na AD převodník. Rozsah těchto napětí je zhruba od \SI{1}{\volt} do \SI{3}{\volt}.
+Volím tedy druhý zmíněný senzor ML8511. Tento senzor měří pouze intenzitu UV záření pomocí fotodiody, která je citlivá na UVA a UVB záření. Její největší citlivost je dle datasheetu \cite{dat_ML8511} na vlnovou délku \SI{365}{\nano\metre}. Pro svou činnost potřebuje napájení \SI{3,3}{\volt} a během měření je jeho maximální spotřeba \SI{500}{\micro\ampere}. Pokud jej uvedeme pomocí pinu EN do režimu standby, tak může být spotřeba maximálně \SI{1}{\micro\ampere}. Výstup senzoru je opět napěťový, takže musíme jeho výstup přivést na AD převodník. Rozsah těchto napětí je zhruba od \SI{1}{\volt} do \SI{3}{\volt}, což odpovídá rozsahu \SI{0}{} až \SI{15}{\milli\watt\per\centi\metre\squared}
 
-\subsection{}
+\subsection{Senzor teploty}
+
+Na poli senzorů pro měření teploty existuje nepřeberné množství různých druhů od spousty výrobců. Pro první základní výběr vhodných senzorů je nutné si definovat alespoň základní parametry a požadavky na takovýto senzor. Vhodnými parametry jsou cena, rozsah měřených teplot (je třeba měřit i při teplotách nižších než \SI{0}{\celsius}), spotřeba a přesnost. Srovnání potenciálně použitelných senzorů se nachází v tabulce \ref{tab_TemperatureSensors}. Cena uvedená v posledním sloupci je brána v jeden den z jednoho e-shopu\footnote{\url{https://www.laskarduino.cz/}}, aby bylo možné objektivně porovnat výsledky mezi sebou.
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{c|cccc}
+    \textbf{Název} & \textbf{Rozsah}                         & \textbf{Přesnost}       & \textbf{Spotřeba}       & \textbf{Cena} \\ \hline
+    DS18B20        & \SI{-55}{\celsius} - \SI{125}{\celsius} & $\pm$\SI{0,5}{\celsius} & \SI{1,5}{\milli\ampere} & 68~Kč         \\
+    LM75A          & \SI{-25}{\celsius} - \SI{100}{\celsius} & $\pm$\SI{2}{\celsius}   & \SI{280}{\micro\ampere} & 25~Kč         \\
+    SHT31          & \SI{-40}{\celsius} - \SI{90}{\celsius}  & $\pm$\SI{0,3}{\celsius} & \SI{350}{\micro\ampere} & 158~Kč        \\
+    SHT35          & \SI{-40}{\celsius} - \SI{90}{\celsius}  & $\pm$\SI{0,2}{\celsius} & \SI{1,5}{\milli\ampere} & 378~Kč        \\
+    SHT40          & \SI{-40}{\celsius} - \SI{125}{\celsius} & $\pm$\SI{0,2}{\celsius} & \SI{350}{\micro\ampere} & 109~Kč             
+    \end{tabular}
+    \caption{Srovnání parametrů vybraných senzorů teploty.}
+    \label{tab_TemperatureSensors}
+\end{table}
+
