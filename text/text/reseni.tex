@@ -71,3 +71,14 @@ Na poli senzorů pro měření teploty existuje nepřeberné množství různýc
     \label{tab_TemperatureSensors}
 \end{table}
 
+Z tabulky \ref{tab_TemperatureSensors} jsem nakonec pro svou práci vybral senzor SHT40 od výrobce SENSIRION. Bohužel není úplně nejlevnější, ale vybral jsem jej díky jeho nízké spotřebě \SI{350}{\micro\ampere} při měření a až \SI{3,4}{\micro\ampere} v nečinném stavu a také relativně vysoké přesnosti, která je až \SI{0,2}{\celsius}. Napájení senzoru je \SI{3,3}{\volt}. S mikroprocesorem senzor komunikuje pomocí sběrnice I2C. Umožňuje měřit i relativní vlhkost vzduchu, jenže při jejím měření se senzor lehce zahřívá a tak je potom měření teploty velice zkreslené, proto tuto jeho funkci nevyužiji a na měření vlhkosti bude použit jiný senzor.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{obrazky/sht40.jpg}
+    \caption{Senzor pro měření teploty SHT40. \cite{SHT40}}
+    \label{fig_SHT40}
+\end{figure}
+
+\subsection{Senzor intenzity osvětlení}
+
