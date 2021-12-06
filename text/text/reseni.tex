@@ -71,14 +71,45 @@ Na poli senzorů pro měření teploty existuje nepřeberné množství různýc
     \label{tab_TemperatureSensors}
 \end{table}
 
-Z tabulky \ref{tab_TemperatureSensors} jsem nakonec pro svou práci vybral senzor SHT40 od výrobce SENSIRION. Bohužel není úplně nejlevnější, ale vybral jsem jej díky jeho nízké spotřebě \SI{350}{\micro\ampere} při měření a až \SI{3,4}{\micro\ampere} v nečinném stavu a také relativně vysoké přesnosti, která je až \SI{0,2}{\celsius}. Napájení senzoru je \SI{3,3}{\volt}. S mikroprocesorem senzor komunikuje pomocí sběrnice I2C. Umožňuje měřit i relativní vlhkost vzduchu, jenže při jejím měření se senzor lehce zahřívá a tak je potom měření teploty velice zkreslené, proto tuto jeho funkci nevyužiji a na měření vlhkosti bude použit jiný senzor.
+Z tabulky \ref{tab_TemperatureSensors} jsem nakonec pro svou práci vybral senzor SHT40 od výrobce SENSIRION. Bohužel není úplně nejlevnější, ale vybral jsem jej díky jeho nízké spotřebě \SI{350}{\micro\ampere} při měření a až \SI{3,4}{\micro\ampere} v nečinném stavu a také relativně vysoké přesnosti, která je až \SI{0,2}{\celsius}. Napájení senzoru je \SI{3,3}{\volt}. S mikroprocesorem senzor komunikuje pomocí sběrnice I$^2$C. Umožňuje měřit i relativní vlhkost vzduchu, jenže při jejím měření se senzor lehce zahřívá a tak je potom měření teploty velice zkreslené, proto tuto jeho funkci nevyužiji a na měření vlhkosti bude použit jiný senzor.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.7\textwidth]{obrazky/sht40.jpg}
+    \includegraphics[width=0.55\textwidth]{obrazky/sht40.jpg}
     \caption{Senzor pro měření teploty SHT40. \cite{SHT40}}
     \label{fig_SHT40}
 \end{figure}
 
 \subsection{Senzor intenzity osvětlení}
+
+Na poli senzorů pro měření intenzity osvětlení existuje hned několik dostupných variant. Liší se převážně způsobem, jakým intenzitu měří a pak také rozsahem, pro které je možné jejich použití. Pro orientační měření lze využít i prostého fotorezistoru, který zapojíme společně s odporem do série a vytvoříme si tak napěťový dělič, na kterém budeme měřiti pomocí AD převodníku analogové napětí. Tento typ měření je však silně závislý na použitém typu fotorezistoru a většinou nebývá moc přesné. Využití této metody je spíše pro účely orientačního měření a určení základních informací a to, jestli je tma či jestli je světlo. 
+
+Dalším z možných typů senzorů je využití fototranzistoru nebo fotodiody. Toto měření je přesnější než předchozí zmíněná metoda, ale vyžaduje znalost přechodové charakteristiky součástky a pro přesnější měření i kalibraci vůči známé referenční hodnotě intenzity osvětlení.
+
+Mnohem vhodnějším typem senzorů pro toto konkrétní použití je tak integrovaný senzor, který obsahuje jednak samotnou na světlo citlivou vrstvu a druhak i řídící logiku, která nám poskytuje digitální výstup ze senzoru například ve formě sériové sběrnice.
+
+V tabulce \ref{tab_LuxIntensitySensors} jsou uvedeny vybrané druhy integrovaných senzorů a jejich základní vlastnosti.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|cc}
+        \textbf{Název} & \textbf{Rozsah}            & \textbf{Spotřeba}         \\ \hline
+        GY-302 BH1750  & \SI{0}{}-\SI{65535}{\lux}  & \SI{200}{\micro\ampere}   \\
+        TSL2561        & \SI{0}{}-\SI{40000}{\lux}  & \SI{0,6}{\milli\ampere}   \\
+        VEML7700       & \SI{0}{}-\SI{120000}{\lux} & \SI{50}{\micro\ampere}
+    \end{tabular}
+    \caption{Srovnání parametrů vybraných senzorů intenzity osvětlení}
+    \label{tab_LuxIntensitySensors}
+\end{table}
+
+Z těchto vybraných dostupných senzorů jsem zvolil poslední z tabulky VEML7700. Tento senzor má velmi nízkou spotřebu i při nejrychlejším cyklu čtení (\SI{100}{\milli\second}) a největší rozsah možného měření. Při porovnání cen se nachází zhruba ve stejné cenové hladině jako druhý nejlepší z této tabulky GY-302~BH1750. S mikrokontrolerem senzor bude komunikovat pomocí sběrnice I$^2$C a napájen bude z \SI{3,3}{\volt}.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.4\textwidth]{obrazky/veml7700.png}
+    \caption{Senzor pro měření intenzity osvětlení VEML7700. \cite{VEML7700}}
+    \label{fig_VEML7700}
+\end{figure}
+
+\subsection{Senzor atmosférického tlaku}
 
