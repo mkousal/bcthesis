@@ -71,7 +71,7 @@ Na poli senzorů pro měření teploty existuje nepřeberné množství různýc
     \label{tab_TemperatureSensors}
 \end{table}
 
-Z tabulky \ref{tab_TemperatureSensors} jsem nakonec pro svou práci vybral senzor SHT40 od výrobce SENSIRION. Bohužel není úplně nejlevnější, ale vybral jsem jej díky jeho nízké spotřebě \SI{350}{\micro\ampere} při měření a až \SI{3,4}{\micro\ampere} v nečinném stavu a také relativně vysoké přesnosti, která je až \SI{0,2}{\celsius}. Napájení senzoru je \SI{3,3}{\volt}. S mikroprocesorem senzor komunikuje pomocí sběrnice I$^2$C. Umožňuje měřit i relativní vlhkost vzduchu, jenže při jejím měření se senzor lehce zahřívá a tak je potom měření teploty velice zkreslené, proto tuto jeho funkci nevyužiji a na měření vlhkosti bude použit jiný senzor.
+Z tabulky \ref{tab_TemperatureSensors} jsem nakonec pro svou práci vybral senzor SHT40 od výrobce SENSIRION. Bohužel není úplně nejlevnější, ale vybral jsem jej díky jeho nízké spotřebě \SI{350}{\micro\ampere} při měření a až \SI{3,4}{\micro\ampere} v nečinném stavu a také relativně vysoké přesnosti, která je až \SI{0,2}{\celsius}. Napájení senzoru je \SI{3,3}{\volt}. S mikroprocesorem senzor komunikuje pomocí sběrnice I$^2$C. 
 
 \begin{figure}
     \centering
@@ -98,7 +98,7 @@ V tabulce \ref{tab_LuxIntensitySensors} jsou uvedeny vybrané druhy integrovaný
         TSL2561        & \SI{0}{}-\SI{40000}{\lux}  & \SI{0,6}{\milli\ampere}   \\
         VEML7700       & \SI{0}{}-\SI{120000}{\lux} & \SI{50}{\micro\ampere}
     \end{tabular}
-    \caption{Srovnání parametrů vybraných senzorů intenzity osvětlení}
+    \caption{Srovnání parametrů vybraných senzorů intenzity osvětlení.}
     \label{tab_LuxIntensitySensors}
 \end{table}
 
@@ -120,8 +120,21 @@ Budu tedy porovnávat senzory, které měří pouze atmosférický tlak a jsou d
 \begin{table}
     \centering
     \begin{tabular}{c|ccc}
-        &&&
+        \textbf{Název} & \textbf{Rozsah}                     & \textbf{Přesnost}      & \textbf{Spotřeba}        \\ \hline
+        BMP180         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{3}{\pascal}   & \SI{12}{\micro\ampere}   \\
+        BMP280         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{1,3}{\pascal} & \SI{2,7}{\micro\ampere}  \\
+        BMP388         & \SI{300}{}-\SI{1250}{\hecto\pascal} & $\pm$\SI{8}{\pascal}   & \SI{3,4}{\micro\ampere}  \\
+        BME280         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{2}{\pascal}   & \SI{7,1}{\micro\ampere}  \\
+        ICP-10100      & \SI{300}{}-\SI{1150}{\hecto\pascal} & $\pm$\SI{3,2}{\pascal} & \SI{10,4}{\micro\ampere} 
     \end{tabular}
-    \caption{}
-    \label{}
+    \caption{Srovnání parametrů vybraných senzorů atmosférického tlaku.}
+    \label{tab_AirPressureSensors}
 \end{table}
+
+Jak je uvedeno v tabulce \ref{tab_AirPressureSensors}, je vidět že většina senzorů atmosférického tlaku je od výrobce Bosch Sensortec. Vyskytuje se zde již zmiňovaný BME280, který je ale moc drahý a momentálně nedostupný a při měření tlaku má jednu z vyšších spotřeb. Dalším ideálním adeptem by byl i senzor BMP280, který umožňuje měřit atmosférický tlak i teplotu. Bohužel ani tento senzor není příliš dostupný a dle oficiálních stránek výrobce již není doporučen pro nové návrhy.
+
+Vybral jsem tedy senzor BMP388 od firmy Bosch Sensortec. Nepatří bohužel mezi nejlevnější, ale zato je dostupný v obchodech a poskytuje vzhledem ke své dostupnosti relativně dobré parametry samotného měření. Stejně jako dříve zmíněné senzory, i tento senzor umožňuje kromě atmosférického tlaku měřit i teplotu. Pro komunikaci s mikrokontrolerem lze použít sběrnici I$^2$C nebo SPI, jelikož je většina vybraných senzorů na sběrnici I$^2$C, použiji stejnou sběrnici i pro tento senzor. Napájení je třeba přivést \SI{3,3}{\volt}.
+
+\subsection{Senzor měření vlhkosti}
+
+Jak již bylo zmíněno v kapitole o výběru senzoru pro měření teploty, vybraný senzor SHT40 umožňuje měřit i vzdušnou vlhkost. Rozsah měření je \SI{0}{}-\SI{100}{\percent} relativní vlhkosti s přeností $\pm$\SI{1,8}{\percent}. Pro potřeby měření vzdušné vlhkosti v této práci jsou tyto parametry s přehledem dostatečné.
