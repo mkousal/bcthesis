@@ -29,6 +29,7 @@ Dříve používané LED mají nevýhodu v~tom, že vyzařují široký paprsek 
 Poslední součástí těchto detektorů je mechanismus, kterým se do senzoru dostává čerstvý vzorek vzduchu. Nejjednodušší je využití malého ventilátoru, který bude do prostoru senzoru vhánět čerstvý vzduch z~okolí. Nevýhodou takového řešení je hlučnost senzoru a~také možnost zanášení senzoru nečistotami z~okolí. Proto se objevují i~senzory, které mají tento ventilátor nahrazeny topným elementem (nejčastěji výkonový rezistor), kterým protéká proud a~ohřívá vzduch okolo. Ten pak díky rozdílné hustotě teplého a~studeného vzduchu začne stoupat vzhůru a~unáší s~sebou prachové částice do měřeného prostoru. Zde je ovšem třeba dávat pozor na konstrukci takového senzoru a~na výrobcem předepsané požadavky na montáž, jelikož jej nelze umístit téměř libovolně v~prostoru, jako tomu může být u senzoru s~ventilátorem.
 
 \begin{figure}
+    \centering
     \includegraphics[width=0.70\textwidth]{obrazky/dustSensorPrinciple.png}
     \caption{Blokové schéma senzoru prachových částic PM1003. \cite{PM1003Datasheet}}
     \label{fig_dustSensorPrinciple}
@@ -100,6 +101,7 @@ V dnešní době jsou velice rozšířené tzv. MEMS senzory. Jsou založeny na 
 Při využití principu kondenzátoru je jedna z~elektrod pevně spojená s~pouzdrem, a~následně je druhá elektroda upevněna nad tuto první, tím vznikne kondenzátor, jak je vidět na obrázku \ref{fig_memsCapacitiveSensor}. Druhá elektroda je mechanicky vyrobena tak, aby měla přístup k~okolnímu prostoru a~mohl na ni tudíž působit okolní atmosférický tlak. Díky jeho působení se začne prohýbat a~přibližovat druhé elektrodě, čímž se mění celková kapacita tohoto kondenzátoru a~tu jsme schopni následně měřit a~na jejím základě určit působící atmosférický tlak.
 
 \begin{figure}
+    \centering
     \includegraphics[width=0.7\textwidth]{obrazky/MEMS_capacitive_sensor.jpg}
     \caption{MEMS kapacitní senzor tlaku. \cite{AvnetMEMS}}
     \label{fig_memsCapacitiveSensor}
