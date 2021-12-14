@@ -141,5 +141,33 @@ Jak již bylo zmíněno v~kapitole o~výběru senzoru pro měření teploty, vyb
 
 \section{Výběr řídícího mikrokontroléru}
 
-Mikrokontroler je hlavním řídícím prvkem celého zařízení. Při jeho výběru je nutné dbát na spousty mnohdy protichůdných parametrů. Jedním z hlavních a nejdůležitějších parametrů jsou požadavky na hardwarové periferie a celkově výbavu daného mikrokontroleru. Jak již bylo popsáno v předchozích kapitolách této práce, je nutné všechny senzory připojit pomocí různých sběrnic či zajistit AD převodník pro připojení analogových výstupů ze senzorů.
+Mikrokontroler je hlavním řídícím prvkem celého zařízení. Při jeho výběru je nutné dbát na spousty mnohdy protichůdných parametrů. Jedním z hlavních a nejdůležitějších parametrů jsou požadavky na hardwarové periferie a celkově výbavu daného mikrokontroleru. Jak již bylo popsáno v předchozích kapitolách této práce, je nutné všechny senzory připojit pomocí různých sběrnic či zajistit AD převodník pro připojení analogových výstupů ze senzorů. Také je třeba dbát na dostatečný počet vstupně-výstupních pinů.
+
+V dnešní době má spousta mikrokontrolerů přímo v sobě integrovanou rádiovou část, takže jsou schopny se připojit např. na WiFi, komunikovat s ostatními zařízeními přes Bluetooth či posílat zprávy přes LoRa síť. Toto řešení zjednodušuje návrh výsledného zařízení a také dokáže snížit výrobní náklady, jelikož je vše obsaženo v jednom čipu a není třeba osazovat několik samostatných čipů. Zároveň snižuje pravděpodobnost chybného návrhu nebo eliminuje další možný zdroj poruch, jelikož každý další použitý čip na desce a spojení k němu je možným zdrojem problémů.
+
+Pro výběr v této práci budu uvažovat výběr mikrokontrolerů od největších výrobců jako jsou STMicroelectronics, Atmel (dnes Microchip) nebo Espressif Systems. Existuje samozřejmě spousta dalších výrobců, ale tihle uvedení jsou jedni z největších, nejznámějších a nejdostupnějších. Porovnání ceny v tabulce \ref{tab_MCU} je provedeno v jeden den z jednoho obchodu\footnote{\url{https://www.tme.eu/cz/}} pro možnost objektivního posouzení. Do tabulky pro srovnání jsem vybral pouze nejdůležitější parametry daných mikrokontrolerů jako jsou hardwarové periferie pro sběrnice, počet GPIO (vstupně-výstupních pinů), přítomnost WiFi rozhraní a cenu.
+
+\begin{figure}[h]
+    \centering
+    \begin{tabular}{c|cccccc}
+        \textbf{Název}                         & \textbf{I$^2$C} & \textbf{SPI} & \textbf{GPIO} & \textbf{USART} & \textbf{WiFi} & \textbf{Cena} \\ \hline
+        ATmega328P \cite{dat_ATmega328p}       & 1 & 1 & 23 & 1 & Ne  & 70~Kč \\
+        ESP32 WROOM \cite{dat_ESP32-WROOM}     & 2 & 4 & 34 & 3 & Ano & 80~Kč \\
+        ATSAM4LC2 \cite{dat_ATSAM4LC2}         & 2 & 1 & 27 & 3 & Ne  & 90~Kč \\
+        STM8L162R8T6 \cite{dat_STM8L162R8T6}   & 1 & 2 & 54 & 3 & Ne  & 110~Kč \\
+        STM32L051C8T6 \cite{dat_STM32L051C8T6} & 2 & 2 & 37 & 2 & Ne  & 180~Kč
+        
+    \end{tabular}
+    \caption{Srovnání parametrů vybraných mikrokontrolerů.}
+    \label{tab_MCU}
+\end{figure}
+
+Z výše uvedené tabulky \ref{tab_MCU} jsem nakonec vybral mikrokontroler ESP32~WROOM od výrobce Espressif Systems. Z hlediska ceny není nejlevější, ale pokud se podíváme na parametry, které za tuto cenu nabízí, tak je to bezkonkurenční nabídka. Mikrokontroler samotný obsahuje kromě výše zmíněných parametrů i rádiovou část ve které je obsažena WiFi a Bluetooth, takže pro bezdrátové spojení není třeba použít žádný další modul. Mikrokontroler běží až na frekvenci \SI{240}{\mega\hertz} a obsahuje dvě jádra, takže je možné velmi ryhle paralelně zpracovávat data. Mikrokontroler samotný je navržen pro IoT aplikace, takže je dbáno na velmi nízkou spotřebu při práci i v mnoha režimech spánku, které je možné aktivovat. Hlavní dvě jádra mikrokontroleru jsou doplněna o tzv. ULP (Ultra Low Power) koprocesor, který je možné aktivovat v režimu spánku a vykonávat tak velice jednoduché sekvence příkazů a ovládat například výstupní piny. Na obrázku \ref{fig_ESP32InternalStructure} je vidět blokové schéma struktury mikroprocesoru ESP32 včetně všech jeho hardwarových periferií.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{obrazky/esp32_internalStructure.png}
+    \caption{Blokový diagram mikrokontroleru ESP32.\cite{dat_ESP32-WROOM}}
+    \label{fig_ESP32InternalStructure}
+\end{figure}
 
