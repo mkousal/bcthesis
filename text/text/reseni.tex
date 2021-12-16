@@ -171,13 +171,31 @@ Z výše uvedené tabulky \ref{tab_MCU} jsem nakonec vybral mikrokontroler ESP32
     \label{fig_ESP32InternalStructure}
 \end{figure}
 
+\subsection{Analogově digitální převodník}
+
+Jak již bylo zmíněno v předchozích kapitolách o výběru senzorů, bude potřeba zajistit analogové vstupy na mikrokontroleru. Bohužel ESP32 nemá příliš přesný AD převodník a je třeba provádět poměrně náročnou kalibraci pro každý zakoupený čip zvlášť, jak je zmíněno přímo v oficiální dokumentaci\footnote{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html}. Nelze provádět ani kalibraci na jednom daném vzorku pro danou výrobní sérii.
+
+Kvůli těmto výše uvedeným důvodům jsem se rozhodl pro tuto práci využít externí AD převodník, čímž by se měla zvýšit přesnost měření a zajistit reprodukovatelné výsledky při použití jiného mikrokontroleru. Hlavním požadavkem na výběr tohoto převodníku byla cena, dostupnost a spotřeba. Pro tuto práci je zapotřebí převodník, který bude moci být napájen z \SI{3,3}{\volt} a bude mít alespoň 2 vstupní kanály. Těmto požadavkům nejlépe vyhověl AD převodník MCP3202 od firmy Microchip Technology Inc.\cite{dat_MCP3202}. Obsahuje dva kanály s rozlišením 12 bitů. Připojení k mikrokontroleru je provedeno přes sběrnici SPI a maximální spotřeba při čtení je \SI{550}{\micro\ampere} při \SI{5}{\volt} napájení.
+
 \section{Přenos dat na server}
 
 Pro přenos naměřených dat na server je k dispozici celá řada možností, jak to provést. Jelikož budou data zpracovávána na serveru, který je dostupný přes síť internet, je třeba zajistit, aby se tam data dostala. Pro první pokusy bude nejjednodušší použití sítě WiFi, do které se se zařízením lze jednoduše připojit a poté se lze připojit na zpracovávatelský server. Toto řešení je ovšem nevhodné pro použití kdekoliv mimo obydlené oblasti či oblasti, kde máme pokrytí svou vlastní WiFi, protože se nelze spoléhat na to, že v daném místě potřeby bude nějaká např. veřejná síť. Další z nevýhod této technologie je její relativní energetická náročnost, jelikož je třeba vysílat na frekvenci \SI{2,4}{\giga\hertz} a po připojení musí zařízení získat IP adresu, což nějakou dobu trvá a poté může teprve probíhat komunikace. Jelikož však síť internetu a její protokoly nejsou uzpůsobeny na redukci datového toku, je celý přenos výrazně delší než vyslání zprávy např. přes síť LoRaWAN, což má opět negativní dopad na spotřebu energie.
 
 Z výše uvedených důvodů se hodí využití jiné sítě, která je pro tato IoT zařízení přizpůsobená, je méně energeticky náročná a umožňuje připojení zařízení na řádově větší vzdálenosti. Jako nejjednodušší se jeví použití sítě LoRa. Pro tuto síť existuje na trhu mnoho komunikačních modulů, které jsou i relativně cenově přijatelné. Síť jako taková není zatížena licenčními poplatky, je však možnost využití již existující infrastruktury od nějaké firmy (u nás například České Radiokomunikace a.s.\footnote{https://www.cra.cz/pripojeni-k-iot-siti-lorawan}) kde se poté platí poplatky za využívání připojení k jejich síti či případné další služby.
 
-Pokud chceme připojit zařízení přes LoRaWAN, ale nechceme být zavázání poskytovateli služeb a platit poplatky, je možnost použít některou z dostupných sítí, které jsou zdarma. Většinou se zde vyskytují omezení např. v počtu přenesených zpráv za daný čas nebo počet připojených zařízení. Jednou z nejznámějších sítí je TTN (The Things Network\footnote{https://www.thethingsnetwork.org/}). Princip této sítě je postaven na infrastruktuře, kterou do sítě připojují samotní uživatelé a tato služba je koncentruje na jeden server. Uživatelé tak mají možnost připojovat svoje vlastní gateway a poté libovolně v dosahu jakékoli jiné gateway připojené do sítě přenášet data ze své node.
+Pokud chceme připojit zařízení přes LoRaWAN, ale nechceme být zavázání poskytovateli služeb a platit poplatky, je možnost použít některou z dostupných sítí, které jsou zdarma. Většinou se zde vyskytují omezení např. v počtu přenesených zpráv za daný čas nebo počet připojených zařízení. Jednou z nejznámějších sítí je TTN (The Things Network\footnote{https://www.thethingsnetwork.org/}). Princip této sítě je postaven na infrastruktuře, kterou do sítě připojují samotní uživatelé a tato služba je koncentruje na jeden server. Uživatelé tak mají možnost připojovat svoje vlastní gateway a poté libovolně v dosahu jakékoli jiné gateway připojené do sítě přenášet data ze svých zařízení.
 
 \subsection{Výběr LoRa modulu}
+
+Pro výběr LoRa modulu bude nejdůležitějším parametrem cena a dostupnost. Na našem území je dle ČTÚ a její národní kmitočtové tabulky\cite{kmitoctovaTabulka} povoleno provozovat LoRa zařízení v ISM pásmu \SI{868}{MHz}. Toto je také třeba zohlednit při výběru vhodného modulu. Dalším z kritérií byla dostupnost kvalitní dokumentace a také jestli existují příklady k použití daného modulu.
+
+\DeclareSIUnit \belm {Bm}   %% declaration of Bel upper the milliwatt unit
+Daným kritériím bezesporu vyhověl modul s označením RFM95W \cite{dat_RFM95W}, založený na čipu RF96. Jak již bylo zmíněno, modul pracuje na frekvenci \SI{868}{\mega\hertz} a nejvyšší možný výkon vysílače je \SI{20}{\deci\belm}. Modul pro své fungování potřebuje napájení \SI{3,3}{\volt} a při běžném vysílání výkonem \SI{+7}{\deci\belm} a dokonale přizpůsobené anténě na impedanci \SI{50}{\ohm} je jeho spotřeba \SI{20}{\milli\ampere}. Pro připojení k mikrokontroleru je zapotřebí sběrnice SPI a alespoň 1 GPIO (ideálně s podporou interruptu), jelikož modul umožňuje při přijetí dat ze sítě změnit logickou hodnotu na tomto pinu a tím dát hlavnímu mikrokontroleru vědět, že má přijatá data přečíst a zpracovat. 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\textwidth]{obrazky/rfm95w.jpg}
+    \caption{LoRa modul RFM95W.}
+    \label{fig_RFM95W}
+\end{figure}
 
