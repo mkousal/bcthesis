@@ -199,3 +199,14 @@ Daným kritériím bezesporu vyhověl modul s označením RFM95W \cite{dat_RFM95
     \label{fig_RFM95W}
 \end{figure}
 
+\section{Napájení zařízení}
+
+První verze tohoto zařízení bude napájena z \SI{5}{\volt} a bude tak možné využít např. mobilní nabíječky či powerbanky. Výhoodu tohoto řešení je zaručený zdroj napětí \SI{5}{\volt} a odpadá také nutnost například hlídání stavu baterií nebo řízení jejich nabíjení. V budoucích verzích ovšem chci zařízení napájet právě z baterií, aby odpadla nutnost mít k dispozici elektrickou rozvodnou síť a aby zařízení bylo použitelné kdekoli.
+
+Celé zařízení ke své funkci tedy potřebuje napětí \SI{5}{\volt} a \SI{3,3}{\volt}. První ze zmíněných napětí bude bráno přímo ze zdroje (nabíječka nebo powerbanka) a není třeba se o něj více starat, jelikož tyto zařízení mají integrované různé druhy ochran (přepětí, nadrpoudová aj.). Je tedy třeba zajistit napájecí zdroj poskytující napětí \SI{3,3}{\volt}. Pro tyto účely bude třeba použít tzv. step-down měnič. Jelikož bude použit také externí AD převodník, je vhodné mu zajistit napájecí napětí, které nebude zatíženo zvlněním či jinými neduhy danými spínaným měničem. Z tohoto důvodu bude pro jeho napájení použit lineární stabilizítor. Protože je však rozdíl mezi vstupním napětím (\SI{5}{\volt}) a potřebným výstupním napětím (\SI{3,3}{\volt}) nižší než \SI{2}{\volt}, je třeba použít tzv. LDO (Low Dropout) lineární stabilizátor.
+
+\subsection{Výběr step-down měniče}
+
+Step-down měničů existují na trhu stovky různých druhů od všemožných výrobců. Výběr je tedy nutné provést převážně na základě potřebných parametrů jako jsou vstupní napětí, výstupní napětí a potřebný dodávaný proud. Jelikož je celé zařízení koncipováno jako nízkopříkonové, je vhodné podívat se také na výrobcem udávaný proud potřebný pro provoz samotného měniče. nejdůležitějším parametrem je bohužel v dnešní době dostupnost daného měniče a také jeho cena.
+
+Já jsem pro svou práci vybral step-down měnič TPS54331 od výrobce Texas Instruments Incorporated\cite{dat_TPS54331}. 
