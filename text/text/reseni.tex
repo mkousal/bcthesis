@@ -259,3 +259,16 @@ Výsledné zapojení tohoto měniče je vidět na obrázku \ref{fig_StepDown-sch
     \label{fig_StepDown-schematic}
 \end{figure}
 
+\subsection{Výběr lineárního stabilizátoru}
+
+Jak již bylo zmíněno v předchozích kapitolách, pro napájení AD převodníku bude třeba vybrat lineární stabilizátor s malým úbytkem napětí, tzv. LDO. Bohužel nikde neexistuje přesná definice, co je LDO stabilizátor a co už ne, je třeba toto označení brát lehce s rezervou. V praxi se tak obvykle označují stabilizátory s úbytkem napětí zhruba do \SI{2}{\volt}.
+
+Já jsem pro tuto práci vybral stabilizátor od výrobce Advanced Monolithic Systems AMS1117 \cite{dat_AMS1117} ve variantě s pevně nastaveným výstupním napětím na \SI{3,3}{\volt}. Stabilizátor jako takový nepotřebuje pro svou funkci kromě filtračních kondenzátorů na vstupu a výstupu žádné další externí součástky. Podle datasheetu výrobce zaručuje rozptyl výstupního napětí maximálně $\pm\SI{10}{\milli\volt}$ a potlačení vstupního rušení o alespoň \SI{60}{\deci\bel}, což je pro AD převodník žádaná vlastnost. Filtrační kondenzátory byly zvoleny podle doporučení výrobce \SI{22}{\micro\farad} na vstupu i na výstupu v keramickém provedení. Kvůli úspoře energie bude možnost vypínat tento stabilizátor a tím i následně AD převodník. Výsledné schéma zapojení lineárního stabilizátoru je vidět na obrázku \ref{fig_LDO-schematic}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{obrazky/ldo-schematic.pdf}
+    \caption{Schéma zapojení lineárního stabilizátoru.}
+    \label{fig_LDO-schematic}
+\end{figure}
+
