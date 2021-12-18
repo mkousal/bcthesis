@@ -209,4 +209,45 @@ Celé zařízení ke své funkci tedy potřebuje napětí \SI{5}{\volt} a \SI{3,
 
 Step-down měničů existují na trhu stovky různých druhů od všemožných výrobců. Výběr je tedy nutné provést převážně na základě potřebných parametrů jako jsou vstupní napětí, výstupní napětí a potřebný dodávaný proud. Jelikož je celé zařízení koncipováno jako nízkopříkonové, je vhodné podívat se také na výrobcem udávaný proud potřebný pro provoz samotného měniče. nejdůležitějším parametrem je bohužel v dnešní době dostupnost daného měniče a také jeho cena.
 
-Já jsem pro svou práci vybral step-down měnič TPS54331 od výrobce Texas Instruments Incorporated\cite{dat_TPS54331}. 
+Já jsem pro svou práci vybral step-down měnič TPS54331 od výrobce Texas Instruments Incorporated\cite{dat_TPS54331}. Tento měnič lze používat až do vstupního napětí \SI{28}{\volt} a odebírat z něj výstupní proud \SI{3}{\ampere}. Díky tomu, že měnič obsahuje výkonový spínací tranzistor, tak není potřeba příliš mnoho externích součástek. Na obrázku \ref{fig_Schematic-TPS54331} je vidět zjednodušené zapojení tohoto měniče.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\textwidth]{obrazky/schematicTPS54331.png}
+    \caption{Zjednodušené schéma zapojení měniče TPS54331.\cite{dat_TPS54331}}
+    \label{fig_Schematic-TPS54331}
+\end{figure}
+
+\subsubsection{Návrh hodnot součástek step-down měniče}
+
+Při návrhu součástek budu vycházet z datasheetu poskytnutého výrobcem \cite{dat_TPS54331}. Prvním z potřebných kroků je zvolení odporů do napětového děliče tvořícího zpětnou vazbu, která zajišťuje nastavení výstupního napětí. Jejich hodnotu spočítám z rovnice \ref{eq_VoltageDivider}.
+\begin{equation}
+    R_{O2}=\frac{R_{O1}\cdot V_{ref}}{V_{out}-V_{ref}}
+    \label{eq_VoltageDivider}
+\end{equation}
+
+Kde známe hodnoty $V_{ref} = \SI{0,8}{\volt}$ a hodnotu požadovaného výstupního napětí $V_{out} = \SI{3,3}{\volt}$. Z toho vyplývá, že máme dva neznámé odpory a musíme jeden z nich zvolit. Já si volím například $R_{O1}=\SI{15}{\kilo\ohm}$ a poté dopočítám $R_{O2}$ jako:
+
+\begin{equation}
+    R_{O2}=\frac{R_{O1}\cdot V_{ref}}{V_{out}-V_{ref}}=\frac{15000\cdot 0,8}{3,3-0,8}=\SI{4800}{\ohm}
+    \label{eq_VoltageDivider-full}
+\end{equation}
+
+Tento odpor bohužel není ve standardní řadě odporů, proto jsem jej zaokrouhlil na nejbližší hodnotu $R_{O2}=\SI{4,7}{\kilo\ohm}$, v tomto případě bude výstupní napětí $V_{out}=\SI{3,35}{\volt}$, což je naprosto přijatelné, alespoň bude menší rezerva při poklesu napětí se skokovou změnou zátěže.
+
+Další z potřebných volených součástek jsou vstupní filtrační kondenzátory, ve schématu na obrázku \ref{fig_Schematic-TPS54331} označovány jako $C1$. Dle datasheetu je vhodné zvolit hodnotu okolo \SI{10}{\micro\farad}. Já zvolím 2x \SI{4,7}{\micro\farad} keramický kondenzátor z dielektrika X5R na napětí \SI{16}{\volt} a k těmto dvěma ještě jeden \SI{10}{\nano\farad} pro potlačení vysokofrekvenčního rušení.
+
+Poslední z hlavních počítaných součástek step-down měniče je výstupní LC filtr. Hlavní součástkou tohoto filtru je cívka, která musí mít správnou velikost indukčnosti i z pohledu fungování měniče a také musí být dostatečně proudově dimenzovaná podle odebíraného výstupního proudu. Minimální hodnota indukčnosti se spočítá z rovnice \ref{eq_Inductor} kde $V_{OUT(max)}=V_{OUT}=\SI{3,3}{\volt}$, $V_{IN(max)}=\SI{5}{\volt}$, $I_{OUT}=\SI{1,5}{\ampere}$ a $f_{SW}=\SI{570}{\kilo\hertz}$. Dále je zde přítomen parametr $K_{IND}$, který se volí podle druhu použitých výstupních kondenzátorů. Já budu mít kereamické kondenzátory a ty mají nízké ESR, takže mohu tento parametr volit jako $K_{IND}=0.3$.
+
+\begin{equation}
+    L_{MIN}=\frac{V_{OUT(max)}\cdot (V_{IN(max)}-V_{OUT})}{V_{IN(max)}\cdot K_{IND}\cdot I_{OUT}\cdot f_{SW}}=\frac{3.3\cdot (5-3.3)}{5\cdot 0.3\cdot 1.5 \cdot 570000}=\SI{4,37}{\micro\henry}
+    \label{eq_Inductor}
+\end{equation}
+
+Tato vypočítaná hodnota je minimální a je třeba zvolit alespoň nejbližší vyšší běžně dostupnou hodnotu, takže výsledná hodnota indukčnosti cívky bude $L=\SI{4,7}{\micro\henry}$. 
+
+Hodnotu výstupních filtračních kondenzátorů jsem zvolil podle tabulky~1 v datasheetu \cite{dat_TPS54331} a vychází nám z toho 2x \SI{47}{\micro\farad}. Z této stejné tabulky jsem určil také hodnoty součástek kompenzační smyčky $C1,C2$ a $R3$.
+
+Nedílnou součástí měniče je dioda na výstupu $D1$, kterou je třeba dostatečně proudově dimenzovat. Je vhodné také zvolit didodu, která má nízký úbytek napětí (Schotkyho dioda). Já jsem zvolil diodu s označením SS54 od výrobce Microdiode Electronics. Maximální napětí na této diodě je \SI{40}{\volt}, maximální procházející proud je \SI{5}{\ampere} a úbytek na této diodě je \SI{550}{\milli\volt}.
+
+Výsledné zapojení tohoto měniče je vidět na obrázku \ref{fig}.
