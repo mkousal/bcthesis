@@ -237,7 +237,7 @@ Tento odpor bohužel není ve standardní řadě odporů, proto jsem jej zaokrou
 
 Další z potřebných volených součástek jsou vstupní filtrační kondenzátory, ve schématu na obrázku \ref{fig_Schematic-TPS54331} označovány jako $C1$. Dle datasheetu je vhodné zvolit hodnotu okolo \SI{10}{\micro\farad}. Já zvolím 2x \SI{4,7}{\micro\farad} keramický kondenzátor z dielektrika X5R na napětí \SI{16}{\volt} a k těmto dvěma ještě jeden \SI{10}{\nano\farad} pro potlačení vysokofrekvenčního rušení.
 
-Poslední z hlavních počítaných součástek step-down měniče je výstupní LC filtr. Hlavní součástkou tohoto filtru je cívka, která musí mít správnou velikost indukčnosti i z pohledu fungování měniče a také musí být dostatečně proudově dimenzovaná podle odebíraného výstupního proudu. Minimální hodnota indukčnosti se spočítá z rovnice \ref{eq_Inductor} kde $V_{OUT(max)}=V_{OUT}=\SI{3,3}{\volt}$, $V_{IN(max)}=\SI{5}{\volt}$, $I_{OUT}=\SI{1,5}{\ampere}$ a $f_{SW}=\SI{570}{\kilo\hertz}$. Dále je zde přítomen parametr $K_{IND}$, který se volí podle druhu použitých výstupních kondenzátorů. Já budu mít kereamické kondenzátory a ty mají nízké ESR, takže mohu tento parametr volit jako $K_{IND}=0.3$.
+Poslední z hlavních počítaných součástek step-down měniče je výstupní LC filtr. Hlavní součástkou tohoto filtru je cívka, která musí mít správnou velikost indukčnosti i z pohledu fungování měniče a také musí být dostatečně proudově dimenzovaná podle odebíraného výstupního proudu. Minimální hodnota indukčnosti se spočítá z rovnice \ref{eq_Inductor} kde $V_{OUT(max)}=V_{OUT}=\SI{3,3}{\volt}$, $V_{IN(max)}=\SI{5}{\volt}$, $I_{OUT}=\SI{1,5}{\ampere}$ a $f_{SW}=\SI{570}{\kilo\hertz}$. Dále je zde přítomen parametr $K_{IND}$, který se volí podle druhu použitých výstupních kondenzátorů. Já budu mít kereamické kondenzátory a ty mají nízké ESR, takže mohu tento parametr volit jako $K_{IND}=0.3[-]$.
 
 \begin{equation}
     L_{MIN}=\frac{V_{OUT(max)}\cdot (V_{IN(max)}-V_{OUT})}{V_{IN(max)}\cdot K_{IND}\cdot I_{OUT}\cdot f_{SW}}=\frac{3.3\cdot (5-3.3)}{5\cdot 0.3\cdot 1.5 \cdot 570000}=\SI{4,37}{\micro\henry}
@@ -246,8 +246,16 @@ Poslední z hlavních počítaných součástek step-down měniče je výstupní
 
 Tato vypočítaná hodnota je minimální a je třeba zvolit alespoň nejbližší vyšší běžně dostupnou hodnotu, takže výsledná hodnota indukčnosti cívky bude $L=\SI{4,7}{\micro\henry}$. 
 
-Hodnotu výstupních filtračních kondenzátorů jsem zvolil podle tabulky~1 v datasheetu \cite{dat_TPS54331} a vychází nám z toho 2x \SI{47}{\micro\farad}. Z této stejné tabulky jsem určil také hodnoty součástek kompenzační smyčky $C1,C2$ a $R3$.
+Hodnotu výstupních filtračních kondenzátorů jsem zvolil podle tabulky~1 v datasheetu \cite{dat_TPS54331} a vychází nám z toho 2x \SI{47}{\micro\farad}. Z této stejné tabulky jsem určil také hodnoty součástek kompenzační smyčky $C1$,$C2$ a $R3$.
 
-Nedílnou součástí měniče je dioda na výstupu $D1$, kterou je třeba dostatečně proudově dimenzovat. Je vhodné také zvolit didodu, která má nízký úbytek napětí (Schotkyho dioda). Já jsem zvolil diodu s označením SS54 od výrobce Microdiode Electronics. Maximální napětí na této diodě je \SI{40}{\volt}, maximální procházející proud je \SI{5}{\ampere} a úbytek na této diodě je \SI{550}{\milli\volt}.
+Nedílnou součástí měniče je dioda na výstupu $D1$, kterou je třeba dostatečně proudově a napěťově dimenzovat. Je vhodné také zvolit didodu, která má nízký úbytek napětí (Schottkyho dioda). Já jsem zvolil diodu s označením SS54 od výrobce Microdiode Electronics. Maximální napětí na této diodě je \SI{40}{\volt}, maximální procházející proud je \SI{5}{\ampere} a úbytek na této diodě je \SI{550}{\milli\volt}.
 
-Výsledné zapojení tohoto měniče je vidět na obrázku \ref{fig}.
+Výsledné zapojení tohoto měniče je vidět na obrázku \ref{fig_StepDown-schematic}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{obrazky/stepdown_schematic.pdf}
+    \caption{Schéma zapojení step-down měniče.}
+    \label{fig_StepDown-schematic}
+\end{figure}
+
