@@ -1,0 +1,7 @@
+\chapter{Server pro zpracování naměřených dat}
+
+Důležitým rozhodnutím pro realizaci celého zařízení je vhodný výběr aplikací, ve kterých se budou naměřená data uchovávat a následně zpracovávat či zobrazovat. Na trhu existuje několik veřejně dostupných serverů, které umožňují přijímání dat skrze různé protokoly a jejich následné uchovávání a zpracovávání.
+
+Mezi nejznámější takovéto servery patří ThingSpeak\footnote{https://thingspeak.com/}, který umožňuje integraci MATLAB skriptů které se spouštějí nad uloženými přijatými daty. Při využívání neplacené verze této služby jsme limitování maximálním počtem přijatých zpráv za den (\SI{8200}{}), maximální dobou běhu skriptů \SI{20}{\second} nebo třeba pouze čtyřmi neveřejnými kanály na jeden účet. Další nevýhodou je možnost přijímat do jednoho kanálu maximálně 8 proměnných, pokud bychom chtěli vizualizovat více dat, musíme je rozdělit do více kanálů a můžeme tak brzy narazit na limity účtu poskytovaného zdarma.
+
+Dalším z možných serverů na příjem a zpracování dat je ubidots\footnote{https://ubidots.com/}.
