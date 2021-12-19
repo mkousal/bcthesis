@@ -15,13 +15,13 @@ Na trhu je dostupných hned několik senzorů na měření koncentrace prachový
     \centering
     \begin{tabular}{c|cccc}
     \textbf{Název}           & \textbf{Rozlišení}                & \textbf{Přesnost}                              & \textbf{Proud}                           & \textbf{Čas čtení}                \\ \hline
-    \multirow{2}{*}{PMS5003} & \multirow{2}{*}{\SI{1}{\ugcm}}    & $0-100$\SI{}{\ugcm}:$\pm$\SI{10}{\micro\gram}  & \multirow{2}{*}{\SI{100}{\milli\ampere}} & \multirow{2}{*}{\SI{10}{\second}} \\
+    \multirow{2}{*}{PMS5003\cite{dat_PMS5003}} & \multirow{2}{*}{\SI{1}{\ugcm}}    & $0-100$\SI{}{\ugcm}:$\pm$\SI{10}{\micro\gram}  & \multirow{2}{*}{\SI{100}{\milli\ampere}} & \multirow{2}{*}{\SI{10}{\second}} \\
                              &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{10}{\percent}   &                                          &                                   \\ \hline
-    \multirow{2}{*}{PM1003}  & \multirow{2}{*}{\SI{1}{\ugcm}}    & $0-100$\SI{}{\ugcm}:$\pm$\SI{30}{\micro\gram}  & \multirow{2}{*}{\SI{90}{\milli\ampere}}  & \multirow{2}{*}{\SI{30}{\second}} \\
+    \multirow{2}{*}{PM1003\cite{PM1003Datasheet}}  & \multirow{2}{*}{\SI{1}{\ugcm}}    & $0-100$\SI{}{\ugcm}:$\pm$\SI{30}{\micro\gram}  & \multirow{2}{*}{\SI{90}{\milli\ampere}}  & \multirow{2}{*}{\SI{30}{\second}} \\
                              &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{30}{\percent}   &                                          &                                   \\ \hline
-    \multirow{2}{*}{PM1006}  & \multirow{2}{*}{neuvedeno}        & $0-100$\SI{}{\ugcm}:$\pm$\SI{20}{\micro\gram}  & \multirow{2}{*}{\SI{30}{\milli\ampere}}  & \multirow{2}{*}{\SI{8}{\second}}  \\
+    \multirow{2}{*}{PM1006\cite{dat_PM1006}}  & \multirow{2}{*}{neuvedeno}        & $0-100$\SI{}{\ugcm}:$\pm$\SI{20}{\micro\gram}  & \multirow{2}{*}{\SI{30}{\milli\ampere}}  & \multirow{2}{*}{\SI{8}{\second}}  \\
                              &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{20}{\percent}   &                                          &                                   \\ \hline
-    GP2Y1010AU0F             & \SI{0,5}{\volt}$/$\SI{100}{\ugcm} & záleží na ADC                                  & \SI{20}{\milli\ampere}                   & \SI{1}{\second}                           
+    GP2Y1010AU0F\cite{dat_GP2Y1010AU0F}             & \SI{0,5}{\volt}$/$\SI{100}{\ugcm} & záleží na ADC                                  & \SI{20}{\milli\ampere}                   & \SI{1}{\second}                           
     \end{tabular}
     \caption{Porovnání vybraných parametrů senzorů koncentrace prachových částic}
     \label{tab_DustSensors}
@@ -61,11 +61,11 @@ Na poli senzorů pro měření teploty existuje nepřeberné množství různýc
     \centering
     \begin{tabular}{c|cccc}
     \textbf{Název} & \textbf{Rozsah}                         & \textbf{Přesnost}       & \textbf{Spotřeba}       & \textbf{Cena} \\ \hline
-    DS18B20        & \SI{-55}{\celsius} - \SI{125}{\celsius} & $\pm$\SI{0,5}{\celsius} & \SI{1,5}{\milli\ampere} & 68~Kč         \\
-    LM75A          & \SI{-25}{\celsius} - \SI{100}{\celsius} & $\pm$\SI{2}{\celsius}   & \SI{280}{\micro\ampere} & 25~Kč         \\
-    SHT31          & \SI{-40}{\celsius} - \SI{90}{\celsius}  & $\pm$\SI{0,3}{\celsius} & \SI{350}{\micro\ampere} & 158~Kč        \\
-    SHT35          & \SI{-40}{\celsius} - \SI{90}{\celsius}  & $\pm$\SI{0,2}{\celsius} & \SI{1,5}{\milli\ampere} & 378~Kč        \\
-    SHT40          & \SI{-40}{\celsius} - \SI{125}{\celsius} & $\pm$\SI{0,2}{\celsius} & \SI{350}{\micro\ampere} & 109~Kč             
+    DS18B20\cite{dat_DS18B20}        & \SI{-55}{\celsius} - \SI{125}{\celsius} & $\pm$\SI{0,5}{\celsius} & \SI{1,5}{\milli\ampere} & 68~Kč         \\
+    LM75A\cite{dat_LM75A}          & \SI{-25}{\celsius} - \SI{100}{\celsius} & $\pm$\SI{2}{\celsius}   & \SI{280}{\micro\ampere} & 25~Kč         \\
+    SHT31\cite{dat_SHT31}          & \SI{-40}{\celsius} - \SI{90}{\celsius}  & $\pm$\SI{0,3}{\celsius} & \SI{350}{\micro\ampere} & 158~Kč        \\
+    SHT35\cite{dat_SHT35}          & \SI{-40}{\celsius} - \SI{90}{\celsius}  & $\pm$\SI{0,2}{\celsius} & \SI{1,5}{\milli\ampere} & 378~Kč        \\
+    SHT40\cite{dat_SHT40}          & \SI{-40}{\celsius} - \SI{125}{\celsius} & $\pm$\SI{0,2}{\celsius} & \SI{350}{\micro\ampere} & 109~Kč             
     \end{tabular}
     \caption{Srovnání parametrů vybraných senzorů teploty.}
     \label{tab_TemperatureSensors}
@@ -94,9 +94,9 @@ V tabulce \ref{tab_LuxIntensitySensors} jsou uvedeny vybrané druhy integrovaný
     \centering
     \begin{tabular}{c|cc}
         \textbf{Název} & \textbf{Rozsah}            & \textbf{Spotřeba}         \\ \hline
-        GY-302 BH1750  & \SI{0}{}-\SI{65535}{\lux}  & \SI{200}{\micro\ampere}   \\
-        TSL2561        & \SI{0}{}-\SI{40000}{\lux}  & \SI{0,6}{\milli\ampere}   \\
-        VEML7700       & \SI{0}{}-\SI{120000}{\lux} & \SI{50}{\micro\ampere}
+        GY-302 BH1750\cite{dat_BH1750}  & \SI{0}{}-\SI{65535}{\lux}  & \SI{200}{\micro\ampere}   \\
+        TSL2561\cite{dat_TSL2561}       & \SI{0}{}-\SI{40000}{\lux}  & \SI{0,6}{\milli\ampere}   \\
+        VEML7700\cite{dat_VEML7700}       & \SI{0}{}-\SI{120000}{\lux} & \SI{50}{\micro\ampere}
     \end{tabular}
     \caption{Srovnání parametrů vybraných senzorů intenzity osvětlení.}
     \label{tab_LuxIntensitySensors}
@@ -121,11 +121,11 @@ Budu tedy porovnávat senzory, které měří pouze atmosférický tlak a~jsou d
     \centering
     \begin{tabular}{c|ccc}
         \textbf{Název} & \textbf{Rozsah}                     & \textbf{Přesnost}      & \textbf{Spotřeba}        \\ \hline
-        BMP180         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{3}{\pascal}   & \SI{12}{\micro\ampere}   \\
-        BMP280         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{1,3}{\pascal} & \SI{2,7}{\micro\ampere}  \\
-        BMP388         & \SI{300}{}-\SI{1250}{\hecto\pascal} & $\pm$\SI{8}{\pascal}   & \SI{3,4}{\micro\ampere}  \\
-        BME280         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{2}{\pascal}   & \SI{7,1}{\micro\ampere}  \\
-        ICP-10100      & \SI{300}{}-\SI{1150}{\hecto\pascal} & $\pm$\SI{3,2}{\pascal} & \SI{10,4}{\micro\ampere} 
+        BMP180\cite{dat_BMP180}         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{3}{\pascal}   & \SI{12}{\micro\ampere}   \\
+        BMP280\cite{dat_BMP280}         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{1,3}{\pascal} & \SI{2,7}{\micro\ampere}  \\
+        BMP388\cite{dat_BMP388}         & \SI{300}{}-\SI{1250}{\hecto\pascal} & $\pm$\SI{8}{\pascal}   & \SI{3,4}{\micro\ampere}  \\
+        BME280\cite{dat_BME280}         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{2}{\pascal}   & \SI{7,1}{\micro\ampere}  \\
+        ICP-10100\cite{dat_ICP-10100}      & \SI{300}{}-\SI{1150}{\hecto\pascal} & $\pm$\SI{3,2}{\pascal} & \SI{10,4}{\micro\ampere} 
     \end{tabular}
     \caption{Srovnání parametrů vybraných senzorů atmosférického tlaku.}
     \label{tab_AirPressureSensors}
