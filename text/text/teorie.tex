@@ -1,10 +1,10 @@
 \chapter{Teoretická část}
 
-V teoretické části práce se zaměřím na teoretické principy, na kterých pracují senzory pro monitoring ovzduší. Převážná část z~použitých senzorů využívá nepřímý způsob měření námi požadovaných veličin, kde se většinou změna dané veličiny projeví na senzoru změnou odporu a~tím i~napětí či proudu jím protékajícím.
+V teoretické části práce se zaměřím na obecné principy, na kterých pracují senzory pro monitoring ovzduší. Převážná část z~použitých senzorů využívá nepřímý způsob měření námi požadovaných veličin, kde se většinou změna dané veličiny projeví na senzoru změnou odporu a~tím i~napětí či proudu jím protékajícím.
 
 \section{Měření oxidu uhelnatého}
 
-Oxid uhelnatý je jedovatý plyn bez chuti a~zápachu. Vzniká nejčastěji při nedokonalém hoření převážně pevných paliv ale i~plynů, proto je třeba jeho hodnotu hlídat. Udává se, že zhruba od 100 ppm je u většiny lidí přítomen nějaký ze symptomů otravy tímto plynem (bolest hlavy, únava, nevolnost).
+Oxid uhelnatý je jedovatý plyn bez chuti a~zápachu. Vzniká nejčastěji při nedokonalém hoření převážně pevných paliv ale i~plynů, proto je třeba jeho hodnotu hlídat. Udává se, že zhruba od 100 ppm (počet částic na jeden milion) je u většiny lidí přítomen nějaký ze symptomů otravy tímto plynem (bolest hlavy, únava, nevolnost).
 
 \subsection{Optický senzor}
 
@@ -73,7 +73,7 @@ Pro potřeby obecného měření lze využít odporové senzory vyrobené z~kov�
 
 \subsection{Termočlánky}
 
-Další z~možností měření, založené na kovech, jsou termočlánky. Ty pracují na základě Seebeckova jevu, kde při spojení dvou různých kovů dochází při změně teploty k~vygenerování malého napětí, které jsme schopni po zesílení dále měřit. Jejich velkou výhodou jsou malé rozměry a~odolnost i~při relativně vysokých teplotách (tisíce \SI{}{\degree}). Jsou tedy vhodné do aplikací, kde je potřeba velký rozsah teplot a~zároveň jsme limitováni maximálními rozměry.
+Další z~možností měření, založené na kovech, jsou termočlánky. Ty pracují na základě Seebeckova jevu, kde při spojení dvou různých kovů dochází při změně teploty k~vygenerování malého napětí, které jsme schopni po zesílení dále měřit. Jejich velkou výhodou jsou malé rozměry a~odolnost i~při relativně vysokých teplotách (tisíce~\SI{}{\celsius}). Jsou tedy vhodné do aplikací, kde je potřeba velký rozsah teplot a~zároveň jsme limitováni maximálními rozměry.
 
 \subsection{Polovodičové senzory}
 
@@ -109,7 +109,7 @@ Při využití principu kondenzátoru je jedna z~elektrod pevně spojená s~pouz
 
 \section{Měření vzdušné vlhkosti}
 
-Vzdušná vlhkost je přítomná všude okolo nás, a~je definována jako množství nasycení vzduchu vodními parami. Sledovat tuto veličinu je důležité jednak pro člověka, ale i~kvůli elektronice a~jiným strojům. Pokud si vezmeme teplotu \SI{0}{\degree} a~malou vlhkost, bude to pro nás mnohem příjemnější, než stejná teplota a~vlhkost téměř \SI{100}{\percent}. Pro elektroniku a~stroje je poté vlhkost důležitá kvůli jejímu správnému fungování, případně můžou při vysoké vlhkosti začít vodní páry kondenzovat a~způsobit zkrat či při dlouhodobém působení výrazně urychlit oxidaci materiálů.
+Vzdušná vlhkost je přítomná všude okolo nás, a~je definována jako množství nasycení vzduchu vodními parami. Sledovat tuto veličinu je důležité jednak pro člověka, ale i~kvůli elektronice a~jiným strojům. Pokud si vezmeme teplotu \SI{0}{\celsius} a~malou vlhkost, bude to pro nás mnohem příjemnější, než stejná teplota a~vlhkost téměř \SI{100}{\percent}. Pro elektroniku a~stroje je poté vlhkost důležitá kvůli jejímu správnému fungování, případně můžou při vysoké vlhkosti začít vodní páry kondenzovat a~způsobit zkrat či při dlouhodobém působení výrazně urychlit oxidaci materiálů.
 
 Její měření se většinou realizuje pomocí součástek založených na principu kondenzátorů. Taková součástka má dvě pevné elektrody, na kterých jsme schopni měřit napětí a~také dielektrikum, které je realizováno pomocí mateirálu, který je schopen absorbovat molekuly vody. Tímto způsobem jsme tedy schopni ovlivnit výslednou kapacitu daného kondenzátoru. Při nasycení dielektrika vodními parami se změní kapacita, což jsme schopni změřit a~vyhodnocovat. Toto nasycení je poté úměrné vodním parám obsaženým v~měřeném prostředí. Běžně se jako dielektrikum používají plasty či polymery s~dielektrickou konstantou 2 až 15.
 
@@ -153,7 +153,7 @@ Přenos u nás probíhá v pásmu \SI{868}{\mega\hertz} se šířkou spektra \SI
 
 Síť NB-IoT je LPWAN síť, kde její standardy definuje partnerský projekt 3GPP\cite{3GPP}. I~u tohoto typu sítě je opět snaha minimalizovat velikosti posílaných zpráv, mít co největší dosah a~to vše za udržení minimálních energetických nároků. Díky tomu, že lze síť provozovat na již existující infrastruktuře LTE vysílačů, je zde možnost velmi rychlé implementace a~její nasazení na velké oblasti, stačí totiž softwarová aktualizace vysílačů. U nás tuto síť provozuje mobilní operátor Vodafone právě v pásmu LTE. Síť NB-IoT využívá pouze \SI{200}{\kilo\hertz} pásmo a~tak může existovat vedle již existujících sítích pro mobilní telefony. V důsledku použití licencovaného pásma nejsme omezeni na vysílací čas a~také je možné vysílat mírně vyšším výkonem, než v bezlicenčním pásmu ISM. Je však nutné mít podporovaný modul od operátora a~vlastnit jeho SIM kartu pro připojení do sítě. Bohužel momentálně není možné získat tyto SIM karty pro nekomerční využití, nabízí je totiž jen firemním zákazníkům. 
 
-Do budoucna mají tyto sítě velký potenciál právě díky jejich rychlému nasazení a~využití stávajících sítí. Jsou energeticky méně náročné něž mobilní datové komunikace přes GSM či LTE avšak dosahují relativně velkých rychlostí až stovky~\SI{}{\kilo\hertz\per\second}.
+Do budoucna mají tyto sítě velký potenciál právě díky jejich rychlému nasazení a~využití stávajících sítí. Jsou energeticky méně náročné něž mobilní datové komunikace přes GSM či LTE avšak dosahují relativně velkých rychlostí až stovky~\SI{}{\kilo\bit\per\second}.
 
 \subsection{WiFi}
 

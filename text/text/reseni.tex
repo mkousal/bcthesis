@@ -12,6 +12,7 @@ Na trhu je dostupných hned několik senzorů na měření koncentrace prachový
 \newcommand{\ugcm}{\micro\gram\per\cubic\meter} % define new command used in '\SI' -> micro gram per cubic meter
 
 \begin{table}[h]
+    \caption{Porovnání vybraných parametrů senzorů koncentrace prachových částic}
     \centering
     \begin{tabular}{c|cccc}
     \textbf{Název}           & \textbf{Rozlišení}                & \textbf{Přesnost}                              & \textbf{Proud}                           & \textbf{Čas čtení}                \\ \hline
@@ -23,7 +24,6 @@ Na trhu je dostupných hned několik senzorů na měření koncentrace prachový
                              &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{20}{\percent}   &                                          &                                   \\ \hline
     GP2Y1010AU0F\cite{dat_GP2Y1010AU0F}             & \SI{0,5}{\volt}$/$\SI{100}{\ugcm} & záleží na ADC                                  & \SI{20}{\milli\ampere}                   & \SI{1}{\second}                           
     \end{tabular}
-    \caption{Porovnání vybraných parametrů senzorů koncentrace prachových částic}
     \label{tab_DustSensors}
 \end{table}
 
@@ -51,13 +51,14 @@ U senzorů oxidu uhelnatého je situace o~něco složitější. Na trhu neexistu
 
 Na poli relativně levných UV senzorů je výběr opět o~něco horší. Existují v~podstatě dvě varianty použitelné pro neprofesionální měření a~to senzor VEML6075 od výrobce VISHAY a~senzor ML8511 výrobce LAPIS Semiconductor. Bohužel první ze zmíněných senzorů se nedá rozumně sehnat, skladové zásoby jsou vyprodané a~několik obchodů udává, že se již nevyrábí.
 
-Volím tedy druhý zmíněný senzor ML8511. Tento senzor měří pouze intenzitu UV záření pomocí fotodiody, která je citlivá na UVA a~UVB záření. Její největší citlivost je dle datasheetu \cite{dat_ML8511} na vlnovou délku \SI{365}{\nano\metre}. Pro svou činnost potřebuje napájení \SI{3,3}{\volt} a~během měření je jeho maximální spotřeba \SI{500}{\micro\ampere}. Pokud jej uvedeme pomocí pinu EN do režimu standby, tak může být spotřeba maximálně \SI{1}{\micro\ampere}. Výstup senzoru je opět napěťový, takže musíme jeho výstup přivést na AD převodník. Rozsah těchto napětí je zhruba od \SI{1}{\volt} do \SI{3}{\volt}, což odpovídá rozsahu \SI{0}{} až \SI{15}{\milli\watt\per\centi\metre\squared}
+Volím tedy druhý zmíněný senzor ML8511. Tento senzor měří pouze intenzitu UV záření pomocí fotodiody, která je citlivá na UVA a~UVB záření. Její největší citlivost je dle katalogového listu \cite{dat_ML8511} na vlnovou délku \SI{365}{\nano\metre}. Pro svou činnost potřebuje napájení \SI{3,3}{\volt} a~během měření je jeho maximální spotřeba \SI{500}{\micro\ampere}. Pokud jej uvedeme pomocí pinu EN do režimu standby, tak může být spotřeba maximálně \SI{1}{\micro\ampere}. Výstup senzoru je opět napěťový, takže musíme jeho výstup přivést na AD převodník. Rozsah těchto napětí je zhruba od \SI{1}{\volt} do \SI{3}{\volt}, což odpovídá rozsahu \SI{0}{} až \SI{15}{\milli\watt\per\centi\metre\squared}
 
 \subsection{Senzor teploty}
 
 Na poli senzorů pro měření teploty existuje nepřeberné množství různých druhů od spousty výrobců. Pro první základní výběr vhodných senzorů je nutné si definovat alespoň základní parametry a~požadavky na takovýto senzor. Vhodnými parametry jsou cena, rozsah měřených teplot (je třeba měřit i~při teplotách nižších než \SI{0}{\celsius}), spotřeba a~přesnost. Srovnání potenciálně použitelných senzorů se nachází v~tabulce \ref{tab_TemperatureSensors}. Cena uvedená v~posledním sloupci je brána v~jeden den z~jednoho e-shopu\footnote{\url{https://www.laskarduino.cz/}}, aby bylo možné objektivně porovnat výsledky mezi sebou.
 
 \begin{table}[]
+    \caption{Srovnání parametrů vybraných senzorů teploty.}
     \centering
     \begin{tabular}{c|cccc}
     \textbf{Název} & \textbf{Rozsah}                         & \textbf{Přesnost}       & \textbf{Spotřeba}       & \textbf{Cena} \\ \hline
@@ -67,7 +68,6 @@ Na poli senzorů pro měření teploty existuje nepřeberné množství různýc
     SHT35\cite{dat_SHT35}          & \SI{-40}{\celsius} - \SI{90}{\celsius}  & $\pm$\SI{0,2}{\celsius} & \SI{1,5}{\milli\ampere} & 378~Kč        \\
     SHT40\cite{dat_SHT40}          & \SI{-40}{\celsius} - \SI{125}{\celsius} & $\pm$\SI{0,2}{\celsius} & \SI{350}{\micro\ampere} & 109~Kč             
     \end{tabular}
-    \caption{Srovnání parametrů vybraných senzorů teploty.}
     \label{tab_TemperatureSensors}
 \end{table}
 
@@ -91,6 +91,7 @@ Mnohem vhodnějším typem senzorů pro toto konkrétní použití je tak integr
 V tabulce \ref{tab_LuxIntensitySensors} jsou uvedeny vybrané druhy integrovaných senzorů a~jejich základní vlastnosti.
 
 \begin{table}[h]
+    \caption{Srovnání parametrů vybraných senzorů intenzity osvětlení.}
     \centering
     \begin{tabular}{c|cc}
         \textbf{Název} & \textbf{Rozsah}            & \textbf{Spotřeba}         \\ \hline
@@ -98,7 +99,6 @@ V tabulce \ref{tab_LuxIntensitySensors} jsou uvedeny vybrané druhy integrovaný
         TSL2561\cite{dat_TSL2561}       & \SI{0}{}-\SI{40000}{\lux}  & \SI{0,6}{\milli\ampere}   \\
         VEML7700\cite{dat_VEML7700}       & \SI{0}{}-\SI{120000}{\lux} & \SI{50}{\micro\ampere}
     \end{tabular}
-    \caption{Srovnání parametrů vybraných senzorů intenzity osvětlení.}
     \label{tab_LuxIntensitySensors}
 \end{table}
 
@@ -118,6 +118,7 @@ Posledním z~potřebných senzorů je senzor pro měření atmosférického tlak
 Budu tedy porovnávat senzory, které měří pouze atmosférický tlak a~jsou dostupné a~mají relativně nízkou cenu.
 
 \begin{table}
+    \caption{Srovnání parametrů vybraných senzorů atmosférického tlaku.}
     \centering
     \begin{tabular}{c|ccc}
         \textbf{Název} & \textbf{Rozsah}                     & \textbf{Přesnost}      & \textbf{Spotřeba}        \\ \hline
@@ -127,7 +128,6 @@ Budu tedy porovnávat senzory, které měří pouze atmosférický tlak a~jsou d
         BME280\cite{dat_BME280}         & \SI{300}{}-\SI{1100}{\hecto\pascal} & $\pm$\SI{2}{\pascal}   & \SI{7,1}{\micro\ampere}  \\
         ICP-10100\cite{dat_ICP-10100}      & \SI{300}{}-\SI{1150}{\hecto\pascal} & $\pm$\SI{3,2}{\pascal} & \SI{10,4}{\micro\ampere} 
     \end{tabular}
-    \caption{Srovnání parametrů vybraných senzorů atmosférického tlaku.}
     \label{tab_AirPressureSensors}
 \end{table}
 
@@ -147,7 +147,8 @@ V dnešní době má spousta mikrokontrolerů přímo v~sobě integrovanou rádi
 
 Pro výběr v~této práci budu uvažovat výběr mikrokontrolerů od největších výrobců jako jsou STMicroelectronics, Atmel (dnes Microchip) nebo Espressif Systems. Existuje samozřejmě spousta dalších výrobců, ale tihle uvedení jsou jedni z~největších, nejznámějších a~nejdostupnějších. Porovnání ceny v~tabulce \ref{tab_MCU} je provedeno v~jeden den z~jednoho obchodu\footnote{\url{https://www.tme.eu/cz/}} pro možnost objektivního posouzení. Do tabulky pro srovnání jsem vybral pouze nejdůležitější parametry daných mikrokontrolerů jako jsou hardwarové periferie pro sběrnice, počet GPIO (vstupně-výstupních pinů), přítomnost WiFi rozhraní a~cenu.
 
-\begin{figure}[h]
+\begin{table}[h]
+    \caption{Srovnání parametrů vybraných mikrokontrolerů.}
     \centering
     \begin{tabular}{c|cccccc}
         \textbf{Název}                         & \textbf{I$^2$C} & \textbf{SPI} & \textbf{GPIO} & \textbf{USART} & \textbf{WiFi} & \textbf{Cena} \\ \hline
@@ -158,9 +159,8 @@ Pro výběr v~této práci budu uvažovat výběr mikrokontrolerů od největš�
         STM32L051C8T6 \cite{dat_STM32L051C8T6} & 2 & 2 & 37 & 2 & Ne  & 180~Kč
         
     \end{tabular}
-    \caption{Srovnání parametrů vybraných mikrokontrolerů.}
     \label{tab_MCU}
-\end{figure}
+\end{table}
 
 Z výše uvedené tabulky \ref{tab_MCU} jsem nakonec vybral mikrokontroler ESP32~WROOM od výrobce Espressif Systems. Z~hlediska ceny není nejlevější, ale pokud se podíváme na parametry, které za tuto cenu nabízí, tak je to bezkonkurenční nabídka. Mikrokontroler samotný obsahuje kromě výše zmíněných parametrů i~rádiovou část ve které je obsažena WiFi a~Bluetooth, takže pro bezdrátové spojení není třeba použít žádný další modul. Mikrokontroler běží až na frekvenci \SI{240}{\mega\hertz} a~obsahuje dvě jádra, takže je možné velmi ryhle paralelně zpracovávat data. Mikrokontroler samotný je navržen pro IoT aplikace, takže je dbáno na velmi nízkou spotřebu při práci i~v mnoha režimech spánku, které je možné aktivovat. Hlavní dvě jádra mikrokontroleru jsou doplněna o~tzv. ULP (Ultra Low Power) koprocesor, který je možné aktivovat v~režimu spánku a~vykonávat tak velice jednoduché sekvence příkazů a~ovládat například výstupní piny. Na obrázku \ref{fig_ESP32InternalStructure} je vidět blokové schéma struktury mikroprocesoru ESP32 včetně všech jeho hardwarových periferií. Celý mikrokontroler je třeba napájet napětím \SI{3,3}{\volt} a~zdroj musí být schopen dodat alespoň \SI{500}{\milli\ampere}, tato hodnota je relativně vysoká, ale je to způsobeno potřebou vyššího příkonu při vysílání přes WiFi.
 
@@ -175,7 +175,7 @@ Z výše uvedené tabulky \ref{tab_MCU} jsem nakonec vybral mikrokontroler ESP32
 
 Jak již bylo zmíněno v~předchozích kapitolách o~výběru senzorů, bude potřeba zajistit analogové vstupy na mikrokontroleru. Bohužel ESP32 nemá příliš přesný AD převodník a~je třeba provádět poměrně náročnou kalibraci pro každý zakoupený čip zvlášť, jak je zmíněno přímo v~oficiální dokumentaci\footnote{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html}. Nelze provádět ani kalibraci na jednom daném vzorku pro danou výrobní sérii.
 
-Kvůli těmto výše uvedeným důvodům jsem se rozhodl pro tuto práci využít externí AD převodník, čímž by se měla zvýšit přesnost měření a~zajistit reprodukovatelné výsledky při použití jiného mikrokontroleru. Hlavním požadavkem na výběr tohoto převodníku byla cena, dostupnost a~spotřeba. Pro tuto práci je zapotřebí převodník, který bude moci být napájen z~\SI{3,3}{\volt} a~bude mít alespoň 2 vstupní kanály. Těmto požadavkům nejlépe vyhověl AD převodník MCP3202 od firmy Microchip Technology Inc.\cite{dat_MCP3202}. Obsahuje dva kanály s~rozlišením 12 bitů. Připojení k~mikrokontroleru je provedeno přes sběrnici SPI a~maximální spotřeba při čtení je \SI{550}{\micro\ampere} při \SI{5}{\volt} napájení.
+Kvůli těmto výše uvedeným důvodům jsem se rozhodl pro tuto práci využít externí AD převodník, čímž by se měla zvýšit přesnost měření a~zajistit reprodukovatelné výsledky při použití jiného mikrokontroleru. Hlavním požadavkem na výběr tohoto převodníku byla cena, dostupnost a~spotřeba. Pro tuto práci je zapotřebí převodník, který bude moci být napájen z~\SI{3,3}{\volt} a~bude mít alespoň 2 vstupní kanály. Těmto požadavkům nejlépe vyhověl AD převodník MCP3202 od firmy Microchip Technology Inc.\cite{dat_MCP3202}. Obsahuje dva kanály s~rozlišením 12 bitů. Připojení k~mikrokontroleru je provedeno přes sběrnici SPI a~maximální spotřeba při čtení je zhruba \SI{320}{\micro\ampere}.
 
 \section{Přenos dat na server}
 
@@ -190,7 +190,7 @@ Pokud chceme připojit zařízení přes LoRaWAN, ale nechceme být zavázání 
 Pro výběr LoRa modulu bude nejdůležitějším parametrem cena a~dostupnost. Na našem území je dle ČTÚ a~její národní kmitočtové tabulky\cite{kmitoctovaTabulka} povoleno provozovat LoRa zařízení v~ISM pásmu \SI{868}{MHz}. Toto je také třeba zohlednit při výběru vhodného modulu. Dalším z~kritérií byla dostupnost kvalitní dokumentace a~také jestli existují příklady k~použití daného modulu.
 
 \DeclareSIUnit \belm {Bm}   %% declaration of Bel upper the milliwatt unit
-Daným kritériím bezesporu vyhověl modul s~označením RFM95W \cite{dat_RFM95W}, založený na čipu RF96. Jak již bylo zmíněno, modul pracuje na frekvenci \SI{868}{\mega\hertz} a~nejvyšší možný výkon vysílače je \SI{20}{\deci\belm}. Modul pro své fungování potřebuje napájení \SI{3,3}{\volt} a~při běžném vysílání výkonem \SI{+7}{\deci\belm} a~dokonale přizpůsobené anténě na impedanci \SI{50}{\ohm} je jeho spotřeba \SI{20}{\milli\ampere}. Pro připojení k~mikrokontroleru je zapotřebí sběrnice SPI a~alespoň 1 GPIO (ideálně s~podporou interruptu), jelikož modul umožňuje při přijetí dat ze sítě změnit logickou hodnotu na tomto pinu a~tím dát hlavnímu mikrokontroleru vědět, že má přijatá data přečíst a~zpracovat. 
+Daným kritériím bezesporu vyhověl modul s~označením RFM95W \cite{dat_RFM95W}, založený na čipu RF96. Jak již bylo zmíněno, modul pracuje na frekvenci \SI{868}{\mega\hertz} a~nejvyšší možný výkon vysílače je \SI{20}{\deci\belm}. Modul pro své fungování potřebuje napájení \SI{3,3}{\volt} a~při běžném vysílání výkonem \SI{+7}{\deci\belm} a~dokonale přizpůsobené anténě na impedanci \SI{50}{\ohm} je jeho spotřeba \SI{20}{\milli\ampere}. Pro připojení k~mikrokontroleru je zapotřebí sběrnice SPI a~alespoň 1 GPIO (ideálně s~podporou přerušení), jelikož modul umožňuje při přijetí dat ze sítě změnit logickou hodnotu na tomto pinu a~tím dát hlavnímu mikrokontroleru vědět, že má přijatá data přečíst a~zpracovat. 
 
 \begin{figure}
     \centering
@@ -201,9 +201,9 @@ Daným kritériím bezesporu vyhověl modul s~označením RFM95W \cite{dat_RFM95
 
 \section{Napájení zařízení}
 
-První verze tohoto zařízení bude napájena z~\SI{5}{\volt} a~bude tak možné využít např. mobilní nabíječky či powerbanky. Výhoodu tohoto řešení je zaručený zdroj napětí \SI{5}{\volt} a~odpadá také nutnost například hlídání stavu baterií nebo řízení jejich nabíjení. V budoucích verzích ovšem chci zařízení napájet právě z~baterií, aby odpadla nutnost mít k~dispozici elektrickou rozvodnou síť a~aby zařízení bylo použitelné kdekoli.
+První verze tohoto zařízení bude napájena z~\SI{5}{\volt} a~bude tak možné využít např. mobilní nabíječky či powerbanky. Výhodou tohoto řešení je zaručený zdroj napětí \SI{5}{\volt} a~odpadá také nutnost například hlídání stavu baterií nebo řízení jejich nabíjení. V budoucích verzích ovšem chci zařízení napájet právě z~baterií, aby odpadla nutnost mít k~dispozici elektrickou rozvodnou síť a~aby zařízení bylo použitelné kdekoli.
 
-Celé zařízení ke své funkci tedy potřebuje napětí \SI{5}{\volt} a~\SI{3,3}{\volt}. První ze zmíněných napětí bude bráno přímo ze zdroje (nabíječka nebo powerbanka) a~není třeba se o~něj více starat, jelikož tyto zařízení mají integrované různé druhy ochran (přepětí, nadrpoudová aj.). Je tedy třeba zajistit napájecí zdroj poskytující napětí \SI{3,3}{\volt}. Pro tyto účely bude třeba použít tzv. step-down měnič. Jelikož bude použit také externí AD převodník, je vhodné mu zajistit napájecí napětí, které nebude zatíženo zvlněním či jinými neduhy danými spínaným měničem. Z~tohoto důvodu bude pro jeho napájení použit lineární stabilizítor. Protože je však rozdíl mezi vstupním napětím (\SI{5}{\volt}) a~potřebným výstupním napětím (\SI{3,3}{\volt}) nižší než \SI{2}{\volt}, je třeba použít tzv. LDO (Low Dropout) lineární stabilizátor.
+Celé zařízení ke své funkci tedy potřebuje napětí \SI{5}{\volt} a~\SI{3,3}{\volt}. První ze zmíněných napětí bude bráno přímo ze zdroje (nabíječka nebo powerbanka) a~není třeba se o~něj více starat, jelikož tyto zařízení mají integrované různé druhy ochran (přepětí, nadproudová aj.). Je tedy třeba zajistit napájecí zdroj poskytující napětí \SI{3,3}{\volt}. Pro tyto účely bude třeba použít tzv. step-down měnič. Jelikož bude použit také externí AD převodník, je vhodné mu zajistit napájecí napětí, které nebude zatíženo zvlněním či jinými neduhy danými spínaným měničem. Z~tohoto důvodu bude pro jeho napájení použit lineární stabilizátor. Protože je však rozdíl mezi vstupním napětím (\SI{5}{\volt}) a~potřebným výstupním napětím (\SI{3,3}{\volt}) nižší než \SI{2}{\volt}, je třeba použít tzv. LDO (Low Dropout) lineární stabilizátor.
 
 \subsection{Výběr step-down měniče}
 
@@ -220,7 +220,7 @@ Já jsem pro svou práci vybral step-down měnič TPS54331 od výrobce Texas Ins
 
 \subsubsection{Návrh hodnot součástek step-down měniče}
 
-Při návrhu součástek budu vycházet z~datasheetu poskytnutého výrobcem \cite{dat_TPS54331}. Prvním z~potřebných kroků je zvolení odporů do napětového děliče tvořícího zpětnou vazbu, která zajišťuje nastavení výstupního napětí. Jejich hodnotu spočítám z~rovnice \ref{eq_VoltageDivider}.
+Při návrhu součástek budu vycházet z~katalogového listu poskytnutého výrobcem \cite{dat_TPS54331}. Prvním z~potřebných kroků je zvolení odporů do napěťového děliče tvořícího zpětnou vazbu, která zajišťuje nastavení výstupního napětí. Jejich hodnotu spočítám z~rovnice \ref{eq_VoltageDivider}.
 \begin{equation}
     R_{O2}=\frac{R_{O1}\cdot V_{ref}}{V_{out}-V_{ref}}
     \label{eq_VoltageDivider}
@@ -235,9 +235,9 @@ Kde známe hodnoty $V_{ref} = \SI{0,8}{\volt}$ a~hodnotu požadovaného výstupn
 
 Tento odpor bohužel není ve standardní řadě odporů, proto jsem jej zaokrouhlil na nejbližší hodnotu $R_{O2}=\SI{4,7}{\kilo\ohm}$, v~tomto případě bude výstupní napětí $V_{out}=\SI{3,35}{\volt}$, což je naprosto přijatelné, alespoň bude menší rezerva při poklesu napětí se skokovou změnou zátěže.
 
-Další z~potřebných volených součástek jsou vstupní filtrační kondenzátory, ve schématu na obrázku \ref{fig_Schematic-TPS54331} označovány jako $C1$. Dle datasheetu je vhodné zvolit hodnotu okolo \SI{10}{\micro\farad}. Já zvolím 2x \SI{4,7}{\micro\farad} keramický kondenzátor z~dielektrika X5R na napětí \SI{16}{\volt} a~k~těmto dvěma ještě jeden \SI{10}{\nano\farad} pro potlačení vysokofrekvenčního rušení.
+Další z~potřebných volených součástek jsou vstupní filtrační kondenzátory, ve schématu na obrázku \ref{fig_Schematic-TPS54331} označovány jako $C1$. Dle katalogového listu je vhodné zvolit hodnotu okolo \SI{10}{\micro\farad}. Já zvolím 2x \SI{4,7}{\micro\farad} keramický kondenzátor z~dielektrika X5R na napětí \SI{16}{\volt} a~k~těmto dvěma ještě jeden \SI{10}{\nano\farad} pro potlačení vysokofrekvenčního rušení.
 
-Poslední z~hlavních počítaných součástek step-down měniče je výstupní LC filtr. Hlavní součástkou tohoto filtru je cívka, která musí mít správnou velikost indukčnosti i~z~pohledu fungování měniče a~také musí být dostatečně proudově dimenzovaná podle odebíraného výstupního proudu. Minimální hodnota indukčnosti se spočítá z~rovnice \ref{eq_Inductor} kde $V_{OUT(max)}=V_{OUT}=\SI{3,3}{\volt}$, $V_{IN(max)}=\SI{5}{\volt}$, $I_{OUT}=\SI{1,5}{\ampere}$ a~$f_{SW}=\SI{570}{\kilo\hertz}$. Dále je zde přítomen parametr $K_{IND}$, který se volí podle druhu použitých výstupních kondenzátorů. Já budu mít kereamické kondenzátory a~ty mají nízké ESR, takže mohu tento parametr volit jako $K_{IND}=0.3[-]$.
+Poslední z~hlavních počítaných součástek step-down měniče je výstupní LC filtr. Hlavní součástkou tohoto filtru je cívka, která musí mít správnou velikost indukčnosti i~z~pohledu fungování měniče a~také musí být dostatečně proudově dimenzovaná podle odebíraného výstupního proudu. Minimální hodnota indukčnosti se spočítá z~rovnice \ref{eq_Inductor} kde $V_{OUT(max)}=V_{OUT}=\SI{3,3}{\volt}$, $V_{IN(max)}=\SI{5}{\volt}$, $I_{OUT}=\SI{1,5}{\ampere}$ a~$f_{SW}=\SI{570}{\kilo\hertz}$. Dále je zde přítomen parametr $K_{IND}$, který se volí podle druhu použitých výstupních kondenzátorů. Já budu mít keramické kondenzátory a~ty mají nízké ESR, takže mohu tento parametr volit jako $K_{IND}=0.3$.
 
 \begin{equation}
     L_{MIN}=\frac{V_{OUT(max)}\cdot (V_{IN(max)}-V_{OUT})}{V_{IN(max)}\cdot K_{IND}\cdot I_{OUT}\cdot f_{SW}}=\frac{3.3\cdot (5-3.3)}{5\cdot 0.3\cdot 1.5 \cdot 570000}=\SI{4,37}{\micro\henry}
@@ -246,9 +246,9 @@ Poslední z~hlavních počítaných součástek step-down měniče je výstupní
 
 Tato vypočítaná hodnota je minimální a~je třeba zvolit alespoň nejbližší vyšší běžně dostupnou hodnotu, takže výsledná hodnota indukčnosti cívky bude $L=\SI{4,7}{\micro\henry}$. 
 
-Hodnotu výstupních filtračních kondenzátorů jsem zvolil podle tabulky~1 v~datasheetu \cite{dat_TPS54331} a~vychází nám z~toho 2x \SI{47}{\micro\farad}. Z~této stejné tabulky jsem určil také hodnoty součástek kompenzační smyčky $C1$,$C2$ a~$R3$.
+Hodnotu výstupních filtračních kondenzátorů jsem zvolil podle tabulky~1 v~katalogovém listu \cite{dat_TPS54331} a~vychází nám z~toho 2x \SI{47}{\micro\farad}. Z~této stejné tabulky jsem určil také hodnoty součástek kompenzační smyčky $C1$,$C2$ a~$R3$.
 
-Nedílnou součástí měniče je dioda na výstupu $D1$, kterou je třeba dostatečně proudově a~napěťově dimenzovat. Je vhodné také zvolit didodu, která má nízký úbytek napětí (Schottkyho dioda). Já jsem zvolil diodu s~označením SS54 od výrobce Microdiode Electronics. Maximální napětí na této diodě je \SI{40}{\volt}, maximální procházející proud je \SI{5}{\ampere} a~úbytek na této diodě je \SI{550}{\milli\volt}.
+Nedílnou součástí měniče je dioda na výstupu $D1$, kterou je třeba dostatečně proudově a~napěťově dimenzovat. Je vhodné také zvolit diodu, která má nízký úbytek napětí (Schottkyho dioda). Já jsem zvolil diodu s~označením SS54 od výrobce Microdiode Electronics. Maximální napětí na této diodě je \SI{40}{\volt}, maximální procházející proud je \SI{5}{\ampere} a~úbytek na této diodě je \SI{550}{\milli\volt}.
 
 Výsledné zapojení tohoto měniče je vidět na obrázku \ref{fig_StepDown-schematic}.
 
@@ -263,7 +263,7 @@ Výsledné zapojení tohoto měniče je vidět na obrázku \ref{fig_StepDown-sch
 
 Jak již bylo zmíněno v~předchozích kapitolách, pro napájení AD převodníku bude třeba vybrat lineární stabilizátor s~malým úbytkem napětí, tzv. LDO. Bohužel nikde neexistuje přesná definice, co je LDO stabilizátor a~co už ne, je třeba toto označení brát lehce s~rezervou. V praxi se tak obvykle označují stabilizátory s~úbytkem napětí zhruba do \SI{2}{\volt}.
 
-Já jsem pro tuto práci vybral stabilizátor od výrobce Advanced Monolithic Systems AMS1117 \cite{dat_AMS1117} ve variantě s~pevně nastaveným výstupním napětím na \SI{3,3}{\volt}. Stabilizátor jako takový nepotřebuje pro svou funkci kromě filtračních kondenzátorů na vstupu a~výstupu žádné další externí součástky. Podle datasheetu výrobce zaručuje rozptyl výstupního napětí maximálně $\pm\SI{10}{\milli\volt}$ a~potlačení vstupního rušení o~alespoň \SI{60}{\deci\bel}, což je pro AD převodník žádaná vlastnost. Filtrační kondenzátory byly zvoleny podle doporučení výrobce \SI{22}{\micro\farad} na vstupu i~na výstupu v~keramickém provedení. Kvůli úspoře energie bude možnost vypínat tento stabilizátor a~tím i~následně AD převodník. Výsledné schéma zapojení lineárního stabilizátoru je vidět na obrázku \ref{fig_LDO-schematic}.
+Já jsem pro tuto práci vybral stabilizátor od výrobce Advanced Monolithic Systems AMS1117 \cite{dat_AMS1117} ve variantě s~pevně nastaveným výstupním napětím na \SI{3,3}{\volt}. Stabilizátor jako takový nepotřebuje pro svou funkci kromě filtračních kondenzátorů na vstupu a~výstupu žádné další externí součástky. Podle katalogového listu výrobce zaručuje rozptyl výstupního napětí maximálně $\pm\SI{10}{\milli\volt}$ a~potlačení vstupního rušení o~alespoň \SI{60}{\deci\bel}, což je pro AD převodník žádaná vlastnost. Filtrační kondenzátory byly zvoleny podle doporučení výrobce \SI{22}{\micro\farad} na vstupu i~na výstupu v~keramickém provedení. Kvůli úspoře energie bude možnost vypínat tento stabilizátor a~tím i~následně AD převodník. Výsledné schéma zapojení lineárního stabilizátoru je vidět na obrázku \ref{fig_LDO-schematic}.
 
 \begin{figure}[h]
     \centering
@@ -274,7 +274,7 @@ Já jsem pro tuto práci vybral stabilizátor od výrobce Advanced Monolithic Sy
 
 \section{Výsledné zapojení zařízení}
 
-Na orbázku \ref{fig_BlockDiagram-full} můžeme vidět finální blokové schéma celého zařízení podle kterého bude třeba nakreslit schéma a~následně navrhnout desku plošných spojů. Celé zařízení bude doplněno kromě zmíněných senzorů a~potřebných zdrojů také o~například ochranu proti přepólování napájení. Dále bude deska na vstupu obsahovat obvody pro možnost zapnutí a~vypnutí celé elektroniky přes tlačítka a~také možnost vypnout zařízení pomocí mikrokontroleru. Pro možnost snazšího ladění obvodu budou také doplněny vypínatelné LED pro kontrolu přítomnosti jednotlivých napájecích napětí a~jedna LED s~tlačítkem pro možnost libovolného použití ve výsledné aplikaci.
+Na obrázku \ref{fig_BlockDiagram-full} můžeme vidět finální blokové schéma celého zařízení podle kterého bude třeba nakreslit schéma a~následně navrhnout desku plošných spojů. Celé zařízení bude doplněno kromě zmíněných senzorů a~potřebných zdrojů také o~například ochranu proti přepólování napájení. Dále bude deska na vstupu obsahovat obvody pro možnost zapnutí a~vypnutí celé elektroniky přes tlačítka a~také možnost vypnout zařízení pomocí mikrokontroleru. Pro možnost snazšího ladění obvodu budou také doplněny vypínatelné LED pro kontrolu přítomnosti jednotlivých napájecích napětí a~jedna LED s~tlačítkem pro možnost libovolného použití ve výsledné aplikaci.
 
 \begin{figure}
     \centering
