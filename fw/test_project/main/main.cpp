@@ -303,7 +303,7 @@ static void mqtt_app_start(void)
 
 #define FLOAT_TO_INT(x) ((x)>=0?(int)((x)+0.5):(int)((x)-0.5))
 
-void app_main() 
+extern "C" void app_main()
 {
     gpio_config_t io_conf = {};
     io_conf.intr_type = GPIO_INTR_DISABLE;
