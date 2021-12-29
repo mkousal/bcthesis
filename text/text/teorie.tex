@@ -89,6 +89,8 @@ Polovodiče obecně jsou závislé na teplotě, takže je lze použít pro měř
     I_A =I_S \cdot (\mathrm{e} ^{\frac{U_A}{n \cdot \frac{k \cdot T}{q}}} - 1)
     \label{eq_Shockley}
 \end{equation}
+Kde $I_{A}$ je proud procházející polovodičem, $I_{S}$ je saturační proud, $q$ je elementární náboj elektronu, $U_{A}$ je difúzní napětí, $n$ je emisní koeficient, $k$ je Boltzmannova konstanta a $T$ je teplota přechodu polovodiče.
+
 Nejvíce lineární, a~zároveň časově stálou závislost na teplotě, má varikap. Pro orientační měření (např. sepnutí aktivního chlazení) lze použít i~diodu či tranzistor, který se umístí na společný chladič s~výkonovými prvky a~následně lze díky změně proudu jimi procházejícím řídit následnou logiku.
 
 Díky stále dokonalejším výrobním procesům pro integrované obvody lze integrovat teplotní senzory přímo na čip. Přímo na tomto čipu tak může být nejen teplotní senzor, ale i~např. operační zesilovač či řídící čip pro digitální komunikační rozhraní.
@@ -122,7 +124,7 @@ Její měření se většinou realizuje pomocí součástek založených na prin
 
 \section{IoT sítě}
 
-Tyto sítě jsou uzpůsobeny pro přenos relativně krátkých datových zpráv na velmi velké vzdálenosti a~to vše při zachování nízké spotřeby. Dosah je většinou určen podle nosného kmitočtu, na kterém přenos funguje, podle dostupné šířky pásma pro náš přenos a~také vhodně zvolenou modulací. Tyto sítě se většinou nazývají jedním sdruženým pojmem LPWAN (Low Power Wide Area Network). Do této kategorie se řadí technologie LoRa, Sigfox a~NB-IoT. První dvě zmíněné pracují v bezlicenčním pásmu, kdežto poslední využívá licenční pásmo. Bezlicenční pásma jsou u nás regulovány ČTÚ\footnote{Český telekomunikační úřad \url{https://www.ctu.cz/}} a~jejich omezení zpravidla spočívá v maximálním vyzářeném výkonu a~také klíčovacím poměru, ten určuje, jaké maximální procento daného času smíme použít pro vysílání. V následujících částech práce se budu věnovat jednotlivým sítím podrobněji.
+IoT (Internet of Things) sítě jsou uzpůsobeny pro přenos relativně krátkých datových zpráv na velmi velké vzdálenosti a~to vše při zachování nízké spotřeby. Dosah je většinou určen podle nosného kmitočtu, na kterém přenos funguje, podle dostupné šířky pásma pro náš přenos a~také vhodně zvolenou modulací. Tyto sítě se většinou nazývají jedním sdruženým pojmem LPWAN (Low Power Wide Area Network). Do této kategorie se řadí technologie LoRa, Sigfox a~NB-IoT. První dvě zmíněné pracují v bezlicenčním pásmu, kdežto poslední využívá licenční pásmo. Bezlicenční pásma jsou u nás regulovány ČTÚ\footnote{Český telekomunikační úřad \url{https://www.ctu.cz/}} a~jejich omezení zpravidla spočívá v maximálním vyzářeném výkonu a~také klíčovacím poměru, ten určuje, jaké maximální procento daného času smíme použít pro vysílání. V následujících částech práce se budu věnovat jednotlivým sítím podrobněji.
 
 \subsection{LoRa}
 

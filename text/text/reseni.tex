@@ -117,7 +117,7 @@ Posledním z~potřebných senzorů je senzor pro měření atmosférického tlak
 
 Budu tedy porovnávat senzory, které měří pouze atmosférický tlak a~jsou dostupné a~mají relativně nízkou cenu.
 
-\begin{table}
+\begin{table}[h]
     \caption{Srovnání parametrů vybraných senzorů atmosférického tlaku.}
     \centering
     \begin{tabular}{c|ccc}
@@ -192,7 +192,7 @@ Pro výběr LoRa modulu bude nejdůležitějším parametrem cena a~dostupnost. 
 \DeclareSIUnit \belm {Bm}   %% declaration of Bel upper the milliwatt unit
 Daným kritériím bezesporu vyhověl modul s~označením RFM95W \cite{dat_RFM95W}, založený na čipu RF96. Jak již bylo zmíněno, modul pracuje na frekvenci \SI{868}{\mega\hertz} a~nejvyšší možný výkon vysílače je \SI{20}{\deci\belm}. Modul pro své fungování potřebuje napájení \SI{3,3}{\volt} a~při běžném vysílání výkonem \SI{+7}{\deci\belm} a~dokonale přizpůsobené anténě na impedanci \SI{50}{\ohm} je jeho spotřeba \SI{20}{\milli\ampere}. Pro připojení k~mikrokontroleru je zapotřebí sběrnice SPI a~alespoň 1 GPIO (ideálně s~podporou přerušení), jelikož modul umožňuje při přijetí dat ze sítě změnit logickou hodnotu na tomto pinu a~tím dát hlavnímu mikrokontroleru vědět, že má přijatá data přečíst a~zpracovat. 
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.7\textwidth]{obrazky/rfm95w.jpg}
     \caption{LoRa modul RFM95W.}
