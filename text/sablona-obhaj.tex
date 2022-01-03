@@ -88,96 +88,229 @@
 \begin{frame} 
 	% nadpis snímku
 	\frametitle{Cíle práce}
-	\begin{itemize}
-			\item Nastudovat
-			\item Popsat
-				\begin{itemize}
-					\item nastudované
-				\end{itemize}
-			\item Implementovat
-				\begin{itemize}
-					\item nastudované
-					\item nové
-				\end{itemize}
-			\item Porovnat a vyhodnotit
-				\begin{itemize}
-						\item výsledky
-				\end{itemize}
-	\end{itemize}
-\end{frame}
-
-
-%%%%%%%%%%%%%
-\begin{frame} 
-	\frametitle{Klíčové nástroje}
-
-	% prostředí 'alertblock', které slouží pro zdůraznění informace
-	\begin{alertblock}{Pro práci je klíčový Eulerův vzorec}
-		$$\eul^{\jmag x}=\cos x + \jmag\sin x$$
-	\end{alertblock}
-
-	\vspace{4ex}
-	Eulerova identita je speciálním případem tohoto vzorce, jestliže dosadíme $x=\uppi$\,:
-
-	% prostředí 'block', které slouží jako informativní
-	\begin{block}{Eulerova identita}
-		$$\eul^{\jmag \uppi}=\cos \uppi + \jmag\sin \uppi,$$\\
-		odkud vyplývá
-		$$\eul^{\jmag \uppi}+1=0.$$
-	\end{block}
-\end{frame} 
-
-
-%%%%%%%%%%%%%
-\begin{frame} 
-	\frametitle{Plošný spoj}
-	
-	\begin{columns}[T] 								% prostředí sloupce s umístěním nahoře
-		\begin{column}{0.4\textwidth}		% první sloupec
-			Obrázek znázorňuje model:\\[2ex]
-			%
+	\begin{columns}[T]
+		\begin{column}{0.4\textwidth}
+			\vspace{0.5cm}
 			\begin{itemize}
-				\item Deska
-				\item Součástky
-				\item Signály
-				\item Napájení
+				\item Prostudovat dostupné senzory
+				\item Vybrat vhodné senzory
+				\item Prostudovat možnosti přenosu dat
+				\item Navrhnout obvodové zapojení
+				\item Realizovat desku plošných spojů
+				\item Oživit zařízení
 			\end{itemize}
 		\end{column}
-		%
-		\begin{column}{0.6\textwidth}		% druhý sloupec
-			\begin{figure}%	
-				\centering
-				\vspace{1cm}	              % horizontální mezera
-				\includegraphics[width=0.8\columnwidth]{obrazky/soucastky}
-				%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
-				%\caption{Popisek obrázku}%
-				%\label{obr:ukazka}
-			\end{figure}
+
+		\begin{column}{0.6\textwidth}
+			\centering
+			\vspace{1.5cm}
+			\includegraphics[width=\columnwidth]{obrazky/block_schematic-blank.drawio.pdf}
 		\end{column}
-	\end{columns}											% ukončení prostředí sloupce
+	\end{columns}
+	
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Výběr senzorů - kritéria a kategorie}
+	\begin{columns}[T]
+		\begin{column}{0.5\columnwidth}
+			Kritéria
+			\begin{itemize}
+				\item Spotřeba
+				\item Cena
+				\item Dostupnost
+				\item Komunikační sběrnice
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.5\columnwidth}
+			Kategorie senzorů
+			\begin{itemize}
+				\item Prachové částice
+				\item Oxid uhelnatý
+				\item UV záření
+				\item Intenzita osvětlení
+				\item Teplota
+				\item Tlak
+				\item Vlhkost
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Přenos a zpracování dat}
+	\begin{columns}[T]
+		\begin{column}{0.5\columnwidth}
+			Přenosové sítě
+			\begin{itemize}
+				\item Sigfox
+				\item WiFi
+				\item LoRaWAN
+				\item NB-IoT
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.5\columnwidth}
+			Server pro zpracování dat
+			\begin{itemize}
+				\item ThingSpeak
+				\item ubidots
+				\item Arduino Cloud
+				\item Vlastní řešení
+				\begin{itemize}
+					\item MQTT Broker
+					\item InfluxDB
+					\item Grafana
+				\end{itemize}
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Návrh elektroniky}
+	\begin{columns}[T]
+		\begin{column}{0.4\columnwidth}
+			\vspace{0.5cm}
+			\begin{itemize}
+				\item Napájení
+				\item Řídící elektronika
+				\item Měniče napětí
+				\item Senzory
+				\item LoRa modul
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.6\columnwidth}
+			\centering
+			\includegraphics[width=\columnwidth]{obrazky/block_schematic-full.drawio.pdf}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Návrh DPS}
+	\begin{columns}[T]
+		\begin{column}{0.4\columnwidth}
+			\begin{itemize}
+				\item 2 vrstvá DPS
+				\item Navrhováno v KiCad
+				\item Výroba JLCPCB
+				\item Strojní osazení
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.6\columnwidth}
+			\centering
+			\includegraphics[width=0.85\columnwidth]{obrazky/PCB_top.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Realizovaná DPS}
+	\begin{columns}[T]
+		\begin{column}{0.4\columnwidth}
+			\vspace{0.5cm}
+			\begin{itemize}
+				\item Osazení součástek
+				\item Možnost vypnutí jednotlivých součástí
+				\item Spotřeba $500\mu A$
+				\item Přizpůsobení antény pro LoRa
+				\item Funkčnost všech senzorů
+			\end{itemize}
+		\end{column}
+
+		\begin{column}{0.6\columnwidth}
+			\vspace{0.5cm}
+			\centering
+			\includegraphics[width=1\columnwidth]{obrazky/pcb-full.jpg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%
+% \begin{frame} 
+% 	\frametitle{Klíčové nástroje}
+
+% 	% prostředí 'alertblock', které slouží pro zdůraznění informace
+% 	\begin{alertblock}{Pro práci je klíčový Eulerův vzorec}
+% 		$$\eul^{\jmag x}=\cos x + \jmag\sin x$$
+% 	\end{alertblock}
+
+% 	\vspace{4ex}
+% 	Eulerova identita je speciálním případem tohoto vzorce, jestliže dosadíme $x=\uppi$\,:
+
+% 	% prostředí 'block', které slouží jako informativní
+% 	\begin{block}{Eulerova identita}
+% 		$$\eul^{\jmag \uppi}=\cos \uppi + \jmag\sin \uppi,$$\\
+% 		odkud vyplývá
+% 		$$\eul^{\jmag \uppi}+1=0.$$
+% 	\end{block}
+% \end{frame} 
 
 
 %%%%%%%%%%%%%
-\begin{frame} 
-	\frametitle{Výsledky}
-	\vspace{1cm}
-	\begin{table}[]
-		\centering
-		\caption{Výsledky měření mobilních sítí}
-		\label{tab:tabulka}
-			\begin{tabular}{lcc}
-				\toprule
-					Technologie  & Rychlost stahování [kB/s] & Rychlost nahrávání [kB/s] \\
-				\midrule
-					GPRS (2,5G)	& 7,2 	& 3,6\\
-					UMTS 3G     & 48 		& 48\\
-					HSPA (3,5G)	&	1\,706	&	720\\
-					LTE (4G) 		& 40\,750 & 10\,750\\
-				\bottomrule                                       
-			\end{tabular}
-	\end{table}
-\end{frame}
+% \begin{frame} 
+% 	\frametitle{Plošný spoj}
+	
+% 	\begin{columns}[T] 								% prostředí sloupce s umístěním nahoře
+% 		\begin{column}{0.4\textwidth}		% první sloupec
+% 			Obrázek znázorňuje model:\\[2ex]
+% 			%
+% 			\begin{itemize}
+% 				\item Deska
+% 				\item Součástky
+% 				\item Signály
+% 				\item Napájení
+% 			\end{itemize}
+% 		\end{column}
+% 		%
+% 		\begin{column}{0.6\textwidth}		% druhý sloupec
+% 			\begin{figure}%	
+% 				\centering
+% 				\vspace{1cm}	              % horizontální mezera
+% 				\includegraphics[width=0.8\columnwidth]{obrazky/soucastky}
+% 				%lze vložit popisek, ale povetšinou je to v prezentaci zbytečné
+% 				%\caption{Popisek obrázku}%
+% 				%\label{obr:ukazka}
+% 			\end{figure}
+% 		\end{column}
+% 	\end{columns}											% ukončení prostředí sloupce
+% \end{frame}
+
+
+%%%%%%%%%%%%%
+% \begin{frame} 
+% 	\frametitle{Výsledky}
+% 	\vspace{1cm}
+% 	\begin{table}[]
+% 		\centering
+% 		\caption{Výsledky měření mobilních sítí}
+% 		\label{tab:tabulka}
+% 			\begin{tabular}{lcc}
+% 				\toprule
+% 					Technologie  & Rychlost stahování [kB/s] & Rychlost nahrávání [kB/s] \\
+% 				\midrule
+% 					GPRS (2,5G)	& 7,2 	& 3,6\\
+% 					UMTS 3G     & 48 		& 48\\
+% 					HSPA (3,5G)	&	1\,706	&	720\\
+% 					LTE (4G) 		& 40\,750 & 10\,750\\
+% 				\bottomrule                                       
+% 			\end{tabular}
+% 	\end{table}
+% \end{frame}
 
 
 %%%%%%%%%%%%%
@@ -196,12 +329,12 @@
 	\end{center}
 \end{frame}
 
-% otázky oponenta
-\frame{
-\frametitle{Otázky oponenta}
-	\emph{Jaká je souvislost Vašeho vzorce (1.2) s~Maxwellovými rovnicemi v~integrálním tvaru?}\\[2ex]
-	%
-	Již staří Římané\,\dots
-}
+% % otázky oponenta
+% \frame{
+% \frametitle{Otázky oponenta}
+% 	\emph{Jaká je souvislost Vašeho vzorce (1.2) s~Maxwellovými rovnicemi v~integrálním tvaru?}\\[2ex]
+% 	%
+% 	Již staří Římané\,\dots
+% }
 
 \end{document}
