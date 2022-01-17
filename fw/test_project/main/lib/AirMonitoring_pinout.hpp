@@ -25,6 +25,7 @@ static const gpio_num_t IO32 = GPIO_NUM_32;
 static const gpio_num_t IO33 = GPIO_NUM_33;
 static const gpio_num_t IO34 = GPIO_NUM_34;
 static const gpio_num_t IO35 = GPIO_NUM_35;
+static const gpio_num_t IO23 = GPIO_NUM_23;
 
 static const gpio_num_t PMS_EN = IO4;
 static const gpio_num_t CS = IO5;
@@ -42,7 +43,7 @@ static const gpio_num_t MQ_EN = IO26;
 static const gpio_num_t POWER_OFF = IO27;
 static const gpio_num_t LORA_RST = IO32;
 static const gpio_num_t DIO0 = IO33;
-static const gpio_num_t IO34 = ADC_VIN;
+// static const gpio_num_t IO34 = ADC_VIN;
 static const gpio_num_t SWITCH = IO35;
 
 static const gpio_num_t I2C_MASTER_SDA = GPIO_NUM_21;
