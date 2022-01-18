@@ -380,17 +380,21 @@ extern "C" void app_main(void)
     ESP_LOGI("main", "Hello world!");
     Power power;
     SHT sht(0x44, I2C_MASTER_SDA, I2C_MASTER_SCL);
+    VEML7700 light(0x10);
     sht.init();
     
     power.ldo();
     power.sensors();
-
+    vTaskDelay(100 / portTICK_RATE_MS);
     while (true)
     {
         sht.sendRequestToRead();
-        vTaskDelay(11 / portTICK_RATE_MS);
+        light.sendRequestToRead();
+        vTaskDelay(11000 / portTICK_RATE_MS);
         sht.read();
-        ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f", sht.getTemp(), sht.getHum());        
+        light.read();
+        ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f  Light: %d", sht.getTemp(), sht.getHum(), light.getValue());
+        // ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f", sht.getTemp(), sht.getHum());
         vTaskDelay(500 / portTICK_RATE_MS);
     }
 }

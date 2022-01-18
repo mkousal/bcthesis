@@ -24,24 +24,11 @@ public:
     }
 
     void sendRequestToRead() {
-        i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-        i2c_master_start(cmd);
-        i2c_master_write_byte(cmd, (sht_addr<<1) | I2C_MASTER_WRITE, I2C_MASTER_ACK);
-        i2c_master_write_byte(cmd, readCommand, I2C_MASTER_ACK);
-        i2c_master_stop(cmd);
-        i2c_master_cmd_begin(i2c_master_port, cmd, 0);
-        i2c_cmd_link_delete(cmd);
+        I2C::writeByte(sht_addr, readCommand);
     }
 
     void read() {
-        i2c_cmd_handle_t cmd = i2c_cmd_link_create();
-        i2c_master_start(cmd);
-        i2c_master_write_byte(cmd, (sht_addr<<1) | I2C_MASTER_READ, I2C_MASTER_ACK);
-        i2c_master_read(cmd, data_rd, 5, I2C_MASTER_ACK);
-        i2c_master_read(cmd, data_rd + 5, 1, I2C_MASTER_LAST_NACK);
-        i2c_master_stop(cmd);
-        i2c_master_cmd_begin(i2c_master_port, cmd, 0);
-        i2c_cmd_link_delete(cmd);
+        I2C::readBytes(sht_addr, data_rd, 6);
     }
 
     float getTemp() {
