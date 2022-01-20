@@ -45,20 +45,41 @@ public:
         return stat;
     }
 
-    esp_err_t writeBytes(int addr, uint8_t reg, uint8_t* data, size_t len) {
+
+    esp_err_t writeBytes(int addr, uint8_t reg, uint16_t data, size_t len) {
+        uint8_t *data_wr = (uint8_t *)malloc(sizeof(data));
+        data_wr[0] = uint8_t(data & 0xFF);
+        data_wr[1] = uint8_t(data >> 8);
         i2c_cmd_handle_t cmd = i2c_cmd_link_create();
         i2c_master_start(cmd);
-        i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_WRITE), I2C_MASTER_ACK);
+        i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_WRITE, I2C_MASTER_ACK);
         i2c_master_write_byte(cmd, reg, I2C_MASTER_ACK);
-        i2c_master_write(cmd, data, len, I2C_MASTER_ACK);
+        i2c_master_write(cmd, data_wr, len, I2C_MASTER_ACK);
+        i2c_master_stop(cmd);
+        esp_err_t stat = i2c_master_cmd_begin(i2c_master_port, cmd, 0);
+        i2c_cmd_link_delete(cmd);
+        free(data_wr);
+        return stat;
+    }
+
+    esp_err_t readBytes(int addr, uint8_t *data, int data_len) {
+        i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+        i2c_master_start(cmd);
+        i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_READ, I2C_MASTER_ACK);
+        i2c_master_read(cmd, data, data_len-1, I2C_MASTER_ACK);
+        i2c_master_read(cmd, data + data_len-1, 1, I2C_MASTER_LAST_NACK);
         i2c_master_stop(cmd);
         esp_err_t stat = i2c_master_cmd_begin(i2c_master_port, cmd, 0);
         i2c_cmd_link_delete(cmd);
         return stat;
     }
 
-    esp_err_t readBytes(int addr, uint8_t *data, int data_len) {
+
+    esp_err_t readBytes(int addr, uint8_t reg, uint8_t *data, int data_len) {
         i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+        i2c_master_start(cmd);
+        i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_WRITE, I2C_MASTER_ACK);
+        i2c_master_write_byte(cmd, reg, I2C_MASTER_ACK);
         i2c_master_start(cmd);
         i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_READ, I2C_MASTER_ACK);
         i2c_master_read(cmd, data, data_len-1, I2C_MASTER_ACK);
@@ -82,6 +103,8 @@ public:
         i2c_cmd_link_delete(cmd);
         return stat;
     }
+
+    
 
 };  // class I2C
 

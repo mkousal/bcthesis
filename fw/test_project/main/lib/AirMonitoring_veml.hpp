@@ -17,14 +17,13 @@ public:
         veml_addr = addr;
     }
 
-    void sendRequestToRead() {
-        I2C::writeBytes(veml_addr, 0, &data, size_t(2));
-        // I2C::writeCommand(veml_addr, 0, 0);
-        I2C::writeByte(veml_addr, readCMD);
+    void init() {
+        I2C::writeBytes(veml_addr, 0, data, size_t(2));
+        vTaskDelay(5 / portTICK_RATE_MS);
     }
 
     void read() {
-        I2C::readBytes(veml_addr, data_rd, 2);
+        I2C::readBytes(veml_addr, uint8_t(readCMD), data_rd, 2);
     }
 
     int getValue() {

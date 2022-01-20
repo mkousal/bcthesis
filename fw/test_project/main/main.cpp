@@ -373,6 +373,12 @@
 
 #include "main.hpp"
 
+#include "esp_event.h"
+#include "esp_err.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "freertos/event_groups.h"
+
 using namespace Am;
 
 extern "C" void app_main(void)
@@ -385,14 +391,13 @@ extern "C" void app_main(void)
     
     power.ldo();
     power.sensors();
-    vTaskDelay(100 / portTICK_RATE_MS);
+    light.init();
     while (true)
     {
         sht.sendRequestToRead();
-        light.sendRequestToRead();
-        vTaskDelay(11000 / portTICK_RATE_MS);
-        sht.read();
+        vTaskDelay(10 / portTICK_RATE_MS);
         light.read();
+        sht.read();
         ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f  Light: %d", sht.getTemp(), sht.getHum(), light.getValue());
         // ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f", sht.getTemp(), sht.getHum());
         vTaskDelay(500 / portTICK_RATE_MS);
