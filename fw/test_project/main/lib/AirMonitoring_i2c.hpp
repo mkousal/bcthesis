@@ -3,6 +3,7 @@
 #include "lib/AirMonitoring_pinout.hpp"
 #include "driver/i2c.h"
 #include "esp_log.h"
+#include "esp_err.h"
 
 namespace Am {
 
@@ -62,6 +63,19 @@ public:
         return stat;
     }
 
+    esp_err_t writeByteToReg(int addr, uint8_t reg, uint8_t data) {
+        i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+        ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_start(cmd));
+        ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_write_byte(cmd, (addr << 1) | I2C_MASTER_WRITE, I2C_MASTER_ACK));
+        ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_write_byte(cmd, reg, I2C_MASTER_ACK));
+        ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_write_byte(cmd, data, I2C_MASTER_ACK));
+        ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_stop(cmd));
+        esp_err_t stat = i2c_master_cmd_begin(i2c_master_port, cmd, 0);
+        ESP_ERROR_CHECK_WITHOUT_ABORT(stat);
+        i2c_cmd_link_delete(cmd);
+        return stat;
+    }
+
     esp_err_t readBytes(int addr, uint8_t *data, int data_len) {
         i2c_cmd_handle_t cmd = i2c_cmd_link_create();
         i2c_master_start(cmd);
@@ -82,7 +96,9 @@ public:
         i2c_master_write_byte(cmd, reg, I2C_MASTER_ACK);
         i2c_master_start(cmd);
         i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_READ, I2C_MASTER_ACK);
-        i2c_master_read(cmd, data, data_len-1, I2C_MASTER_ACK);
+        if (data_len != 1){
+            i2c_master_read(cmd, data, data_len-1, I2C_MASTER_ACK);
+        }
         i2c_master_read(cmd, data + data_len-1, 1, I2C_MASTER_LAST_NACK);
         i2c_master_stop(cmd);
         esp_err_t stat = i2c_master_cmd_begin(i2c_master_port, cmd, 0);

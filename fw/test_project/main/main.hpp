@@ -8,3 +8,4 @@
 #include "lib/AirMonitoring_i2c.hpp"
 #include "lib/AirMonitoring_sht.hpp"
 #include "lib/AirMonitoring_veml.hpp"
+#include "lib/AirMonitoring_bmp.hpp"

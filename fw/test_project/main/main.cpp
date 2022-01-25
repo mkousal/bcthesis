@@ -387,19 +387,41 @@ extern "C" void app_main(void)
     Power power;
     SHT sht(0x44, I2C_MASTER_SDA, I2C_MASTER_SCL);
     VEML7700 light(0x10);
+    BMP bmp(0x77);
     sht.init();
     
     power.ldo();
     power.sensors();
     light.init();
+    
+    vTaskDelay(100 / portTICK_RATE_MS);
+    bmp.forceRead();
+    vTaskDelay(50 / portTICK_RATE_MS);
     while (true)
     {
-        sht.sendRequestToRead();
+        bmp.softReset();
+        vTaskDelay(100 / portTICK_RATE_MS);
+        bmp.forceRead();
         vTaskDelay(10 / portTICK_RATE_MS);
+        bmp.readPressure();
+        bmp.print();
+        // bmp.readID();
+        // bmp.checkERR();
+        // bmp.readStatus();
+        // bmp.readPower();
+        
+        sht.sendRequestToRead();
+        
+        vTaskDelay(100 / portTICK_RATE_MS);
         light.read();
         sht.read();
+        // bmp.readPressure();
         ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f  Light: %d", sht.getTemp(), sht.getHum(), light.getValue());
+        
+        
+        // bmp.readID();
         // ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f", sht.getTemp(), sht.getHum());
-        vTaskDelay(500 / portTICK_RATE_MS);
+        vTaskDelay(100 / portTICK_RATE_MS);
+        
     }
 }
