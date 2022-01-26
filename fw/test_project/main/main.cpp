@@ -387,18 +387,22 @@ extern "C" void app_main(void)
     Power power;
     SHT sht(0x44, I2C_MASTER_SDA, I2C_MASTER_SCL);
     VEML7700 light(0x10);
-    BMP bmp(0x77);
+    BMP388 bmp(0x77);
+    PMS pms;
     sht.init();
     
     power.ldo();
     power.sensors();
+    power.pms();
     light.init();
-    
+    pms.init();
     vTaskDelay(100 / portTICK_RATE_MS);
     bmp.forceRead();
     vTaskDelay(50 / portTICK_RATE_MS);
     while (true)
     {
+        if (pms.readPMS() != 0)
+            pms.printData();
         bmp.softReset();
         vTaskDelay(100 / portTICK_RATE_MS);
         bmp.forceRead();

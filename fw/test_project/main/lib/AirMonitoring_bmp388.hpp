@@ -4,7 +4,7 @@
 #include "lib/AirMonitoring_pinout.hpp"
 
 namespace Am {
-class BMP : public I2C {
+class BMP388 : public I2C {
 private:
     int bmp_addr;
     uint8_t pwr_ctrl = 0x33;
@@ -13,7 +13,7 @@ private:
 
 
 public:
-    BMP(int addr){
+    BMP388(int addr){
         bmp_addr = addr;
     }
 
