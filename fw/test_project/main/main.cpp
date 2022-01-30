@@ -381,46 +381,61 @@
 
 using namespace Am;
 
+
+void taskI2C(void *pvParameters)
+{
+    SHT sht(0x44, I2C_MASTER_SDA, I2C_MASTER_SCL);
+    VEML7700 light(0x10);
+    BMP388 bmp(0x77);
+
+    sht.init();
+    light.init();
+    bmp.softReset();
+    bmp.init();
+    bmp.readCalibrationData();
+
+    while(1)
+    {
+        sht.sendRequestToRead();
+        bmp.forceRead();
+        vTaskDelay(20 / portTICK_RATE_MS);
+        bmp.read();
+        bmp.compensate();
+
+        light.read();
+        sht.read();
+        bmp.print();
+        ESP_LOGI("I2C", "Temperature: %.1f  Humidity: %.1f  Light: %d  Pressure: %.1f  Temp: %.1f", sht.getTemp(), sht.getHum(), light.getValue(), bmp.getPressure(), bmp.getTemp());
+    }
+}
+
 extern "C" void app_main(void)
 {
     ESP_LOGI("main", "Hello world!");
     Power power;
-    SHT sht(0x44, I2C_MASTER_SDA, I2C_MASTER_SCL);
-    VEML7700 light(0x10);
-    BMP388 bmp(0x77);
+    
     PMS pms;
-    sht.init();
     
     power.ldo();
     power.sensors();
     power.pms();
-    light.init();
     pms.init();
     vTaskDelay(100 / portTICK_RATE_MS);
-    bmp.forceRead();
     vTaskDelay(50 / portTICK_RATE_MS);
+    xTaskCreatePinnedToCore(taskI2C, "i2c_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     while (true)
     {
         if (pms.readPMS() != 0)
             pms.printData();
-        bmp.softReset();
-        vTaskDelay(100 / portTICK_RATE_MS);
-        bmp.forceRead();
+        vTaskDelay(1000 / portTICK_RATE_MS);
         vTaskDelay(10 / portTICK_RATE_MS);
-        bmp.readPressure();
-        bmp.print();
         // bmp.readID();
         // bmp.checkERR();
         // bmp.readStatus();
         // bmp.readPower();
         
-        sht.sendRequestToRead();
         
-        vTaskDelay(100 / portTICK_RATE_MS);
-        light.read();
-        sht.read();
         // bmp.readPressure();
-        ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f  Light: %d", sht.getTemp(), sht.getHum(), light.getValue());
         
         
         // bmp.readID();
