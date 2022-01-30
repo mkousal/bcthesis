@@ -2,6 +2,7 @@
 
 #include "lib/AirMonitoring_i2c.hpp"
 #include "lib/AirMonitoring_pinout.hpp"
+#include <cstring>
 
 #define BMP_REG_CHIP_ID 0x00
 #define BMP_REG_ERR_REG 0x02
@@ -82,44 +83,46 @@ private:
         COEF_127
     } filter_t;
 
+    #pragma pack(push, 1)
     typedef struct {
         uint16_t T1;
         uint16_t T2;
-        uint8_t T3;
-        uint16_t P1;
-        uint16_t P2;
-        uint8_t P3;
-        uint8_t P4;
+        int8_t T3;
+        int16_t P1;
+        int16_t P2;
+        int8_t P3;
+        int8_t P4;
         uint16_t P5;
         uint16_t P6;
-        uint8_t P7;
-        uint8_t P8;
-        uint16_t P9;
-        uint8_t P10;
-        uint8_t P11;
-    } calib_data_t;
+        int8_t P7;
+        int8_t P8;
+        int16_t P9;
+        int8_t P10;
+        int8_t P11;
+    } calib_data_t, *Pcalib_data_t;
+    #pragma pack(pop)
 
     typedef struct {
-        float T1;
-        float T2;
-        float T3;
-        float temperature;
+        double T1;
+        double T2;
+        double T3;
+        double temperature;
 
-        float P1;
-        float P2;
-        float P3;
-        float P4;
-        float P5;
-        float P6;
-        float P7;
-        float P8;
-        float P9;
-        float P10;
-        float P11;
-        float pressure;
+        double P1;
+        double P2;
+        double P3;
+        double P4;
+        double P5;
+        double P6;
+        double P7;
+        double P8;
+        double P9;
+        double P10;
+        double P11;
+        double pressure;
     } coefficients_t;
 
-    calib_data_t calib_data;
+    Pcalib_data_t calib_data;
     coefficients_t c_data;
 
     void readReg16(int addr, uint8_t reg, uint16_t *r) {
@@ -235,54 +238,64 @@ public:
     }
 
     void readCalibrationData() {
-        readReg16(bmp_addr, BMP_REG_T1, &calib_data.T1);
-        readReg16(bmp_addr, BMP_REG_T2, &calib_data.T2);
-        I2C::readBytes(bmp_addr, BMP_REG_T3, &calib_data.T3, 1);
-        readReg16(bmp_addr, BMP_REG_P1, &calib_data.P1);
-        readReg16(bmp_addr, BMP_REG_P2, &calib_data.P2);
-        I2C::readBytes(bmp_addr, BMP_REG_P3, &calib_data.P3, 1);
-        I2C::readBytes(bmp_addr, BMP_REG_P4, &calib_data.P4, 1);
-        readReg16(bmp_addr, BMP_REG_P5, &calib_data.P5);
-        readReg16(bmp_addr, BMP_REG_P6, &calib_data.P6);
-        I2C::readBytes(bmp_addr, BMP_REG_P7, &calib_data.P7, 1);
-        I2C::readBytes(bmp_addr, BMP_REG_P8, &calib_data.P8, 1);
-        readReg16(bmp_addr, BMP_REG_P9, &calib_data.P9);
-        I2C::readBytes(bmp_addr, BMP_REG_P10, &calib_data.P10, 1);
-        I2C::readBytes(bmp_addr, BMP_REG_P11, &calib_data.P11, 1);
+        uint8_t *data_cal = (uint8_t *) malloc(21);
+        I2C::readBytes(bmp_addr, BMP_REG_T1, data_cal, 21);
+        for (uint8_t i = 0; i != 21; i++)
+            ESP_LOGI("cal_data", "%#x", data_cal[i]);
+        // memcpy(&calib_data, data_cal, sizeof(calib_data_t));
 
-        c_data.T1 = calib_data.T1 / float(0.00390625);         // 2^-8
-        c_data.T2 = calib_data.T2 / float(1073741824);         // 2^30
-        c_data.T3 = calib_data.T3 / float(281474976710656);    // 2^48
-        c_data.P1 = (calib_data.P1 - 16384) / float(1048576);  // 2^14  2^20
-        c_data.P2 = (calib_data.P2 - 16384) / float(536870912);    // 2^14  2^29
-        c_data.P3 = calib_data.P3 / float(4294967296);         // 2^32
-        c_data.P4 = calib_data.P4 / float(137438953472);       // 2^37
-        c_data.P5 = calib_data.P5 / float(0.125);              // 2^-3
-        c_data.P6 = calib_data.P6 / float(64);                 // 2^6
-        c_data.P7 = calib_data.P7 / float(256);                // 2^8
-        c_data.P8 = calib_data.P8 / float(32768);              // 2^15
-        c_data.P9 = calib_data.P9 / float(281474976710656);    // 2^48
-        c_data.P10 = calib_data.P10 / float(281474976710656);  // 2^48
-        c_data.P11 = calib_data.P11 / float(36893488147419103232); // 2^65
+        calib_data = (Pcalib_data_t)data_cal;
+
+        // readReg16(bmp_addr, BMP_REG_T1, &calib_data.T1);
+        // readReg16(bmp_addr, BMP_REG_T2, &calib_data.T2);
+        // I2C::readBytes(bmp_addr, BMP_REG_T3, &calib_data.T3, 1);
+        // readReg16(bmp_addr, BMP_REG_P1, &calib_data.P1);
+        // readReg16(bmp_addr, BMP_REG_P2, &calib_data.P2);
+        // I2C::readBytes(bmp_addr, BMP_REG_P3, &calib_data.P3, 1);
+        // I2C::readBytes(bmp_addr, BMP_REG_P4, &calib_data.P4, 1);
+        // readReg16(bmp_addr, BMP_REG_P5, &calib_data.P5);
+        // readReg16(bmp_addr, BMP_REG_P6, &calib_data.P6);
+        // I2C::readBytes(bmp_addr, BMP_REG_P7, &calib_data.P7, 1);
+        // I2C::readBytes(bmp_addr, BMP_REG_P8, &calib_data.P8, 1);
+        // readReg16(bmp_addr, BMP_REG_P9, &calib_data.P9);
+        // I2C::readBytes(bmp_addr, BMP_REG_P10, &calib_data.P10, 1);
+        // I2C::readBytes(bmp_addr, BMP_REG_P11, &calib_data.P11, 1);
+
+        c_data.T1 = calib_data->T1 / double(0.00390625f);         // 2^-8
+        c_data.T2 = calib_data->T2 / double(1073741824.0f);         // 2^30
+        c_data.T3 = calib_data->T3 / double(281474976710656.0f);    // 2^48
+        c_data.P1 = (calib_data->P1 - 16384) / double(1048576.0f);  // 2^14  2^20
+        c_data.P2 = (calib_data->P2 - 16384) / double(536870912.0f);    // 2^14  2^29
+        c_data.P3 = calib_data->P3 / double(4294967296.0f);         // 2^32
+        c_data.P4 = calib_data->P4 / double(137438953472.0f);       // 2^37
+        c_data.P5 = calib_data->P5 / double(0.125f);              // 2^-3
+        c_data.P6 = calib_data->P6 / double(64.0f);                 // 2^6
+        c_data.P7 = calib_data->P7 / double(256.0f);                // 2^8
+        c_data.P8 = calib_data->P8 / double(32768.0f);              // 2^15
+        c_data.P9 = calib_data->P9 / double(281474976710656.0f);    // 2^48
+        c_data.P10 = calib_data->P10 / double(281474976710656.0f);  // 2^48
+        c_data.P11 = calib_data->P11 / double(36893488147419103232.0f); // 2^65
+        ESP_LOGI("Calib", "%f %f %f %f %f %f %f %f %f %f %f %f %f %.20f %d", c_data.T1, c_data.T2, c_data.T3, c_data.P1, c_data.P2, c_data.P3, c_data.P4, c_data.P5, c_data.P6, c_data.P7, c_data.P8, c_data.P9, c_data.P10, c_data.P11, calib_data->P11);
+        ESP_LOGI("Calib", "%d   %d", calib_data->P11, (int8_t)data_cal[20]);
     }
 
     void compensateTemperature(uint32_t uncomp_temp) {
-        float part_data1;
-        float part_data2;
+        double part_data1;
+        double part_data2;
 
-        part_data1 = float(uncomp_temp - c_data.T1);
-        part_data2 = float(part_data1 * c_data.T2);
+        part_data1 = double(uncomp_temp - c_data.T1);
+        part_data2 = double(part_data1 * c_data.T2);
 
         c_data.temperature = part_data2 + (part_data1 * part_data1) * c_data.T3;
     }
 
     void compensatePressure(uint32_t uncomp_press) {
-        float part_data1;
-        float part_data2;
-        float part_data3;
-        float part_data4;
-        float part_out1;
-        float part_out2;
+        double part_data1;
+        double part_data2;
+        double part_data3;
+        double part_data4;
+        double part_out1;
+        double part_out2;
 
         part_data1 = c_data.P6 * c_data.temperature;
         part_data2 = c_data.P7 * (c_data.temperature * c_data.temperature);
@@ -292,12 +305,12 @@ public:
         part_data1 = c_data.P2 * c_data.temperature;
         part_data2 = c_data.P3 * (c_data.temperature * c_data.temperature);
         part_data3 = c_data.P4 * (c_data.temperature * c_data.temperature * c_data.temperature);
-        part_out2 = float(uncomp_press) * (c_data.P1 + part_data1 + part_data2 + part_data3);
+        part_out2 = double(uncomp_press) * (c_data.P1 + part_data1 + part_data2 + part_data3);
 
-        part_data1 = float(uncomp_press) * float(uncomp_press);
+        part_data1 = double(uncomp_press) * double(uncomp_press);
         part_data2 = c_data.P9 + c_data.P10 * c_data.temperature;
         part_data3 = part_data1 * part_data2;
-        part_data4 = part_data3 + (float(uncomp_press) * float(uncomp_press) * float(uncomp_press)) * c_data.P11;
+        part_data4 = part_data3 + (double(uncomp_press) * double(uncomp_press) * double(uncomp_press)) * c_data.P11;
 
         c_data.pressure = part_out1 + part_out2 + part_data4;
     }
@@ -308,11 +321,11 @@ public:
         ESP_LOGI("DEB", "%d   %d", data_temperature, data_pressure);
     }
 
-    float getPressure() {
+    double getPressure() {
         return c_data.pressure;
     }
 
-    float getTemp() {
+    double getTemp() {
         return c_data.temperature;
     }
 
