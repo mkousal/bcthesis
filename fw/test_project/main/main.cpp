@@ -404,8 +404,7 @@ void taskI2C(void *pvParameters)
 
         light.read();
         sht.read();
-        bmp.print();
-        ESP_LOGI("I2C", "Temperature: %.1f  Humidity: %.1f  Light: %d  Pressure: %.1f  Temp: %.1f", sht.getTemp(), sht.getHum(), light.getValue(), bmp.getPressure(), bmp.getTemp());
+        ESP_LOGI("I2C", "Temperature: %.1f  Humidity: %.1f  Light: %d  Pressure: %.1f  Temp: %.1f", sht.getTemp(), sht.getHum(), light.getValue(), bmp.calcRelativePressure(sht.getTemp(), 377), bmp.getTemp());
     }
 }
 
@@ -428,19 +427,6 @@ extern "C" void app_main(void)
         if (pms.readPMS() != 0)
             pms.printData();
         vTaskDelay(1000 / portTICK_RATE_MS);
-        vTaskDelay(10 / portTICK_RATE_MS);
-        // bmp.readID();
-        // bmp.checkERR();
-        // bmp.readStatus();
-        // bmp.readPower();
-        
-        
-        // bmp.readPressure();
-        
-        
-        // bmp.readID();
-        // ESP_LOGI("main", "Temperature: %.1f  Humidity: %.1f", sht.getTemp(), sht.getHum());
-        vTaskDelay(100 / portTICK_RATE_MS);
         
     }
 }

@@ -3,6 +3,7 @@
 #include "lib/AirMonitoring_i2c.hpp"
 #include "lib/AirMonitoring_pinout.hpp"
 #include <cstring>
+#include <cmath>
 
 #define BMP_REG_CHIP_ID 0x00
 #define BMP_REG_ERR_REG 0x02
@@ -241,7 +242,7 @@ public:
         uint8_t *data_cal = (uint8_t *) malloc(21);
         I2C::readBytes(bmp_addr, BMP_REG_T1, data_cal, 21);
         for (uint8_t i = 0; i != 21; i++)
-            ESP_LOGI("cal_data", "%#x", data_cal[i]);
+            // ESP_LOGI("cal_data", "%#x", data_cal[i]);
         // memcpy(&calib_data, data_cal, sizeof(calib_data_t));
 
         calib_data = (Pcalib_data_t)data_cal;
@@ -275,8 +276,8 @@ public:
         c_data.P9 = calib_data->P9 / double(281474976710656.0f);    // 2^48
         c_data.P10 = calib_data->P10 / double(281474976710656.0f);  // 2^48
         c_data.P11 = calib_data->P11 / double(36893488147419103232.0f); // 2^65
-        ESP_LOGI("Calib", "%f %f %f %f %f %f %f %f %f %f %f %f %f %.20f %d", c_data.T1, c_data.T2, c_data.T3, c_data.P1, c_data.P2, c_data.P3, c_data.P4, c_data.P5, c_data.P6, c_data.P7, c_data.P8, c_data.P9, c_data.P10, c_data.P11, calib_data->P11);
-        ESP_LOGI("Calib", "%d   %d", calib_data->P11, (int8_t)data_cal[20]);
+        // ESP_LOGI("Calib", "%f %f %f %f %f %f %f %f %f %f %f %f %f %.20f %d", c_data.T1, c_data.T2, c_data.T3, c_data.P1, c_data.P2, c_data.P3, c_data.P4, c_data.P5, c_data.P6, c_data.P7, c_data.P8, c_data.P9, c_data.P10, c_data.P11, calib_data->P11);
+        // ESP_LOGI("Calib", "%d   %d", calib_data->P11, (int8_t)data_cal[20]);
     }
 
     void compensateTemperature(uint32_t uncomp_temp) {
@@ -318,7 +319,6 @@ public:
     void compensate() {
         compensateTemperature(data_temperature);
         compensatePressure(data_pressure);
-        ESP_LOGI("DEB", "%d   %d", data_temperature, data_pressure);
     }
 
     double getPressure() {
@@ -327,6 +327,11 @@ public:
 
     double getTemp() {
         return c_data.temperature;
+    }
+
+    double calcRelativePressure(float temperature, int altitude) {
+        double averTemp = temperature + altitude * 0.0025f;
+        return (c_data.pressure / exp(-altitude * (9.80665f)/(287.04f * (averTemp + 273.15f))));
     }
 
 };   // class BMP
