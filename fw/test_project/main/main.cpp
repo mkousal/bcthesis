@@ -389,7 +389,7 @@ void taskI2C(void *pvParameters)
     BMP388 bmp(0x77);
 
     sht.init();
-    light.init();
+    light.init(light.ALS_SD_POWER_ON, light.ALS_IT_25, light.ALS_GAIN_1_4);
     bmp.softReset();
     bmp.init();
     bmp.readCalibrationData();
@@ -425,8 +425,7 @@ extern "C" void app_main(void)
     while (true)
     {
         if (pms.readPMS() != 0)
-            pms.printData();
-        vTaskDelay(1000 / portTICK_RATE_MS);
-        
+            pms.printPM();
+       vTaskDelay(100 / portTICK_RATE_MS);
     }
 }
