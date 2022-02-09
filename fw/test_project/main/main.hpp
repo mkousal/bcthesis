@@ -10,3 +10,4 @@
 #include "lib/AirMonitoring_veml.hpp"
 #include "lib/AirMonitoring_bmp388.hpp"
 #include "lib/AirMonitoring_pms.hpp"
+#include "lib/AirMonitoring_spi.hpp"

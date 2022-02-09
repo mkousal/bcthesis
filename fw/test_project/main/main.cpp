@@ -413,8 +413,7 @@ extern "C" void app_main(void)
     ESP_LOGI("main", "Hello world!");
     Power power;
     
-    PMS pms;
-    
+    PMS pms;        
     power.ldo();
     power.sensors();
     power.pms();
