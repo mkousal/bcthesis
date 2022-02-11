@@ -11,19 +11,20 @@ namespace Am {
 class SPI
 {
 private:
-    spi_host_device_t host;
+    spi_host_device_t host = VSPI_HOST;
 
 public:
-    SPI(spi_host_device_t host) : host(host){}
+    SPI(){}
 
     esp_err_t begin(gpio_num_t mosi, gpio_num_t miso, gpio_num_t sclk) {
         spi_bus_config_t cfg;
+        memset(&cfg, 0, sizeof(spi_bus_config_t));
         cfg.mosi_io_num = mosi;
         cfg.miso_io_num = miso;
         cfg.sclk_io_num = sclk;
         cfg.quadhd_io_num = -1; // not used
         cfg.quadwp_io_num = -1; // not used
-        cfg.max_transfer_sz = 0;    // -> 4092
+        cfg.max_transfer_sz = 32;    // -> 4092
         return spi_bus_initialize(host, &cfg, 0);
     }
 
@@ -65,6 +66,6 @@ public:
 
 }; // class SPI
 
-SPI spi(HSPI_HOST);
+SPI spi;
 
 }   // namespace Am

@@ -11,3 +11,4 @@
 #include "lib/AirMonitoring_bmp388.hpp"
 #include "lib/AirMonitoring_pms.hpp"
 #include "lib/AirMonitoring_spi.hpp"
+#include "lib/AirMonitoring_mcp3202.hpp"
