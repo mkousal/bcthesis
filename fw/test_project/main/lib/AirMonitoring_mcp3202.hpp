@@ -31,13 +31,15 @@ public:
         return val;
     }
 
-    float getUV() {
+    float getUVmW() {
 
         float voltage = ((float)getData()/4095) * 3.3f;
         if (voltage < 1.0)
             return 0;
-        voltage -= 1.0; // starting bias
-        return voltage * (15.0 / 1.8);
+        else {
+            voltage -= 1.0; // starting bias
+            return voltage * (15.0 / 1.8);
+        }
     }
 
 

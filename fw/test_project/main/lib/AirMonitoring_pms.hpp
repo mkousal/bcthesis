@@ -70,6 +70,8 @@ public:
     }
 
     void printPM() {
+        ESP_LOGI("PMS", "PM1.0: %d  PM2.5: %d   PM10: %d", receivedData->pm10_standard, receivedData->pm25_standard, receivedData->pm100_standard);
+        ESP_LOGI("PMS", "PM1.0: %d  PM2.5: %d   PM10: %d", receivedData->pm10_env, receivedData->pm25_env, receivedData->pm100_env);
         ESP_LOGI("PMS", "PM1.0: %d  PM2.5: %d   PM10: %d", receivedData->particles_10um, receivedData->particles_25um, receivedData->particles_100um);
     }
 

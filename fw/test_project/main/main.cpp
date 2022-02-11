@@ -408,6 +408,17 @@ void taskI2C(void *pvParameters)
     }
 }
 
+void taskSPI(void *pvParameters)
+{
+    mcp.init();
+    while(1)
+    {
+        mcp.read(1);
+        ESP_LOGI("SPI", "UV: %f", mcp.getUVmW());
+        vTaskDelay(100 / portTICK_RATE_MS);
+    }
+}
+
 extern "C" void app_main(void)
 {
     ESP_LOGI("main", "Hello world!");
@@ -419,16 +430,14 @@ extern "C" void app_main(void)
     power.pms();
     pms.init();
     ESP_ERROR_CHECK(spi.begin(MOSI, MISO, SCLK));
-    mcp.init();
     vTaskDelay(100 / portTICK_RATE_MS);
     vTaskDelay(50 / portTICK_RATE_MS);
     xTaskCreatePinnedToCore(taskI2C, "i2c_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    xTaskCreatePinnedToCore(taskSPI, "spi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     while (true)
     {
         if (pms.readPMS() != 0)
             pms.printPM();
-        mcp.read(1);
-        ESP_LOGI("UV", "%f", mcp.getUV());
         vTaskDelay(100 / portTICK_RATE_MS);
     }
 }
