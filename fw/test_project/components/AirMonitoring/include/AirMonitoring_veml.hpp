@@ -1,7 +1,7 @@
 #pragma once
 
-#include "lib/AirMonitoring_i2c.hpp"
-#include "lib/AirMonitoring_pinout.hpp"
+#include "AirMonitoring_i2c.hpp"
+#include "AirMonitoring_pinout.hpp"
 
 namespace Am{
 class VEML7700 : public I2C {
@@ -13,6 +13,10 @@ private:
 
     
 public:
+    VEML7700(int addr);
+
+    ~VEML7700();
+
     enum gain_t {
         ALS_GAIN_1 = 0,
         ALS_GAIN_2 = 1,
@@ -32,29 +36,14 @@ public:
     enum powerState_t {
         ALS_SD_SHUTDOWN = 1,
         ALS_SD_POWER_ON = 0
-    };
+    };    
 
+    void init(powerState_t pow, integrationTime_t time, gain_t gain);
 
-    VEML7700(int addr) {
-        veml_addr = addr;
-    }
+    void read();
 
-    void init(powerState_t pow, integrationTime_t time, gain_t gain) {
-        uint16_t d = pow;
-        d |= (time << 6);
-        d |= (gain << 11);
-
-        I2C::writeBytes(veml_addr, 0, d, size_t(2));
-        vTaskDelay(5 / portTICK_RATE_MS);
-    }
-
-    void read() {
-        I2C::readBytes(veml_addr, uint8_t(readCMD), data_rd, 2);
-    }
-
-    int getValue() {
-        return (data_rd[0]<<8) | data_rd[1];
-    }
+    int getValue();
 
 };  // class VEML7700
+
 }   // namespace Am

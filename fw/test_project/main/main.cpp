@@ -379,15 +379,8 @@
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
 
-using namespace Am;
-
-
 void taskI2C(void *pvParameters)
 {
-    SHT sht(0x44, I2C_MASTER_SDA, I2C_MASTER_SCL);
-    VEML7700 light(0x10);
-    BMP388 bmp(0x77);
-
     sht.init();
     light.init(light.ALS_SD_POWER_ON, light.ALS_IT_25, light.ALS_GAIN_1_4);
     bmp.softReset();
@@ -416,15 +409,14 @@ void taskSPI(void *pvParameters)
         mcp.read(1);
         ESP_LOGI("SPI", "UV: %f", mcp.getUVmW());
         vTaskDelay(100 / portTICK_RATE_MS);
+
     }
 }
 
 extern "C" void app_main(void)
 {
     ESP_LOGI("main", "Hello world!");
-    Power power;
-    
-    PMS pms;        
+        
     power.ldo();
     power.sensors();
     power.pms();
