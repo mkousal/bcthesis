@@ -1,0 +1,3 @@
+(fp_lib_table
+  (lib (name "batteryCharger")(type "KiCad")(uri "C:/Users/Martin/Documents/GitHub/bcthesis/hw/footprints/batteryCharger.pretty")(options "")(descr ""))
+)
