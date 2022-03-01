@@ -4789,12 +4789,6 @@
     (path "/00000000-0000-0000-0000-000061c48088"
       (reference "Q15") (unit 1) (value "2N7002") (footprint "Package_TO_SOT_SMD:SOT-23")
     )
-    (path "/00000000-0000-0000-0000-000061d2d467/00000000-0000-0000-0000-000061fb4a66"
-      (reference "Q16") (unit 1) (value "2N7002") (footprint "Package_TO_SOT_SMD:SOT-23")
-    )
-    (path "/00000000-0000-0000-0000-000061d2d467/00000000-0000-0000-0000-000061fffbbd"
-      (reference "Q17") (unit 1) (value "2N7002") (footprint "Package_TO_SOT_SMD:SOT-23")
-    )
     (path "/00000000-0000-0000-0000-000061767442/00000000-0000-0000-0000-00006188824f"
       (reference "R1") (unit 1) (value "R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
     )
@@ -4896,18 +4890,6 @@
     )
     (path "/00000000-0000-0000-0000-000061c480a6"
       (reference "R42") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
-    )
-    (path "/00000000-0000-0000-0000-000061d2d467/00000000-0000-0000-0000-000061fcf4b6"
-      (reference "R43") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
-    )
-    (path "/00000000-0000-0000-0000-000061d2d467/00000000-0000-0000-0000-000061fd00e9"
-      (reference "R44") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
-    )
-    (path "/00000000-0000-0000-0000-000061d2d467/00000000-0000-0000-0000-000061fffbc4"
-      (reference "R45") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
-    )
-    (path "/00000000-0000-0000-0000-000061d2d467/00000000-0000-0000-0000-000061fffbcb"
-      (reference "R46") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-0000619d7d18"
       (reference "S1") (unit 1) (value "RF_Splitter") (footprint "mainBoard:RF_Splitter")
