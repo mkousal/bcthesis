@@ -4214,7 +4214,7 @@
     (property "Value" "R" (id 1) (at 189.738 35.433 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder" (id 2) (at 186.182 34.29 90)
+    (property "Footprint" "Resistor_SMD:R_0805_2012Metric" (id 2) (at 186.182 34.29 90)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Datasheet" "~" (id 3) (at 187.96 34.29 0)
@@ -4443,7 +4443,7 @@
     (pin "2" (uuid 1cfbe7b6-760c-4e35-abb2-ac172422579b))
   )
 
-  (symbol (lib_id "Jumper:SolderJumper_2_Open") (at 173.99 83.82 90) (unit 1)
+  (symbol (lib_id "Jumper:SolderJumper_2_Open") (at 173.99 83.82 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (fields_autoplaced)
     (uuid a96cfdd9-d536-4ae0-b1fb-34391bb570e1)
     (property "Reference" "JP4" (id 0) (at 176.53 82.5499 90)
@@ -4862,7 +4862,7 @@
       (reference "R20") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-000061a0488a"
-      (reference "R21") (unit 1) (value "R") (footprint "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder")
+      (reference "R21") (unit 1) (value "R") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-000061d2d467/5febcca7-fd23-4dc0-87e2-44a1a99b60ba"
       (reference "R22") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
