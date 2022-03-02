@@ -4687,6 +4687,12 @@
     (path "/00000000-0000-0000-0000-000061767442/19928f41-bbd0-491d-8eb8-d3e4b8b805e3"
       (reference "C21") (unit 1) (value "47u") (footprint "Capacitor_SMD:CP_Elec_6.3x7.7")
     )
+    (path "/00000000-0000-0000-0000-000061d2d467/dd83854a-8450-479d-b2ff-eb6c98661234"
+      (reference "C22") (unit 1) (value "1u") (footprint "Capacitor_SMD:C_0805_2012Metric")
+    )
+    (path "/00000000-0000-0000-0000-000061d2d467/748229f1-0503-493c-aca6-4c0378752480"
+      (reference "C23") (unit 1) (value "1u") (footprint "Capacitor_SMD:C_0805_2012Metric")
+    )
     (path "/00000000-0000-0000-0000-000061907b69"
       (reference "D1") (unit 1) (value "LED") (footprint "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder")
     )
@@ -4767,6 +4773,12 @@
     )
     (path "/00000000-0000-0000-0000-000061767442/08669f3e-9718-4986-b47a-52d4cf0dc6d7"
       (reference "Q6") (unit 1) (value "2N7002") (footprint "Package_TO_SOT_SMD:SOT-23")
+    )
+    (path "/00000000-0000-0000-0000-000061d2d467/d8f38a58-42dc-4ba2-9b36-8f484b567900"
+      (reference "Q7") (unit 1) (value "2N7002") (footprint "Package_TO_SOT_SMD:SOT-23")
+    )
+    (path "/00000000-0000-0000-0000-000061d2d467/d4df6d3c-f99a-4cd6-8afa-ec8a8d9da26e"
+      (reference "Q8") (unit 1) (value "2N7002") (footprint "Package_TO_SOT_SMD:SOT-23")
     )
     (path "/00000000-0000-0000-0000-000061767442/00000000-0000-0000-0000-000061779b42"
       (reference "Q9") (unit 1) (value "AO3401A") (footprint "Package_TO_SOT_SMD:SOT-23")
@@ -4860,6 +4872,18 @@
     )
     (path "/00000000-0000-0000-0000-000061767442/73353886-9745-4b34-a9f5-6778406f2a71"
       (reference "R24") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
+    )
+    (path "/00000000-0000-0000-0000-000061d2d467/491c5b0f-57d4-4de5-90d6-4fa25514f9cb"
+      (reference "R25") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
+    )
+    (path "/00000000-0000-0000-0000-000061d2d467/851cf894-55cc-4691-85dd-42e5f641e895"
+      (reference "R26") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
+    )
+    (path "/00000000-0000-0000-0000-000061d2d467/3462e14d-f877-415a-8b53-496f63df60d2"
+      (reference "R27") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
+    )
+    (path "/00000000-0000-0000-0000-000061d2d467/b65464e0-553b-4697-a2bc-3fe981073e90"
+      (reference "R28") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
     )
     (path "/00000000-0000-0000-0000-000061767442/00000000-0000-0000-0000-00006176c055"
       (reference "R29") (unit 1) (value "100k") (footprint "Resistor_SMD:R_0805_2012Metric")
@@ -4962,6 +4986,9 @@
     )
     (path "/00000000-0000-0000-0000-000061767442/d1708de9-1436-4a00-a496-4e811e5e7ac7"
       (reference "U10") (unit 1) (value "AP1603") (footprint "Package_TO_SOT_SMD:SOT-23-6_Handsoldering")
+    )
+    (path "/00000000-0000-0000-0000-000061d2d467/1c03f022-8246-4922-9c00-dba5f9ac823b"
+      (reference "U11") (unit 1) (value "NCP115ASN180T2G") (footprint "Package_SO:TSOP-5_1.65x3.05mm_P0.95mm")
     )
   )
 )
