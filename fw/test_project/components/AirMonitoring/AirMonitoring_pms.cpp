@@ -61,4 +61,16 @@ void PMS::printPM() {
     ESP_LOGI("PMS", "PM1.0: %d  PM2.5: %d   PM10: %d", receivedData->particles_10um, receivedData->particles_25um, receivedData->particles_100um);
 }
 
+int PMS::getPM1() {
+    return receivedData->particles_10um;
+}
+
+int PMS::getPM25() {
+    return receivedData->particles_25um;
+}
+
+int PMS::getPM10() {
+    return receivedData->particles_100um;
+}
+
 }   // namespace Am

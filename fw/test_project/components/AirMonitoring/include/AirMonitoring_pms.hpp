@@ -35,6 +35,12 @@ public:
 
     void printPM();
 
+    int getPM1();
+
+    int getPM25();
+
+    int getPM10();
+
 };  // class PMS
 
 }   // namespace Am

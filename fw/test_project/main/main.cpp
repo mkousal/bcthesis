@@ -387,30 +387,109 @@ void taskI2C(void *pvParameters)
     bmp.init();
     bmp.readCalibrationData();
 
-    while(1)
-    {
-        sht.sendRequestToRead();
-        bmp.forceRead();
-        vTaskDelay(20 / portTICK_RATE_MS);
-        bmp.read();
-        bmp.compensate();
+    sht.sendRequestToRead();
+    bmp.forceRead();
+    vTaskDelay(20 / portTICK_RATE_MS);
+    bmp.read();
+    bmp.compensate();
 
-        light.read();
-        sht.read();
-        ESP_LOGI("I2C", "Temperature: %.1f  Humidity: %.1f  Light: %d  Pressure: %.1f  Temp: %.1f", sht.getTemp(), sht.getHum(), light.getValue(), bmp.calcRelativePressure(sht.getTemp(), 377), bmp.getTemp());
-    }
+    light.read();
+    sht.read();
+    cJSON_AddNumberToObject(msg, "T", (int)(sht.getTemp() * 10));
+    cJSON_AddNumberToObject(msg, "H", (int)(sht.getHum() * 10));
+    cJSON_AddNumberToObject(msg, "L", light.getValue());
+    cJSON_AddNumberToObject(msg, "P", (int)(bmp.calcRelativePressure(sht.getTemp(), 377) * 10));
+    cJSON_AddNumberToObject(msg, "C", 0);   // future CO2_eq
+    cJSON_AddNumberToObject(msg, "E", 0);   // future TVOC
+
+    #ifdef DEBUG
+    ESP_LOGI("I2C", "Temperature: %.1f  Humidity: %.1f  Light: %d  Pressure: %.1f  Temp: %.1f", sht.getTemp(), sht.getHum(), light.getValue(), bmp.calcRelativePressure(sht.getTemp(), 377), bmp.getTemp());
+    #endif
+
+    taskChecker++;
+    vTaskDelete(NULL);
 }
 
 void taskSPI(void *pvParameters)
 {
     mcp.init();
-    while(1)
-    {
-        mcp.read(1);
-        ESP_LOGI("SPI", "UV: %f", mcp.getUVmW());
-        vTaskDelay(100 / portTICK_RATE_MS);
+    mcp.read(1);
+    cJSON_AddNumberToObject(msg, "U", (int)(mcp.getUVmW() * 1000000));
 
-    }
+    #ifdef DEBUG
+    ESP_LOGI("SPI", "UV: %f", mcp.getUVmW());
+    #endif
+
+    taskChecker++;
+    vTaskDelete(NULL);
+}
+
+void taskWiFi(void *pvParameters)
+{
+    esp_err_t ret = nvs_flash_init();
+    if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
+        ESP_ERROR_CHECK(nvs_flash_erase());
+        ret = nvs_flash_init();
+    };
+
+    ESP_ERROR_CHECK(ret);
+    ESP_LOGI("WiFi", "ESP_WIFI_MODE_STA");
+    wifi_init_sta();
+
+    taskChecker++;
+    vTaskDelete(NULL);
+}
+
+// void taskUART2(void *pvParameters)
+// {
+//     vTaskDelay(20000 / portTICK_RATE_MS);
+//     ESP_LOGI("uart2>>>>>>>>>>>>>", "fsdf");
+//     unsigned long timer = clock();
+//     while(((clock() - timer) / CLOCKS_PER_SEC) < 20){
+//         pms.readPMS();
+//         vTaskDelay(100 / portTICK_RATE_MS);
+//     }
+//     ESP_LOGI("uart2>>>>>>>>>>>", "aaaaaa");
+    
+//     if (pms.readPMS() != 0){
+//         #ifdef DEBUG
+//         pms.printPM();
+//         #endif
+//     }
+//     cJSON_AddNumberToObject(msg, "P1", pms.getPM1());
+//     cJSON_AddNumberToObject(msg, "P25", pms.getPM25());
+//     cJSON_AddNumberToObject(msg, "P10", pms.getPM10());
+
+//     taskChecker++;
+//     vTaskDelete(NULL);
+// }
+
+void taskMQTT(void *pvParameters)
+{
+    esp_mqtt_client_config_t mqtt_cfg = {
+        .host = MQTT_BROKER_URL,
+    };
+    esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
+    esp_mqtt_client_start(client);
+    char *json_str = cJSON_PrintUnformatted(msg);
+    int json_str_size = strlen(json_str);
+
+    #ifdef DEBUG
+    ESP_LOGI("MQTT", "size of JSON message: %d JSON:\n%s\n", json_str_size, json_str);
+    #endif
+
+    esp_mqtt_client_publish(client, "AIR_MONITOR_1/values", json_str, json_str_size, 0, false);
+    esp_mqtt_client_stop(client);
+
+    #ifdef DEBUG
+    ESP_LOGI("MQTT", "MQTT Publish sent");
+    #endif
+
+    vTaskDelay(3000 / portTICK_RATE_MS);
+    esp_wifi_stop();
+    esp_deep_sleep(300000000LL);
+
+    vTaskDelete(NULL);
 }
 
 extern "C" void app_main(void)
@@ -424,12 +503,35 @@ extern "C" void app_main(void)
     ESP_ERROR_CHECK(spi.begin(MOSI, MISO, SCLK));
     vTaskDelay(100 / portTICK_RATE_MS);
     vTaskDelay(50 / portTICK_RATE_MS);
+    msg = cJSON_CreateObject();
     xTaskCreatePinnedToCore(taskI2C, "i2c_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     xTaskCreatePinnedToCore(taskSPI, "spi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
-    while (true)
-    {
-        if (pms.readPMS() != 0)
-            pms.printPM();
-        vTaskDelay(100 / portTICK_RATE_MS);
+    xTaskCreatePinnedToCore(taskWiFi, "wifi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    // xTaskCreatePinnedToCore(taskUART2, "uart2_task", 8192, NULL, 5, NULL, APP_CPU_NUM);
+    bool pmsMeasured = false;
+    while (true) {
+        if (taskChecker == 4) {
+            xTaskCreatePinnedToCore(taskMQTT, "mqtt_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+            taskChecker = 20;
+        }
+        else if (taskChecker < 4 && pmsMeasured == false) {
+            unsigned long timer = clock();
+            while(((clock() - timer) / CLOCKS_PER_SEC) < 20){
+                pms.readPMS();
+                vTaskDelay(100 / portTICK_RATE_MS);
+            }
+
+            if (pms.readPMS() != 0){
+                #ifdef DEBUG
+                pms.printPM();
+                #endif
+            }
+            cJSON_AddNumberToObject(msg, "P1", pms.getPM1());
+            cJSON_AddNumberToObject(msg, "P25", pms.getPM25());
+            cJSON_AddNumberToObject(msg, "P10", pms.getPM10());
+
+            taskChecker++;
+            pmsMeasured = true;
+        }
     }
 }
