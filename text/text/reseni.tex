@@ -16,13 +16,14 @@ Na trhu je dostupných hned několik senzorů na měření koncentrace prachový
     \centering
     \begin{tabular}{c|cccc}
     \textbf{Název}           & \textbf{Rozlišení}                & \textbf{Přesnost}                              & \textbf{Proud}                           & \textbf{Čas čtení}                \\ \hline
-    \multirow{2}{*}{PMS5003\cite{dat_PMS5003}} & \multirow{2}{*}{\SI{1}{\ugcm}}    & $0-100$\SI{}{\ugcm}:$\pm$\SI{10}{\micro\gram}  & \multirow{2}{*}{\SI{100}{\milli\ampere}} & \multirow{2}{*}{\SI{10}{\second}} \\
-                             &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{10}{\percent}   &                                          &                                   \\ \hline
-    \multirow{2}{*}{PM1003\cite{PM1003Datasheet}}  & \multirow{2}{*}{\SI{1}{\ugcm}}    & $0-100$\SI{}{\ugcm}:$\pm$\SI{30}{\micro\gram}  & \multirow{2}{*}{\SI{90}{\milli\ampere}}  & \multirow{2}{*}{\SI{30}{\second}} \\
-                             &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{30}{\percent}   &                                          &                                   \\ \hline
-    \multirow{2}{*}{PM1006\cite{dat_PM1006}}  & \multirow{2}{*}{neuvedeno}        & $0-100$\SI{}{\ugcm}:$\pm$\SI{20}{\micro\gram}  & \multirow{2}{*}{\SI{30}{\milli\ampere}}  & \multirow{2}{*}{\SI{8}{\second}}  \\
-                             &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{20}{\percent}   &                                          &                                   \\ \hline
-    GP2Y1010AU0F\cite{dat_GP2Y1010AU0F}             & \SI{0,5}{\volt}$/$\SI{100}{\ugcm} & záleží na ADC                                  & \SI{20}{\milli\ampere}                   & \SI{1}{\second}                           
+    PMS5003 & \multirow{2}{*}{\SI{1}{\ugcm}}    & $0-100$\SI{}{\ugcm}:$\pm$\SI{10}{\micro\gram}  & \multirow{2}{*}{\SI{100}{\milli\ampere}} & \multirow{2}{*}{\SI{10}{\second}} \\
+    \cite{dat_PMS5003}                         &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{10}{\percent}   &                                          &                                   \\ \hline
+    PM1003  & \multirow{2}{*}{\SI{1}{\ugcm}}    & $0-100$\SI{}{\ugcm}:$\pm$\SI{30}{\micro\gram}  & \multirow{2}{*}{\SI{90}{\milli\ampere}}  & \multirow{2}{*}{\SI{30}{\second}} \\
+    \cite{PM1003Datasheet} &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{30}{\percent}   &                                          &                                   \\ \hline
+    PM1006  & \multirow{2}{*}{neuvedeno}        & $0-100$\SI{}{\ugcm}:$\pm$\SI{20}{\micro\gram}  & \multirow{2}{*}{\SI{30}{\milli\ampere}}  & \multirow{2}{*}{\SI{8}{\second}}  \\
+    \cite{dat_PM1006} &                                   & $100-500$\SI{}{\ugcm}:$\pm$\SI{20}{\percent}   &                                          &                                   \\ \hline
+    GP2Y1010AU0F             & \multirow{2}{*}{\SI{0,5}{\volt}$/$\SI{100}{\ugcm}} & \multirow{2}{*}{záleží na ADC} & \multirow{2}{*}{\SI{20}{\milli\ampere}} & \multirow{2}{*}{\SI{1}{\second}} \\ 
+    \cite{dat_GP2Y1010AU0F} & & & & \\ \hline
     \end{tabular}
     \label{tab_DustSensors}
 \end{table}
