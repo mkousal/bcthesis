@@ -16,6 +16,8 @@
 #include "AirMonitoring_pms.hpp"
 #include "AirMonitoring_spi.hpp"
 #include "AirMonitoring_mcp3202.hpp"
+#include "AirMonitoring_sgp30.hpp"
+
 #include "AirMonitoring_wifi.hpp"
 
 using namespace Am;
@@ -27,7 +29,9 @@ PMS pms;
 SHT sht(0x44, I2C_MASTER_SDA, I2C_MASTER_SCL);      
 BMP388 bmp(0x77);
 VEML7700 light(0x10);
+SGP sgp(0x58);
 cJSON *msg;
 uint8_t taskChecker = 0;
+xTimerHandle sgpTimer;
 
 #define DEBUG

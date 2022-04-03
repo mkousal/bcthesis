@@ -60,6 +60,21 @@ esp_err_t I2C::writeBytes(int addr, uint8_t reg, uint16_t data, size_t len) {
     return stat;
 }
 
+esp_err_t I2C::writeBytes(int addr, uint16_t data) {
+    uint8_t *data_wr = (uint8_t *)malloc(sizeof(data));
+    data_wr[0] = uint8_t(data & 0xFF);
+    data_wr[1] = uint8_t(data >> 8);
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_WRITE, I2C_MASTER_ACK);
+    i2c_master_write(cmd, data_wr, 2, I2C_MASTER_ACK);
+    i2c_master_stop(cmd);
+    esp_err_t stat = i2c_master_cmd_begin(i2c_master_port, cmd, 0);
+    i2c_cmd_link_delete(cmd);
+    free(data_wr);
+    return stat;
+}
+
 esp_err_t I2C::writeByteToReg(int addr, uint8_t reg, uint8_t data) {
     i2c_cmd_handle_t cmd = i2c_cmd_link_create();
     ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_start(cmd));
@@ -95,6 +110,25 @@ esp_err_t I2C::readBytes(int addr, uint8_t reg, uint8_t *data, int data_len) {
     // if (data_len != 1){
     //     i2c_master_read(cmd, data, data_len-1, I2C_MASTER_ACK);
     // }
+    i2c_master_read(cmd, data, data_len, I2C_MASTER_LAST_NACK);
+    i2c_master_stop(cmd);
+    esp_err_t stat = i2c_master_cmd_begin(i2c_master_port, cmd, 0);
+    i2c_cmd_link_delete(cmd);
+    return stat;
+}
+
+esp_err_t I2C::readBytes16reg(int addr, uint16_t reg, uint8_t *data, int data_len) {
+    uint8_t *data_wr = (uint8_t *)malloc(sizeof(reg));
+    data_wr[0] = uint8_t(reg & 0xFF);
+    data_wr[1] = uint8_t(reg >> 8);
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_WRITE, I2C_MASTER_ACK);
+    i2c_master_write(cmd, data_wr, 2, I2C_MASTER_ACK);
+    i2c_master_start(cmd);
+    vTaskDelay(10 / portTICK_RATE_MS);
+
+    i2c_master_write_byte(cmd, (addr<<1) | I2C_MASTER_READ, I2C_MASTER_ACK);
     i2c_master_read(cmd, data, data_len, I2C_MASTER_LAST_NACK);
     i2c_master_stop(cmd);
     esp_err_t stat = i2c_master_cmd_begin(i2c_master_port, cmd, 0);

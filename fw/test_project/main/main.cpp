@@ -370,6 +370,8 @@
 //         esp_deep_sleep(6000000LL * 10);
 //     }
 // }
+#define DEBUG
+
 
 #include "main.hpp"
 
@@ -378,10 +380,29 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
+#include "freertos/timers.h"
+
+
+static void vSGPTimerCallback(xTimerHandle xTimer) {
+    static uint8_t cntMeasurement = 0;
+    sgp.measure();
+    cntMeasurement++;
+    if (cntMeasurement > 25 && (sgp.getCO2() != 65535)) {
+        cJSON_AddNumberToObject(msg, "C", sgp.getCO2());
+        cJSON_AddNumberToObject(msg, "E", sgp.getTVOC());
+        taskChecker++;
+        xTimerDelete(sgpTimer, 0);
+    }
+
+    #ifdef DEBUG
+    ESP_LOGI("SGP30", "CO2: %d   TVOC: %d", sgp.getCO2(), sgp.getTVOC());
+    #endif
+}
 
 void taskI2C(void *pvParameters)
 {
     sht.init();
+    sgp.init();
     light.init(light.ALS_SD_POWER_ON, light.ALS_IT_25, light.ALS_GAIN_1_4);
     bmp.softReset();
     bmp.init();
@@ -395,13 +416,16 @@ void taskI2C(void *pvParameters)
 
     light.read();
     sht.read();
+    sgp.getSerialID();
+    sgpTimer = xTimerCreate("SGP30_timer", pdMS_TO_TICKS(1000), pdTRUE, (void *)0, vSGPTimerCallback);
+    if (xTimerStart(sgpTimer, 10) != pdPASS) {
+        ESP_LOGI("timer", "Timer start error");
+    }
     cJSON_AddNumberToObject(msg, "T", (int)(sht.getTemp() * 10));
     cJSON_AddNumberToObject(msg, "H", (int)(sht.getHum() * 10));
     cJSON_AddNumberToObject(msg, "L", light.getValue());
     cJSON_AddNumberToObject(msg, "P", (int)(bmp.calcRelativePressure(sht.getTemp(), 377) * 10));
-    cJSON_AddNumberToObject(msg, "C", 0);   // future CO2_eq
-    cJSON_AddNumberToObject(msg, "E", 0);   // future TVOC
-
+    
     #ifdef DEBUG
     ESP_LOGI("I2C", "Temperature: %.1f  Humidity: %.1f  Light: %d  Pressure: %.1f  Temp: %.1f", sht.getTemp(), sht.getHum(), light.getValue(), bmp.calcRelativePressure(sht.getTemp(), 377), bmp.getTemp());
     #endif
@@ -510,11 +534,11 @@ extern "C" void app_main(void)
     // xTaskCreatePinnedToCore(taskUART2, "uart2_task", 8192, NULL, 5, NULL, APP_CPU_NUM);
     bool pmsMeasured = false;
     while (true) {
-        if (taskChecker == 4) {
+        if (taskChecker == 5) {
             xTaskCreatePinnedToCore(taskMQTT, "mqtt_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
             taskChecker = 20;
         }
-        else if (taskChecker < 4 && pmsMeasured == false) {
+        else if (taskChecker < 5 && pmsMeasured == false) {
             unsigned long timer = clock();
             while(((clock() - timer) / CLOCKS_PER_SEC) < 20){
                 pms.readPMS();

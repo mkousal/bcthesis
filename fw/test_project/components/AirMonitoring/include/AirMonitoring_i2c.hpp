@@ -24,11 +24,15 @@ public:
 
     esp_err_t writeBytes(int addr, uint8_t reg, uint16_t data, size_t len);
 
+    esp_err_t writeBytes(int addr, uint16_t data);
+
     esp_err_t writeByteToReg(int addr, uint8_t reg, uint8_t data);
 
     esp_err_t readBytes(int addr, uint8_t *data, int data_len);
 
     esp_err_t readBytes(int addr, uint8_t reg, uint8_t *data, int data_len);
+
+    esp_err_t readBytes16reg(int addr, uint16_t reg, uint8_t *data, int data_len);
 
     esp_err_t writeCommand(int addr, uint8_t cmdCode, uint16_t msg);    
 
