@@ -387,7 +387,8 @@ static void vSGPTimerCallback(xTimerHandle xTimer) {
     static uint8_t cntMeasurement = 0;
     sgp.measure();
     cntMeasurement++;
-    if (cntMeasurement > 25 && (sgp.getCO2() != 65535)) {
+    if (cntMeasurement > 22 && (sgp.getCO2() != 65535)) {
+        power.sensors(false);
         cJSON_AddNumberToObject(msg, "C", sgp.getCO2());
         cJSON_AddNumberToObject(msg, "E", sgp.getTVOC());
         taskChecker++;
@@ -491,7 +492,8 @@ void taskWiFi(void *pvParameters)
 void taskMQTT(void *pvParameters)
 {
     esp_mqtt_client_config_t mqtt_cfg = {
-        .host = MQTT_BROKER_URL,
+        .uri = MQTT_BROKER_URL,
+        .port = 2000,
     };
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
     esp_mqtt_client_start(client);
@@ -508,7 +510,7 @@ void taskMQTT(void *pvParameters)
     #ifdef DEBUG
     ESP_LOGI("MQTT", "MQTT Publish sent");
     #endif
-
+    power.isolateGPIO();
     vTaskDelay(3000 / portTICK_RATE_MS);
     esp_wifi_stop();
     esp_deep_sleep(300000000LL);
@@ -550,6 +552,7 @@ extern "C" void app_main(void)
                 pms.printPM();
                 #endif
             }
+            power.pms(false);
             cJSON_AddNumberToObject(msg, "P1", pms.getPM1());
             cJSON_AddNumberToObject(msg, "P25", pms.getPM25());
             cJSON_AddNumberToObject(msg, "P10", pms.getPM10());
@@ -557,5 +560,6 @@ extern "C" void app_main(void)
             taskChecker++;
             pmsMeasured = true;
         }
+        vTaskDelay(10 / portTICK_RATE_MS);
     }
 }

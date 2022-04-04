@@ -43,4 +43,14 @@ void Power::device(bool state){
     gpio_set_level(POWER_OFF, state);
 }
 
+void Power::isolateGPIO() {
+    rtc_gpio_isolate(SEN_VDD_EN);
+    rtc_gpio_isolate(LORA_EN);
+    rtc_gpio_isolate(LED);
+    // rtc_gpio_isolate(PMS_EN);
+    // rtc_gpio_isolate(LDO_EN);
+    // rtc_gpio_isolate(IO26);
+    // rtc_gpio_isolate(SWITCH);   
+}
+
 } // namespace Am

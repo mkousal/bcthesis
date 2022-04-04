@@ -3,6 +3,7 @@
 #include "AirMonitoring_pinout.hpp"
 
 #include <driver/gpio.h>
+#include "driver/rtc_io.h"
 
 namespace Am {
 
@@ -26,6 +27,8 @@ public:
     void pms(bool state = ON);
 
     void device(bool state = ON);
+
+    void isolateGPIO();
     
 };   // class Power
 
