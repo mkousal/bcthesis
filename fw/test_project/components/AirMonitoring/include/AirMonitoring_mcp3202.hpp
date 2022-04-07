@@ -1,3 +1,13 @@
+/**
+ * @file AirMonitoring_mcp3202.hpp
+ * @author Martin Kousal ()
+ * @brief Simple library to use ADC MCP3202 via SPI bus
+ * @version 0.1
+ * @date 2022-04-07
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #pragma once
 
 #include "AirMonitoring_pinout.hpp"

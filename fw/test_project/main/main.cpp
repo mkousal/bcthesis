@@ -113,10 +113,10 @@ void taskMQTT(void *pvParameters)
     #ifdef DEBUG
     ESP_LOGI("MQTT", "MQTT Publish sent");
     #endif
-    // power.isolateGPIO();
+    power.isolateGPIO();
     vTaskDelay(3000 / portTICK_RATE_MS);
     esp_wifi_stop();
-    esp_sleep_config_gpio_isolate();
+    // esp_sleep_config_gpio_isolate();
     esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
     esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
     esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);

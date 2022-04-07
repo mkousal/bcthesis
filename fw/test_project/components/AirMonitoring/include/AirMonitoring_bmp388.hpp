@@ -1,3 +1,13 @@
+/**
+ * @file AirMonitoring_bmp388.hpp
+ * @author Martin Kousal ()
+ * @brief Simple library to communicate with BMP388 absolute barometric pressure sensor via I2C bus
+ * @version 0.1
+ * @date 2022-04-07
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
 #pragma once
 
 #include "AirMonitoring_i2c.hpp"
@@ -53,17 +63,44 @@ namespace Am {
 class BMP388 : public I2C {
 
 private:
+    /**
+     * @brief Variable to store device address
+     * 
+     */
     int bmp_addr;
+
+    /**
+     * @brief 6 bytes variable to store received data from sensor
+     * 
+     */
     uint8_t *data_rd = (uint8_t *) malloc(6);
+
+    /**
+     * @brief Variable to store measured pressure value
+     * 
+     */
     uint32_t data_pressure = 0;
+
+    /**
+     * @brief Variable to store measured temperature value
+     * 
+     */
     uint32_t data_temperature = 0;
 
+    /**
+     * @brief Enumeration of BMP sensor sleep modes
+     * 
+     */
     typedef enum {
         BMP_MODE_SLEEP = 0,
         BMP_MODE_FORCED = 1,
         BMP_MODE_NORMAL = 3
     } mode_t;
 
+    /**
+     * @brief Enumeration of BMP sensor oversampling options
+     * 
+     */
     typedef enum {
         OVERSAMPLING_1 = 0,
         OVERSAMPLING_2,
@@ -73,6 +110,10 @@ private:
         OVERSAMPLING_32
     } oversampling_t;
 
+    /**
+     * @brief Enumeration of BMP sensor coefficient options
+     * 
+     */
     typedef enum {
         COEF_0 = 0,
         COEF_1,
@@ -84,6 +125,10 @@ private:
         COEF_127
     } filter_t;
 
+    /**
+     * @brief Structure of received calibration data values from sensor
+     * 
+     */
     #pragma pack(push, 1)
     typedef struct {
         uint16_t T1;
@@ -103,6 +148,10 @@ private:
     } calib_data_t, *Pcalib_data_t;
     #pragma pack(pop)
 
+    /**
+     * @brief Structure of received measured values
+     * 
+     */
     typedef struct {
         double T1;
         double T2;
@@ -126,47 +175,149 @@ private:
     Pcalib_data_t calib_data;
     coefficients_t c_data;
 
+    /**
+     * @brief Reads 16 bit values from register
+     * 
+     * @param addr Addres of I2C device
+     * @param reg 8 bit register address
+     * @param r 16 bit variable to store received data
+     */
     void readReg16(int addr, uint8_t reg, uint16_t *r);
 
 public:
+    /**
+     * @brief Construct a new BMP388 object
+     * 
+     * @param addr I2C device address
+     */
     BMP388(int addr);
 
+    /**
+     * @brief Destroy the BMP388 object
+     * 
+     */
     ~BMP388();
 
+    /**
+     * @brief Initialize sensor and set parameters of measuring
+     * 
+     * @param temp Temperature oversampling value from \p oversampling_t structure
+     * @param press Pressure oversampling value from \p oversampling_t structure
+     * @param filt IIR filter type from \p filter_t structure
+     */
     void init(oversampling_t temp = OVERSAMPLING_1, oversampling_t press = OVERSAMPLING_1, filter_t filt = COEF_0);
 
+    /**
+     * @brief Force read pressure or temperature values
+     * 
+     * @param press Enable pressure measurement (default value - true)
+     * @param temp Enable temperature measurement (default value - true)
+     */
     void forceRead(bool press = 1, bool temp = 1);
 
+    /**
+     * @brief Read measured values
+     * 
+     */
     void read();
 
+    /**
+     * @brief Measure and read pressure value
+     * 
+     */
     void readPressure();
 
+    /**
+     * @brief Measure and read temperature value
+     * 
+     */
     void readTemperature();
 
+    /**
+     * @brief Print raw measured data for debug purposes
+     * 
+     */
     void print();
 
+    /**
+     * @brief Read sensor ID and print to UART
+     * 
+     * @return uint8_t Received data
+     */
     uint8_t readID();
 
+    /**
+     * @brief Print to UART error state register of sensor
+     * 
+     */
     void checkERR();
 
+    /**
+     * @brief Read sensor status register
+     * 
+     * @return uint8_t Stats of sensor
+     */
     uint8_t readStatus();
 
+    /**
+     * @brief Print to UART power register of sensor
+     * 
+     */
     void readPower();
 
+    /**
+     * @brief Soft reset of sensor
+     * 
+     */
     void softReset();
 
+    /**
+     * @brief Read calibration data, process them and store to the prepared structure
+     * 
+     */
     void readCalibrationData();
 
+    /**
+     * @brief Compensate measured temperature with calibration data
+     * 
+     * @param uncomp_temp Uncompensated measured temperature
+     */
     void compensateTemperature(uint32_t uncomp_temp);
 
+    /**
+     * @brief Compensate measured pressure with calibration data
+     * 
+     * @param uncomp_press Uncompensated measured pressure
+     */
     void compensatePressure(uint32_t uncomp_press);
 
+    /**
+     * @brief Compensate measured temperature and pressure
+     * 
+     */
     void compensate();
 
+    /**
+     * @brief Get measured pressure from local variable
+     * 
+     * @return double Measured pressure
+     */
     double getPressure();
 
+    /**
+     * @brief Get measured temperature from local variable
+     * 
+     * @return double Measured pressure
+     */
     double getTemp();
 
+    /**
+     * @brief Calculate relative pressure to the sea level with given temperature and altitude
+     * 
+     * @param temperature Measured actual temperature
+     * @param altitude Altitude in which the sensor is installed
+     * @return double Relative pressure to the sea level
+     */
     double calcRelativePressure(float temperature, int altitude);
 
 };   // class BMP

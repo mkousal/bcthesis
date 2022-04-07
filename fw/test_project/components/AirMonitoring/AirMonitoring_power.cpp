@@ -50,7 +50,8 @@ void Power::isolateGPIO() {
     // rtc_gpio_isolate(PMS_EN);
     // rtc_gpio_isolate(LDO_EN);
     // rtc_gpio_isolate(IO26);
-    // rtc_gpio_isolate(SWITCH);   
+    rtc_gpio_isolate(SWITCH);   
+    rtc_gpio_isolate(GPIO_NUM_0);
 }
 
 } // namespace Am
