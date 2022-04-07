@@ -1,3 +1,14 @@
+/**
+ * @file AirMonitoring_pinout.hpp
+ * @author Martin Kousal ()
+ * @brief Pinout defines for Air monitoring main board
+ * @version 0.1
+ * @date 2022-04-07
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #pragma once
 
 #include <driver/gpio.h>
@@ -39,7 +50,7 @@ static const gpio_num_t SCLK = IO18;
 static const gpio_num_t MISO = IO19;
 static const gpio_num_t MOSI = IO23;
 static const gpio_num_t SEN_VDD_EN = IO25;
-static const gpio_num_t MQ_EN = IO26;
+static const gpio_num_t SGP_EN = IO26;
 static const gpio_num_t POWER_OFF = IO27;
 static const gpio_num_t LORA_RST = IO32;
 static const gpio_num_t DIO0 = IO33;
