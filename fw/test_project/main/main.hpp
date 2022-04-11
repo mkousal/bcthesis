@@ -20,6 +20,8 @@
 
 #include "AirMonitoring_wifi.hpp"
 
+#include "TheThingsNetwork.h"
+
 using namespace Am;
 
 Power power;
@@ -33,5 +35,10 @@ SGP sgp(0x58);
 cJSON *msg;
 uint8_t taskChecker = 0;
 xTimerHandle sgpTimer;
+
+const char *appEui = "";
+const char *devEui = "";
+const char *appKey = "";
+static TheThingsNetwork ttn;
 
 #define DEBUG

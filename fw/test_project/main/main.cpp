@@ -9,6 +9,13 @@
 #include "freertos/event_groups.h"
 #include "freertos/timers.h"
 
+void messageReceived(const uint8_t *message, size_t length, ttn_port_t port)
+{
+    printf("Message of %d bytes received on port %d:", length, port);
+    for (int i = 0; i < length; i++)
+        printf(" %02x", message[i]);
+    printf("\n");
+}
 
 static void vSGPTimerCallback(xTimerHandle xTimer) {
     static uint8_t cntMeasurement = 0;
@@ -127,6 +134,36 @@ void taskMQTT(void *pvParameters)
     vTaskDelete(NULL);
 }
 
+void taskTTN(void *pvParameters) {
+    ESP_ERROR_CHECK(gpio_install_isr_service(ESP_INTR_FLAG_IRAM));
+    ESP_ERROR_CHECK(nvs_flash_init());
+    ttn.configurePins(VSPI_HOST, CS_LORA, TTN_NOT_CONNECTED, LORA_RST, DIO0, DIO1);
+    ttn.provision(devEui, appEui, appKey);
+    ttn.onMessage(messageReceived);
+    if (ttn.resumeAfterDeepSleep())
+        ESP_LOGI("TTN", "Resumed from deep sleep");
+    else {
+        ESP_LOGI("TTN", "Joining...");
+        if (ttn.join())
+            ESP_LOGI("TTN", "Joined");
+        else {
+            ESP_LOGI("TTN", "Join failed.");
+            return;
+        }
+    }
+    char message[] = "Hello world via LoRaWAN";
+    ESP_LOGI("TTN", "Sending message");
+    TTNResponseCode res = ttn.transmitMessage((uint8_t *)message, strlen(message));
+    if (res == kTTNSuccessfulTransmission)
+        ESP_LOGI("TTN", "Message sent");
+    else
+        ESP_LOGI("TTN", "Transmission failed");
+    ttn.waitForIdle();
+    ttn.prepareForDeepSleep();
+    ESP_LOGI("TTN", "Go to sleep");
+    esp_deep_sleep(300000000LL);
+}
+
 extern "C" void app_main(void)
 {
     ESP_LOGI("main", "Hello world!");
@@ -135,13 +172,15 @@ extern "C" void app_main(void)
     power.sensors();
     power.pms();
     pms.init();
+    power.lora();
     ESP_ERROR_CHECK(spi.begin(MOSI, MISO, SCLK));
     vTaskDelay(100 / portTICK_RATE_MS);
     vTaskDelay(50 / portTICK_RATE_MS);
     msg = cJSON_CreateObject();
     xTaskCreatePinnedToCore(taskI2C, "i2c_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     xTaskCreatePinnedToCore(taskSPI, "spi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
-    xTaskCreatePinnedToCore(taskWiFi, "wifi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    // xTaskCreatePinnedToCore(taskWiFi, "wifi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    xTaskCreatePinnedToCore(taskTTN, "TTN_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     bool pmsMeasured = false;
     while (true) {
         if (taskChecker == 5) {

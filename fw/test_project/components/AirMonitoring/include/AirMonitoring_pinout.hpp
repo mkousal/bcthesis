@@ -54,6 +54,7 @@ static const gpio_num_t SGP_EN = IO26;
 static const gpio_num_t POWER_OFF = IO27;
 static const gpio_num_t LORA_RST = IO32;
 static const gpio_num_t DIO0 = IO33;
+static const gpio_num_t DIO1 = IO5;
 // static const gpio_num_t IO34 = ADC_VIN;
 static const gpio_num_t SWITCH = IO35;
 
