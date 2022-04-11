@@ -151,9 +151,14 @@ void taskTTN(void *pvParameters) {
             return;
         }
     }
-    char message[] = "Hello world via LoRaWAN";
+    char *json_str = cJSON_PrintUnformatted(msg);
+    int json_str_size = strlen(json_str);
+
+    #ifdef DEBUG
+    ESP_LOGI("TTN", "size of JSON message: %d JSON:\n%s\n", json_str_size, json_str);
+    #endif
     ESP_LOGI("TTN", "Sending message");
-    TTNResponseCode res = ttn.transmitMessage((uint8_t *)message, strlen(message));
+    TTNResponseCode res = ttn.transmitMessage((uint8_t *)json_str, json_str_size);
     if (res == kTTNSuccessfulTransmission)
         ESP_LOGI("TTN", "Message sent");
     else
@@ -161,7 +166,15 @@ void taskTTN(void *pvParameters) {
     ttn.waitForIdle();
     ttn.prepareForDeepSleep();
     ESP_LOGI("TTN", "Go to sleep");
+    power.isolateGPIO();
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
+    esp_sleep_pd_config(ESP_PD_DOMAIN_XTAL, ESP_PD_OPTION_OFF);
+    vTaskDelay(20 / portTICK_RATE_MS);
     esp_deep_sleep(300000000LL);
+
+    vTaskDelete(NULL);
 }
 
 extern "C" void app_main(void)
@@ -173,6 +186,7 @@ extern "C" void app_main(void)
     power.pms();
     pms.init();
     power.lora();
+    power.sgp30();
     ESP_ERROR_CHECK(spi.begin(MOSI, MISO, SCLK));
     vTaskDelay(100 / portTICK_RATE_MS);
     vTaskDelay(50 / portTICK_RATE_MS);
@@ -180,14 +194,15 @@ extern "C" void app_main(void)
     xTaskCreatePinnedToCore(taskI2C, "i2c_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     xTaskCreatePinnedToCore(taskSPI, "spi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     // xTaskCreatePinnedToCore(taskWiFi, "wifi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
-    xTaskCreatePinnedToCore(taskTTN, "TTN_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    // xTaskCreatePinnedToCore(taskTTN, "TTN_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     bool pmsMeasured = false;
     while (true) {
-        if (taskChecker == 5) {
-            xTaskCreatePinnedToCore(taskMQTT, "mqtt_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+        if (taskChecker == 4) {
+            // xTaskCreatePinnedToCore(taskMQTT, "mqtt_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+            xTaskCreatePinnedToCore(taskTTN, "TTN_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
             taskChecker = 20;
         }
-        else if (taskChecker < 5 && pmsMeasured == false) {
+        else if (taskChecker < 4 && pmsMeasured == false) {
             unsigned long timer = clock();
             while(((clock() - timer) / CLOCKS_PER_SEC) < 20){
                 pms.readPMS();

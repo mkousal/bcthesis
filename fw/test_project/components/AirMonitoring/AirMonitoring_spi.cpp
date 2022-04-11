@@ -21,8 +21,8 @@ esp_err_t SPI::begin(gpio_num_t mosi, gpio_num_t miso, gpio_num_t sclk) {
     cfg.sclk_io_num = sclk;
     cfg.quadhd_io_num = -1; // not used
     cfg.quadwp_io_num = -1; // not used
-    cfg.max_transfer_sz = 32;    // -> 4092
-    return spi_bus_initialize(host, &cfg, 0);
+    cfg.max_transfer_sz = 0;    // -> 4092
+    return spi_bus_initialize(host, &cfg, SPI_DMA_CH_AUTO);
 }
 
 esp_err_t SPI::addDevice(uint8_t mode, uint32_t clock_speed_hz, gpio_num_t cs_pin, spi_device_handle_t *handle) {
