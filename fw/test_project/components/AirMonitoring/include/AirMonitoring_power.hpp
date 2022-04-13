@@ -14,6 +14,9 @@
 
 #include <driver/gpio.h>
 #include "driver/rtc_io.h"
+#include "esp_sleep.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
 
 namespace Am {
 
@@ -85,10 +88,17 @@ public:
     void device(bool state = ON);
 
     /**
-     * @brief Isolate GPIOS in deep sleep mode to prevent flowing current
+     * @brief Isolate GPIOs in deep sleep mode to prevent flowing current
      * 
      */
     void isolateGPIO();
+
+    /**
+     * @brief Go to deep sleep for given time
+     * 
+     * @param time Time for deep sleep in us
+     */
+    void goToSleep(uint64_t time);
     
 };   // class Power
 

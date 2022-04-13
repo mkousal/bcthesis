@@ -8,6 +8,7 @@
 #include "esp_sleep.h"
 
 #include "AirMonitoring_pinout.hpp"
+#include "AirMonitoring_utils.hpp"
 #include "AirMonitoring_power.hpp"
 #include "AirMonitoring_i2c.hpp"
 #include "AirMonitoring_sht.hpp"

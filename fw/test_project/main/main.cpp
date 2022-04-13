@@ -9,14 +9,6 @@
 #include "freertos/event_groups.h"
 #include "freertos/timers.h"
 
-void messageReceived(const uint8_t *message, size_t length, ttn_port_t port)
-{
-    printf("Message of %d bytes received on port %d:", length, port);
-    for (int i = 0; i < length; i++)
-        printf(" %02x", message[i]);
-    printf("\n");
-}
-
 static void vSGPTimerCallback(xTimerHandle xTimer) {
     static uint8_t cntMeasurement = 0;
     sgp.measure();
@@ -25,7 +17,7 @@ static void vSGPTimerCallback(xTimerHandle xTimer) {
         power.sensors(false);
         cJSON_AddNumberToObject(msg, "C", sgp.getCO2());
         cJSON_AddNumberToObject(msg, "E", sgp.getTVOC());
-        taskChecker++;
+        setTaskChecker(SGP_CHECKER);
         xTimerDelete(sgpTimer, 0);
     }
 
@@ -65,7 +57,7 @@ void taskI2C(void *pvParameters)
     ESP_LOGI("I2C", "Temperature: %.1f  Humidity: %.1f  Light: %d  Pressure: %.1f  Temp: %.1f", sht.getTemp(), sht.getHum(), light.getValue(), bmp.calcRelativePressure(sht.getTemp(), 377), bmp.getTemp());
     #endif
 
-    taskChecker++;
+    setTaskChecker(I2C_CHECKER);
     vTaskDelete(NULL);
 }
 
@@ -79,7 +71,7 @@ void taskSPI(void *pvParameters)
     ESP_LOGI("SPI", "UV: %f", mcp.getUVmW());
     #endif
 
-    taskChecker++;
+    setTaskChecker(SPI_CHECKER);
     vTaskDelete(NULL);
 }
 
@@ -95,7 +87,7 @@ void taskWiFi(void *pvParameters)
     ESP_LOGI("WiFi", "ESP_WIFI_MODE_STA");
     wifi_init_sta();
 
-    taskChecker++;
+    setTaskChecker(WIFI_CHECKER);
     vTaskDelete(NULL);
 }
 
@@ -123,18 +115,13 @@ void taskMQTT(void *pvParameters)
     power.isolateGPIO();
     vTaskDelay(3000 / portTICK_RATE_MS);
     esp_wifi_stop();
-    // esp_sleep_config_gpio_isolate();
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_XTAL, ESP_PD_OPTION_OFF);
-    vTaskDelay(20 / portTICK_RATE_MS);
-    esp_deep_sleep(300000000LL);
+    
+    power.goToSleep(300000000LL);
 
     vTaskDelete(NULL);
 }
 
-void taskTTN(void *pvParameters) {
+void taskLoRaWAN(void *pvParameters) {
     ESP_ERROR_CHECK(gpio_install_isr_service(ESP_INTR_FLAG_IRAM));
     ESP_ERROR_CHECK(nvs_flash_init());
     ttn.configurePins(VSPI_HOST, CS_LORA, TTN_NOT_CONNECTED, LORA_RST, DIO0, DIO1);
@@ -151,6 +138,11 @@ void taskTTN(void *pvParameters) {
             return;
         }
     }
+    setTaskChecker(LORAWAN_CHECKER);
+    vTaskDelete(NULL);
+}
+
+void taskTTN(void *pvParameters) {
     char *json_str = cJSON_PrintUnformatted(msg);
     int json_str_size = strlen(json_str);
 
@@ -166,13 +158,8 @@ void taskTTN(void *pvParameters) {
     ttn.waitForIdle();
     ttn.prepareForDeepSleep();
     ESP_LOGI("TTN", "Go to sleep");
-    power.isolateGPIO();
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_XTAL, ESP_PD_OPTION_OFF);
-    vTaskDelay(20 / portTICK_RATE_MS);
-    esp_deep_sleep(300000000LL);
+
+    power.goToSleep(300000000LL);
 
     vTaskDelete(NULL);
 }
@@ -194,15 +181,15 @@ extern "C" void app_main(void)
     xTaskCreatePinnedToCore(taskI2C, "i2c_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     xTaskCreatePinnedToCore(taskSPI, "spi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     // xTaskCreatePinnedToCore(taskWiFi, "wifi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
-    // xTaskCreatePinnedToCore(taskTTN, "TTN_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    xTaskCreatePinnedToCore(taskLoRaWAN, "LoRaWAN_join_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     bool pmsMeasured = false;
     while (true) {
-        if (taskChecker == 4) {
+        if (getTaskChecker(MEAS_DONE_CHECKER | LORAWAN_CHECKER)) {
             // xTaskCreatePinnedToCore(taskMQTT, "mqtt_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
             xTaskCreatePinnedToCore(taskTTN, "TTN_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
-            taskChecker = 20;
+            resetTaskChecker(MEAS_DONE_CHECKER);
         }
-        else if (taskChecker < 4 && pmsMeasured == false) {
+        if (getTaskChecker(PMS_CHECKER) == false) {
             unsigned long timer = clock();
             while(((clock() - timer) / CLOCKS_PER_SEC) < 20){
                 pms.readPMS();
@@ -219,8 +206,8 @@ extern "C" void app_main(void)
             cJSON_AddNumberToObject(msg, "P25", pms.getPM25());
             cJSON_AddNumberToObject(msg, "P10", pms.getPM10());
 
-            taskChecker++;
-            pmsMeasured = true;
+            setTaskChecker(PMS_CHECKER);
+            // pmsMeasured = true;
         }
         vTaskDelay(10 / portTICK_RATE_MS);
     }
