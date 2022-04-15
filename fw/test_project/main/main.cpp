@@ -116,7 +116,7 @@ void taskMQTT(void *pvParameters)
     vTaskDelay(3000 / portTICK_RATE_MS);
     esp_wifi_stop();
     
-    power.goToSleep(300000000LL);
+    power.goToSleep(3);
 
     vTaskDelete(NULL);
 }
@@ -125,7 +125,7 @@ void taskLoRaWAN(void *pvParameters) {
     ESP_ERROR_CHECK(gpio_install_isr_service(ESP_INTR_FLAG_IRAM));
     ESP_ERROR_CHECK(nvs_flash_init());
     ttn.configurePins(VSPI_HOST, CS_LORA, TTN_NOT_CONNECTED, LORA_RST, DIO0, DIO1);
-    ttn.provision(devEui, appEui, appKey);
+    // ttn.provision(devEui, appEui, appKey);   // can be commented after first upload, keys stored in NVS
     ttn.onMessage(messageReceived);
     if (ttn.resumeAfterDeepSleep())
         ESP_LOGI("TTN", "Resumed from deep sleep");
@@ -157,9 +157,10 @@ void taskTTN(void *pvParameters) {
         ESP_LOGI("TTN", "Transmission failed");
     ttn.waitForIdle();
     ttn.prepareForDeepSleep();
+    vTaskDelay(100 / portTICK_RATE_MS);
     ESP_LOGI("TTN", "Go to sleep");
 
-    power.goToSleep(300000000LL);
+    power.goToSleep(3);
 
     vTaskDelete(NULL);
 }

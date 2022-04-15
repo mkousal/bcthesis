@@ -53,14 +53,14 @@ void Power::isolateGPIO() {
     rtc_gpio_isolate(GPIO_NUM_0);
 }
 
-void Power::goToSleep(uint64_t time) {
+void Power::goToSleep(int time) {
     isolateGPIO();
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_OFF);
-    esp_sleep_pd_config(ESP_PD_DOMAIN_XTAL, ESP_PD_OPTION_OFF);
+    // esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_SLOW_MEM, ESP_PD_OPTION_ON);
+    // esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_FAST_MEM, ESP_PD_OPTION_ON);
+    // esp_sleep_pd_config(ESP_PD_DOMAIN_RTC_PERIPH, ESP_PD_OPTION_ON);
+    // esp_sleep_pd_config(ESP_PD_DOMAIN_XTAL, ESP_PD_OPTION_OFF);
     vTaskDelay(10 / portTICK_RATE_MS);
-    esp_deep_sleep(time);
+    esp_deep_sleep(time * 60 * 1000 * 1000);
 }
 
 } // namespace Am

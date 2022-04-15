@@ -96,9 +96,9 @@ public:
     /**
      * @brief Go to deep sleep for given time
      * 
-     * @param time Time for deep sleep in us
+     * @param time Time for deep sleep in minutes
      */
-    void goToSleep(uint64_t time);
+    void goToSleep(int time);
     
 };   // class Power
 
