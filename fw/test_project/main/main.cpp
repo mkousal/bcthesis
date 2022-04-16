@@ -157,7 +157,6 @@ void taskTTN(void *pvParameters) {
         ESP_LOGI("TTN", "Transmission failed");
     ttn.waitForIdle();
     ttn.prepareForDeepSleep();
-    vTaskDelay(100 / portTICK_RATE_MS);
     ESP_LOGI("TTN", "Go to sleep");
 
     power.goToSleep(3);
@@ -168,7 +167,8 @@ void taskTTN(void *pvParameters) {
 extern "C" void app_main(void)
 {
     ESP_LOGI("main", "Hello world!");
-        
+    ADCCalibrationEnable = initADC();
+    ESP_LOGI("battery", "Voltage: %d", getBatteryVoltage(ADCCalibrationEnable));
     power.ldo();
     power.sensors();
     power.pms();

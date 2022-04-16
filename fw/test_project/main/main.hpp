@@ -36,6 +36,7 @@ SGP sgp(0x58);
 cJSON *msg;
 uint8_t taskChecker = 0;
 xTimerHandle sgpTimer;
+bool ADCCalibrationEnable;
 
 const char *appEui = "";
 const char *devEui = "";

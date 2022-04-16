@@ -2,6 +2,9 @@
 
 #include "AirMonitoring_pinout.hpp"
 #include "../../ttn-esp32/include/TheThingsNetwork.h"
+#include "driver/adc.h"
+#include "esp_adc_cal.h"
+#include "esp_log.h"
 
 namespace Am {
 
@@ -19,6 +22,7 @@ namespace Am {
 #define LORAWAN_CHECKER 0x20
 
 static volatile uint8_t taskStatus = 0;
+static esp_adc_cal_characteristics_t adc1_char;
 
 /**
  * @brief Set task checker selected flag to true
@@ -51,5 +55,20 @@ void resetTaskChecker(uint8_t flag, bool all = false);
  * @param port Port at which message was received
  */
 void messageReceived(const uint8_t *message, size_t length, ttn_port_t port);
+
+/**
+ * @brief 
+ * 
+ * @return true 
+ * @return false 
+ */
+bool initADC();
+
+/**
+ * @brief Measure and get the battery voltage in mV
+ * 
+ * @return uint32_t Battery voltage in mV
+ */
+uint32_t getBatteryVoltage(bool calibEnable);
 
 }   // namespace Am
