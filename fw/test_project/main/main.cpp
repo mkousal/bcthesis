@@ -36,13 +36,19 @@ void taskI2C(void *pvParameters)
     bmp.readCalibrationData();
 
     sht.sendRequestToRead();
+    vTaskDelay(10 / portTICK_RATE_MS);
+    sht.read();
     bmp.forceRead();
     vTaskDelay(20 / portTICK_RATE_MS);
     bmp.read();
     bmp.compensate();
+    if (sht.getTemp() > 120){
+        sht.sendRequestToRead();
+        vTaskDelay(10 / portTICK_RATE_MS);
+        sht.read();
+    }
 
     light.read();
-    sht.read();
     sgp.getSerialID();
     sgpTimer = xTimerCreate("SGP30_timer", pdMS_TO_TICKS(1000), pdTRUE, (void *)0, vSGPTimerCallback);
     if (xTimerStart(sgpTimer, 10) != pdPASS) {
@@ -168,7 +174,8 @@ extern "C" void app_main(void)
 {
     ESP_LOGI("main", "Hello world!");
     ADCCalibrationEnable = initADC();
-    ESP_LOGI("battery", "Voltage: %d", getBatteryVoltage(ADCCalibrationEnable));
+    uint32_t battery = getBatteryVoltage(ADCCalibrationEnable);
+    ESP_LOGI("battery", "Voltage: %d", battery);
     power.ldo();
     power.sensors();
     power.pms();
@@ -179,6 +186,7 @@ extern "C" void app_main(void)
     vTaskDelay(100 / portTICK_RATE_MS);
     vTaskDelay(50 / portTICK_RATE_MS);
     msg = cJSON_CreateObject();
+    cJSON_AddNumberToObject(msg, "B", battery);
     xTaskCreatePinnedToCore(taskI2C, "i2c_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     xTaskCreatePinnedToCore(taskSPI, "spi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     // xTaskCreatePinnedToCore(taskWiFi, "wifi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
