@@ -21,8 +21,8 @@
 
 #define TTN_RTC_FLAG_VALUE 0xf30b84ce
 
-RTC_DATA_ATTR uint8_t ttn_rtc_mem_buf[TTN_RTC_MEM_SIZE];
-RTC_DATA_ATTR uint32_t ttn_rtc_flag;
+RTC_NOINIT_ATTR uint8_t ttn_rtc_mem_buf[TTN_RTC_MEM_SIZE];
+RTC_NOINIT_ATTR uint32_t ttn_rtc_flag;
 
 void ttn_rtc_save()
 {

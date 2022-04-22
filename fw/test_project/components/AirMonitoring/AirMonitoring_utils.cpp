@@ -52,13 +52,18 @@ bool initADC() {
 }
 
 uint32_t getBatteryVoltage(bool calibEnable) {
-    uint32_t voltage;
+    uint32_t voltage = 0;
+    uint32_t batteryVoltage = 0;
     ESP_LOGI("bat", "CalibEN %d", calibEnable);
     if (calibEnable == 1) {
         ESP_LOGI("bat", "calibrated, measure start");
-        esp_adc_cal_get_voltage(ADC_CHANNEL_6, &adc1_char, &voltage);
-        voltage = (voltage * (1000000+270000)) / 270000;
-        return voltage;
+        for (uint8_t i = 0; i != 3; i++) {
+            esp_adc_cal_get_voltage(ADC_CHANNEL_6, &adc1_char, &voltage);
+            batteryVoltage += voltage;
+        }
+        batteryVoltage /= 3;
+        batteryVoltage = (batteryVoltage * (1000000+270000)) / 270000;
+        return batteryVoltage;
     }
     else 
         return 0;

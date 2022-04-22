@@ -175,6 +175,8 @@ extern "C" void app_main(void)
     ESP_LOGI("main", "Hello world!");
     ADCCalibrationEnable = initADC();
     uint32_t battery = getBatteryVoltage(ADCCalibrationEnable);
+    if (battery < 2900)
+        power.device(0);
     ESP_LOGI("battery", "Voltage: %d", battery);
     power.ldo();
     power.sensors();
