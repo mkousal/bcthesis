@@ -5,4 +5,10 @@
 cmake_minimum_required(VERSION 3.5)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
+
+#define WiFi SSID, password and MQTT broker url
+add_compile_definitions(SSID="")
+add_compile_definitions(PWD="")
+add_compile_definitions(MQTT_BROKER_URL="")
+
 project(main)
