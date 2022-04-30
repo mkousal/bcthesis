@@ -37,16 +37,18 @@ Po pečlivém prostudování jednotlivých parametrů jsem zvolil senzor PMS5003
     \label{fig_PMS5003}
 \end{figure}
 
-\subsection{Senzor oxidu uhelnatého}
+\subsection{Senzor oxidu uhličitého}
 
-U senzorů oxidu uhelnatého je situace o~něco složitější. Na trhu neexistuje mnoho možností, ze kterých by se dalo v~rozumné cenové kategorii vybírat. Pokud se podíváme do katalogů většiny (nejen českých) obchodů, zjistíme, že ceny čidel se pohybují ve vyšších stovkách korun až po několik tisíc. Tato cena je pro neprofesionální měření nepřijatelná. Jediným možným rozumným výběrem jsou čidla s~označením série MQ od výrobce Hanwei electronics\footnote{\url{https://www.hwsensor.com/}}. Vybral jsem tedy čidlo s~označením MQ-7, které je nejvíce citlivé právě na oxid uhelnatý. Funguje na principu ohřevu senzitivní vrstvy (zde konkrétně z~materiálu $SnO_{2}$) a~následně měření jejího odporu. Senzor je třeba napájet z~\SI{5}{\volt} a~jeho výstup je třeba přivést na AD převodník, jelikož má analogový výstup.
+U senzorů oxidu uhličitého je situace o~něco složitější. Na trhu neexistuje mnoho možností, ze kterých by se dalo v~rozumné cenové kategorii vybrat čidlo pro amatérské použití. Většina těchto čidel je založena na optickém principu a jejich cena začíná na jednotkách tisíc korun. Tato cena je pro neprofesionální měření neakceptovatelná. Jedním z mála senzorů dostupných pro amatérské účely jsou senzory od firmy Sensirion\footnote{\url{https://sensirion.com/}} a to konkrétně senzor SGP30. Tento senzor pracuje na elektrochemickém principu a~umožňuje měřit ekvivalentní hodnotu CO$_2$ a také hodnotu TVOC (Total Volatile Organic Compounds). Senzor potřebuje pro svou funkci napájení z \SI{3.3}{\volt} a komunikuje s řídícím mikrokontrolerem skrze sběrnici I2C.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\textwidth]{obrazky/mq7.jpg}
-    \caption[Senzor pro měření koncentrace oxidu uhelnatého.]{Senzor pro měření koncentrace oxidu uhelnatého \cite{img_mq7}.}
-    \label{fig_MQ7}
-\end{figure}
+% U senzorů oxidu uhelnatého je situace o~něco složitější. Na trhu neexistuje mnoho možností, ze kterých by se dalo v~rozumné cenové kategorii vybírat. Pokud se podíváme do katalogů většiny (nejen českých) obchodů, zjistíme, že ceny čidel se pohybují ve vyšších stovkách korun až po několik tisíc. Tato cena je pro neprofesionální měření nepřijatelná. Jediným možným rozumným výběrem jsou čidla s~označením série MQ od výrobce Hanwei electronics\footnote{\url{https://www.hwsensor.com/}}. Vybral jsem tedy čidlo s~označením MQ-7, které je nejvíce citlivé právě na oxid uhelnatý. Funguje na principu ohřevu senzitivní vrstvy (zde konkrétně z~materiálu $SnO_{2}$) a~následně měření jejího odporu. Senzor je třeba napájet z~\SI{5}{\volt} a~jeho výstup je třeba přivést na AD převodník, jelikož má analogový výstup.
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.7\textwidth]{obrazky/mq7.jpg}
+%     \caption[Senzor pro měření koncentrace oxidu uhelnatého.]{Senzor pro měření koncentrace oxidu uhelnatého \cite{img_mq7}.}
+%     \label{fig_MQ7}
+% \end{figure}
 
 \subsection{Senzor UV záření}
 
@@ -58,7 +60,7 @@ Volím tedy druhý zmíněný senzor ML8511. Tento senzor měří pouze intenzit
 
 Na poli senzorů pro měření teploty existuje nepřeberné množství různých druhů od spousty výrobců. Pro první základní výběr vhodných senzorů je nutné si definovat alespoň základní parametry a~požadavky na takovýto senzor. Vhodnými parametry jsou cena, rozsah měřených teplot (je třeba měřit i~při teplotách nižších než \SI{0}{\celsius}), spotřeba a~přesnost. Srovnání potenciálně použitelných senzorů se nachází v~tabulce~\ref{tab_TemperatureSensors}. Cena uvedená v~posledním sloupci je brána v~jeden den z~jednoho e-shopu\footnote{\url{https://www.laskarduino.cz/}}, aby bylo možné objektivně porovnat výsledky mezi sebou.
 
-\begin{table}[]
+\begin{table}[b]
     \caption{Srovnání parametrů vybraných senzorů teploty.}
     \centering
     \begin{tabular}{c|cccc}
