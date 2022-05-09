@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name "mainBoard")(type "KiCad")(uri "C:/Users/Martin/Documents/GitHub/bcthesis/hw/footprints/mainBoard.pretty")(options "")(descr ""))
+  (lib (name "kikit")(type "KiCad")(uri "C:/Users/Martin/Documents/GitHub/bcthesis/hw/footprints/kikit.pretty")(options "")(descr ""))
+)

@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "mainBoard")(type "KiCad")(uri "C:/Users/Martin/Documents/GitHub/bcthesis/hw/symbols/mainBoard.kicad_sym")(options "")(descr ""))
+  (lib (name "kikit")(type "KiCad")(uri "C:/Users/Martin/Documents/GitHub/bcthesis/hw/symbols/kikit.kicad_sym")(options "")(descr ""))
+)
