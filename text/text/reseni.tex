@@ -174,7 +174,7 @@ Z výše uvedené tabulky \ref{tab_MCU} jsem nakonec vybral mikrokontroler ESP32
 
 \subsection{Analogově digitální převodník}
 
-Jak již bylo zmíněno v~předchozích kapitolách o~výběru senzorů, bude potřeba zajistit analogové vstupy na mikrokontroleru. Bohužel ESP32 nemá příliš přesný AD převodník a~je třeba provádět poměrně náročnou kalibraci pro každý zakoupený čip zvlášť, jak je zmíněno přímo v~oficiální dokumentaci\footnote{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html}. Nelze provádět ani kalibraci na jednom daném vzorku pro danou výrobní sérii.
+Jak již bylo zmíněno v~předchozích kapitolách o~výběru senzorů, bude potřeba zajistit analogové vstupy na mikrokontroleru. Bohužel ESP32 nemá příliš přesný AD převodník a~je třeba provádět poměrně náročnou kalibraci pro každý zakoupený čip zvlášť, jak je zmíněno přímo v~oficiální dokumentaci\footnote{\url{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html}}. Nelze provádět ani kalibraci na jednom daném vzorku pro danou výrobní sérii.
 
 Kvůli těmto výše uvedeným důvodům jsem se rozhodl pro tuto práci využít externí AD převodník, čímž by se měla zvýšit přesnost měření a~zajistit reprodukovatelné výsledky při použití jiného mikrokontroleru. Hlavním požadavkem na výběr tohoto převodníku byla cena, dostupnost a~spotřeba. Pro tuto práci je zapotřebí převodník, který bude moci být napájen z~\SI{3,3}{\volt} a~bude mít alespoň 2 vstupní kanály. Těmto požadavkům nejlépe vyhověl AD převodník MCP3202 od firmy Microchip Technology Inc. \cite{dat_MCP3202}. Obsahuje dva kanály s~rozlišením 12 bitů. Připojení k~mikrokontroleru je provedeno přes sběrnici SPI a~maximální spotřeba při čtení je zhruba \SI{320}{\micro\ampere}.
 
@@ -202,9 +202,17 @@ Daným kritériím bezesporu vyhověl modul s~označením RFM95W \cite{dat_RFM95
 
 \section{Napájení zařízení}
 
-První verze tohoto zařízení bude napájena z~\SI{5}{\volt} a~bude tak možné využít např. mobilní nabíječky či powerbanky. Výhodou tohoto řešení je zaručený zdroj napětí \SI{5}{\volt} a~odpadá také nutnost například hlídání stavu baterií nebo řízení jejich nabíjení. V budoucích verzích ovšem chci zařízení napájet právě z~baterií, aby odpadla nutnost mít k~dispozici elektrickou rozvodnou síť a~aby zařízení bylo použitelné kdekoli.
+Celé zařízení ke své funkci potřebuje primárně napětí \SI{3,3}{\volt}. Toto napětí bude bráno přímo z baterie LiFePO4, která má při plném nabití \SI{3,6}{\volt}. Vyšší napětí ničemu nevadí, jelikož všechny použité senzory a komponenty mají dovolené napětí mezi \SI{3}{\volt} až právě \SI{3,6}{\volt}. Toto napětí tedy bude přivedeno do zařízení přes tranzistor jako ochrana proti přepólování baterie, spínací tranzistor pro sepnutí celého zařízení a pojistku. Tímto přímým připojením baterie bez dalších měničů či stabilizátorů má za následek snížení spotřeby v režimu spánku. 
 
-Celé zařízení ke své funkci tedy potřebuje napětí \SI{5}{\volt} a~\SI{3,3}{\volt}. První ze zmíněných napětí bude bráno přímo ze zdroje (nabíječka nebo powerbanka) a~není třeba se o~něj více starat, jelikož tyto zařízení mají integrované různé druhy ochran (přepětí, nadproudová aj.). Je tedy třeba zajistit napájecí zdroj poskytující napětí \SI{3,3}{\volt}. Pro tyto účely bude třeba použít tzv. step-down měnič. Jelikož bude použit také externí AD převodník, je vhodné mu zajistit napájecí napětí, které nebude zatíženo zvlněním či jinými neduhy danými spínaným měničem. Z~tohoto důvodu bude pro jeho napájení použit lineární stabilizátor. Protože je však rozdíl mezi vstupním napětím (\SI{5}{\volt}) a~potřebným výstupním napětím (\SI{3,3}{\volt}) nižší než \SI{2}{\volt}, je třeba použít tzv. LDO (Low Dropout) lineární stabilizátor.
+Jelikož je použit senzor prachových částic PMS5003, který potřebuje pro svou činnost napětí \SI{5}{\volt} je třeba použití zvyšujícího měniče (step-up). Dále je třeba zajistit stabilní napětí \SI{3,3}{\volt} pro externí AD převodník, zde nelze použít napětí přímo z baterie, jelikož by kolísalo referenční napětí a bylo by tudíž nemožné cokoliv změřit. Dále je vhodné zajistit pro AD převodník napájecí napětí, které nebude zatíženo zvlněním či jinými neduhy danými spínaným měničem. Z~tohoto důvodu bude pro jeho napájení použit lineární stabilizátor. Protože je však rozdíl mezi vstupním napětím (\SI{5}{\volt}) a~potřebným výstupním napětím (\SI{3,3}{\volt}) nižší než \SI{2}{\volt}, je třeba použít tzv. LDO (Low Dropout) lineární stabilizátor.
+
+\subsection{Výběr step-up měniče}
+
+
+
+
+
+
 
 \subsection{Výběr step-down měniče}
 
