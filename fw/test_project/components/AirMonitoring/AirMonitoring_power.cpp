@@ -39,6 +39,7 @@ void Power::pms(bool state){
 }
 
 void Power::device(bool state){
+    gpio_set_direction(POWER_OFF, GPIO_MODE_OUTPUT);
     gpio_set_level(POWER_OFF, state);
 }
 
