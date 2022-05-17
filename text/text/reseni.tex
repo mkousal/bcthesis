@@ -39,7 +39,7 @@ Po pečlivém prostudování jednotlivých parametrů jsem zvolil senzor PMS5003
 
 \subsection{Senzor oxidu uhličitého}
 
-U senzorů oxidu uhličitého je situace o~něco složitější. Na trhu neexistuje mnoho možností, ze kterých by se dalo v~rozumné cenové kategorii vybrat čidlo pro amatérské použití. Většina těchto čidel je založena na optickém principu a jejich cena začíná na jednotkách tisíc korun. Tato cena je pro neprofesionální měření neakceptovatelná. Jedním z mála senzorů dostupných pro amatérské účely jsou senzory od firmy Sensirion\footnote{\url{https://sensirion.com/}} a to konkrétně senzor SGP30. Tento senzor pracuje na elektrochemickém principu a~umožňuje měřit ekvivalentní hodnotu CO$_2$ a také hodnotu TVOC (Total Volatile Organic Compounds). Senzor potřebuje pro svou funkci napájení z \SI{3.3}{\volt} a komunikuje s řídícím mikrokontrolerem skrze sběrnici I2C.
+U senzorů oxidu uhličitého je situace o~něco složitější. Na trhu neexistuje mnoho možností, ze kterých by se dalo v~rozumné cenové kategorii vybrat čidlo pro amatérské použití. Většina těchto čidel je založena na optickém principu a jejich cena začíná na jednotkách tisíc korun. Tato cena je pro neprofesionální měření neakceptovatelná. Jedním z mála senzorů dostupných pro amatérské účely jsou senzory od firmy Sensirion\footnote{\url{https://sensirion.com/}} a to konkrétně senzor SGP30. Tento senzor pracuje na elektrochemickém principu a~umožňuje měřit ekvivalentní hodnotu CO$_2$ a také hodnotu TVOC (Total Volatile Organic Compounds). Senzor potřebuje pro svou funkci napájení z \SI{1.8}{\volt} a komunikuje s řídícím mikrokontrolerem skrze sběrnici I2C.
 
 % U senzorů oxidu uhelnatého je situace o~něco složitější. Na trhu neexistuje mnoho možností, ze kterých by se dalo v~rozumné cenové kategorii vybírat. Pokud se podíváme do katalogů většiny (nejen českých) obchodů, zjistíme, že ceny čidel se pohybují ve vyšších stovkách korun až po několik tisíc. Tato cena je pro neprofesionální měření nepřijatelná. Jediným možným rozumným výběrem jsou čidla s~označením série MQ od výrobce Hanwei electronics\footnote{\url{https://www.hwsensor.com/}}. Vybral jsem tedy čidlo s~označením MQ-7, které je nejvíce citlivé právě na oxid uhelnatý. Funguje na principu ohřevu senzitivní vrstvy (zde konkrétně z~materiálu $SnO_{2}$) a~následně měření jejího odporu. Senzor je třeba napájet z~\SI{5}{\volt} a~jeho výstup je třeba přivést na AD převodník, jelikož má analogový výstup.
 
@@ -202,71 +202,86 @@ Daným kritériím bezesporu vyhověl modul s~označením RFM95W \cite{dat_RFM95
 
 \section{Napájení zařízení}
 
-Celé zařízení ke své funkci potřebuje primárně napětí \SI{3,3}{\volt}. Toto napětí bude bráno přímo z baterie LiFePO4, která má při plném nabití \SI{3,6}{\volt}. Vyšší napětí ničemu nevadí, jelikož všechny použité senzory a komponenty mají dovolené napětí mezi \SI{3}{\volt} až právě \SI{3,6}{\volt}. Toto napětí tedy bude přivedeno do zařízení přes tranzistor jako ochrana proti přepólování baterie, spínací tranzistor pro sepnutí celého zařízení a pojistku. Tímto přímým připojením baterie bez dalších měničů či stabilizátorů má za následek snížení spotřeby v režimu spánku. 
+Celé zařízení ke své funkci potřebuje primárně napětí \SI{3,3}{\volt}. Toto napětí bude bráno přímo z baterie LiFePO4, která má při plném nabití \SI{3,6}{\volt}. Vyšší napětí ničemu nevadí, jelikož všechny použité senzory a komponenty mají dovolené napětí mezi \SI{3}{\volt} až právě \SI{3,6}{\volt}. Toto napětí tedy bude přivedeno do zařízení přes tranzistor jako ochrana proti přepólování baterie, spínací tranzistor pro sepnutí celého zařízení a pojistku. Tímto v podstatě přímým připojením mikrokontroleru a jednotlivých senzorů na baterii může být dosaženo výrazné úspory energie při režimu spánku. Lineární stabilizátory i spínané měniče pracují s jistou účinností, ta je ovšem většinou dána pro nějaký nominální proud, ale při minimálním proudovém odběru (režim spánku) se projevuje jejich samotná spotřeba, která může být několikanásobně vyšší než spotřeba mikrokontroleru v režimu spánku.
 
-Jelikož je použit senzor prachových částic PMS5003, který potřebuje pro svou činnost napětí \SI{5}{\volt} je třeba použití zvyšujícího měniče (step-up). Dále je třeba zajistit stabilní napětí \SI{3,3}{\volt} pro externí AD převodník, zde nelze použít napětí přímo z baterie, jelikož by kolísalo referenční napětí a bylo by tudíž nemožné cokoliv změřit. Dále je vhodné zajistit pro AD převodník napájecí napětí, které nebude zatíženo zvlněním či jinými neduhy danými spínaným měničem. Z~tohoto důvodu bude pro jeho napájení použit lineární stabilizátor. Protože je však rozdíl mezi vstupním napětím (\SI{5}{\volt}) a~potřebným výstupním napětím (\SI{3,3}{\volt}) nižší než \SI{2}{\volt}, je třeba použít tzv. LDO (Low Dropout) lineární stabilizátor.
+Jelikož je použit senzor prachových částic PMS5003, který potřebuje pro svou činnost napětí \SI{5}{\volt}, je třeba použití zvyšujícího měniče (step-up). Dále je třeba zajistit stabilní napětí \SI{3,3}{\volt} pro externí AD převodník, zde nelze použít napětí přímo z baterie, jelikož by kolísalo referenční napětí a bylo by tudíž nemožné cokoliv změřit. Dále je vhodné zajistit pro AD převodník napájecí napětí, které nebude zatíženo zvlněním či jinými neduhy danými spínaným měničem. Z~tohoto důvodu bude pro jeho napájení použit lineární stabilizátor. Protože je však rozdíl mezi vstupním napětím (\SI{5}{\volt}) a~potřebným výstupním napětím (\SI{3,3}{\volt}) nižší než \SI{2}{\volt}, je třeba použít tzv. LDO (Low Dropout) lineární stabilizátor. Poslední z potřebných napěťových úrovní je \SI{1.8}{\volt}. Toto napětí slouží pro napájení senzoru CO$_2$ a i zde bude nejvhodnější volbou LDO stabilizátor, jelikož senzor potřebuje pro svou funkci maximálně \SI{48.8}{\milli\ampere}.
 
 \subsection{Výběr step-up měniče}
 
+Step-up měničů existují na trhu stovky různých druhů od všemožných výrobců. Výběr je tedy nutné provést převážně na základě potřebných parametrů jako jsou vstupní napětí, výstupní napětí a~potřebný dodávaný proud. Jelikož je celé zařízení koncipováno jako nízkopříkonové, je vhodné podívat se také na výrobcem udávaný proud potřebný pro provoz samotného měniče. nejdůležitějším parametrem je bohužel v~dnešní době dostupnost daného měniče a~také jeho cena.
 
-
-
-
-
-
-\subsection{Výběr step-down měniče}
-
-Step-down měničů existují na trhu stovky různých druhů od všemožných výrobců. Výběr je tedy nutné provést převážně na základě potřebných parametrů jako jsou vstupní napětí, výstupní napětí a~potřebný dodávaný proud. Jelikož je celé zařízení koncipováno jako nízkopříkonové, je vhodné podívat se také na výrobcem udávaný proud potřebný pro provoz samotného měniče. nejdůležitějším parametrem je bohužel v~dnešní době dostupnost daného měniče a~také jeho cena.
-
-Já jsem pro svou práci vybral step-down měnič TPS54331 od výrobce Texas Instruments Incorporated\cite{dat_TPS54331}. Tento měnič lze používat až do vstupního napětí \SI{28}{\volt} a~odebírat z~něj výstupní proud \SI{3}{\ampere}. Díky tomu, že měnič obsahuje výkonový spínací tranzistor, tak není potřeba příliš mnoho externích součástek. Na obrázku \ref{fig_Schematic-TPS54331} je vidět zjednodušené zapojení tohoto měniče.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.6\textwidth]{obrazky/schematicTPS54331.png}
-    \caption[Zjednodušené schéma zapojení měniče TPS54331.]{Zjednodušené schéma zapojení měniče TPS54331 \cite{dat_TPS54331}.}
-    \label{fig_Schematic-TPS54331}
-\end{figure}
-
-\subsubsection{Návrh hodnot součástek step-down měniče}
-
-Při návrhu součástek budu vycházet z~katalogového listu poskytnutého výrobcem \cite{dat_TPS54331}. Prvním z~potřebných kroků je zvolení odporů do napěťového děliče tvořícího zpětnou vazbu, která zajišťuje nastavení výstupního napětí. Jejich hodnotu spočítám z~rovnice \ref{eq_VoltageDivider}.
-\begin{equation}
-    R_{O2}=\frac{R_{O1}\cdot V_{ref}}{V_{out}-V_{ref}}
-    \label{eq_VoltageDivider}
-\end{equation}
-
-Kde známe hodnoty $V_{ref} = \SI{0,8}{\volt}$ a~hodnotu požadovaného výstupního napětí $V_{out} = \SI{3,3}{\volt}$. Z~toho vyplývá, že máme dva neznámé odpory a~musíme jeden z~nich zvolit. Já si volím například $R_{O1}=\SI{15}{\kilo\ohm}$ a~poté dopočítám $R_{O2}$ jako:
-
-\begin{equation}
-    R_{O2}=\frac{R_{O1}\cdot V_{ref}}{V_{out}-V_{ref}}=\frac{15000\cdot 0,8}{3,3-0,8}=\SI{4800}{\ohm}
-    \label{eq_VoltageDivider-full}
-\end{equation}
-
-Tento odpor bohužel není ve standardní řadě odporů, proto jsem jej zaokrouhlil na nejbližší hodnotu $R_{O2}=\SI{4,7}{\kilo\ohm}$, v~tomto případě bude výstupní napětí $V_{out}=\SI{3,35}{\volt}$, což je naprosto přijatelné, alespoň bude menší rezerva při poklesu napětí se skokovou změnou zátěže.
-
-Další z~potřebných volených součástek jsou vstupní filtrační kondenzátory, ve schématu na obrázku \ref{fig_Schematic-TPS54331} označovány jako $C1$. Dle katalogového listu je vhodné zvolit hodnotu okolo \SI{10}{\micro\farad}. Já zvolím 2x \SI{4,7}{\micro\farad} keramický kondenzátor z~dielektrika X5R na napětí \SI{16}{\volt} a~k~těmto dvěma ještě jeden \SI{10}{\nano\farad} pro potlačení vysokofrekvenčního rušení.
-
-Poslední z~hlavních počítaných součástek step-down měniče je výstupní LC filtr. Hlavní součástkou tohoto filtru je cívka, která musí mít správnou velikost indukčnosti i~z~pohledu fungování měniče a~také musí být dostatečně proudově dimenzovaná podle odebíraného výstupního proudu. Minimální hodnota indukčnosti se spočítá z~rovnice \ref{eq_Inductor} kde $V_{OUT(max)}=V_{OUT}=\SI{3,3}{\volt}$, $V_{IN(max)}=\SI{5}{\volt}$, $I_{OUT}=\SI{1,5}{\ampere}$ a~$f_{SW}=\SI{570}{\kilo\hertz}$. Dále je zde přítomen parametr $K_{IND}$, který se volí podle druhu použitých výstupních kondenzátorů. Já budu mít keramické kondenzátory a~ty mají nízké ESR, takže mohu tento parametr volit jako $K_{IND}=0.3$.
-
-\begin{equation}
-    L_{MIN}=\frac{V_{OUT(max)}\cdot (V_{IN(max)}-V_{OUT})}{V_{IN(max)}\cdot K_{IND}\cdot I_{OUT}\cdot f_{SW}}=\frac{3.3\cdot (5-3.3)}{5\cdot 0.3\cdot 1.5 \cdot 570000}=\SI{4,37}{\micro\henry}
-    \label{eq_Inductor}
-\end{equation}
-
-Tato vypočítaná hodnota je minimální a~je třeba zvolit alespoň nejbližší vyšší běžně dostupnou hodnotu, takže výsledná hodnota indukčnosti cívky bude $L=\SI{4,7}{\micro\henry}$. 
-
-Hodnotu výstupních filtračních kondenzátorů jsem zvolil podle tabulky~1 v~katalogovém listu \cite{dat_TPS54331} a~vychází nám z~toho 2x \SI{47}{\micro\farad}. Z~této stejné tabulky jsem určil také hodnoty součástek kompenzační smyčky $C1$,$C2$ a~$R3$.
-
-Nedílnou součástí měniče je dioda na výstupu $D1$, kterou je třeba dostatečně proudově a~napěťově dimenzovat. Je vhodné také zvolit diodu, která má nízký úbytek napětí (Schottkyho dioda). Já jsem zvolil diodu s~označením SS54 od výrobce Microdiode Electronics. Maximální napětí na této diodě je \SI{40}{\volt}, maximální procházející proud je \SI{5}{\ampere} a~úbytek na této diodě je \SI{550}{\milli\volt}.
-
-Výsledné zapojení tohoto měniče je vidět na obrázku \ref{fig_StepDown-schematic}.
+Pro tuto práci byl vybrán step-up měnič AP1603 od výrobce Diodes Incorporated \cite{dat_AP1603}. Měnič dokáže fungovat od napětí \SI{0.9}{\volt} až do \SI{5.5}{\volt} a poskytovat výstupní proud až \SI{200}{\milli\ampere}. Díky tomu, že měnič obsahuje spínací tranzistory přímo na čipu, tak není potřeba pro funkci příliš mnoho externích součástek. Na obrázku \ref{fig_schematic-AP1603} je vidět zapojení pro výstupní napětí \SI{5}{\volt}. 
 
 \begin{figure}[h]
     \centering
-    \includegraphics{obrazky/stepdown_schematic.pdf}
-    \caption{Schéma zapojení step-down měniče.}
-    \label{fig_StepDown-schematic}
+    \includegraphics[width=0.7\textwidth]{obrazky/schematicAP1603.png}
+    \caption{Typické zapojení step-up měniče AP1603 pro výstupní napětí \SI{5}{\volt}. \cite{dat_AP1603}}
+    \label{fig_schematic-AP1603}
 \end{figure}
+
+Při návrhu hodnot použitích součástek v zapojení step-up měniče budu vycházet z~katalogového listu poskytnutého výrobcem \cite{dat_AP1603}. Je potřeba připojit k měniči pouze vstupní a výstupní elektrolytické filtrační kondenzátory o hodnotě \SI{47}{\micro\farad}, filtrační kondenzátor o hodnotě \SI{100}{\nano\farad} na referenční pin měniče a dále spínací tlumivku velikosti \SI{22}{\micro\henry} s dostatečným proudovým dimenzováním. U tohoto měniče není potřeba žádný napěťový dělič ve zpětné vazbě, jelikož výrobce uvažoval použití s výstupem \SI{5}{\volt}, stačí tedy zpětnou vazbu připojit přímo na výstup měniče. Výsledné zapojení je vidět na obrázku \ref{fig_StepUp-kicad}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\textwidth]{obrazky/stepup_schematic.pdf}
+    \caption{Schéma zapojení step-up měniče.}
+    \label{fig_StepUp-kicad}
+\end{figure}
+
+
+% \subsection{Výběr step-down měniče}
+
+% Step-down měničů existují na trhu stovky různých druhů od všemožných výrobců. Výběr je tedy nutné provést převážně na základě potřebných parametrů jako jsou vstupní napětí, výstupní napětí a~potřebný dodávaný proud. Jelikož je celé zařízení koncipováno jako nízkopříkonové, je vhodné podívat se také na výrobcem udávaný proud potřebný pro provoz samotného měniče. nejdůležitějším parametrem je bohužel v~dnešní době dostupnost daného měniče a~také jeho cena.
+
+% Já jsem pro svou práci vybral step-down měnič TPS54331 od výrobce Texas Instruments Incorporated\cite{dat_TPS54331}. Tento měnič lze používat až do vstupního napětí \SI{28}{\volt} a~odebírat z~něj výstupní proud \SI{3}{\ampere}. Díky tomu, že měnič obsahuje výkonový spínací tranzistor, tak není potřeba příliš mnoho externích součástek. Na obrázku \ref{fig_Schematic-TPS54331} je vidět zjednodušené zapojení tohoto měniče.
+
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{obrazky/schematicTPS54331.png}
+%     \caption[Zjednodušené schéma zapojení měniče TPS54331.]{Zjednodušené schéma zapojení měniče TPS54331 \cite{dat_TPS54331}.}
+%     \label{fig_Schematic-TPS54331}
+% \end{figure}
+
+% \subsubsection{Návrh hodnot součástek step-down měniče}
+
+% Při návrhu součástek budu vycházet z~katalogového listu poskytnutého výrobcem \cite{dat_TPS54331}. Prvním z~potřebných kroků je zvolení odporů do napěťového děliče tvořícího zpětnou vazbu, která zajišťuje nastavení výstupního napětí. Jejich hodnotu spočítám z~rovnice \ref{eq_VoltageDivider}.
+% \begin{equation}
+%     R_{O2}=\frac{R_{O1}\cdot V_{ref}}{V_{out}-V_{ref}}
+%     \label{eq_VoltageDivider}
+% \end{equation}
+
+% Kde známe hodnoty $V_{ref} = \SI{0,8}{\volt}$ a~hodnotu požadovaného výstupního napětí $V_{out} = \SI{3,3}{\volt}$. Z~toho vyplývá, že máme dva neznámé odpory a~musíme jeden z~nich zvolit. Já si volím například $R_{O1}=\SI{15}{\kilo\ohm}$ a~poté dopočítám $R_{O2}$ jako:
+
+% \begin{equation}
+%     R_{O2}=\frac{R_{O1}\cdot V_{ref}}{V_{out}-V_{ref}}=\frac{15000\cdot 0,8}{3,3-0,8}=\SI{4800}{\ohm}
+%     \label{eq_VoltageDivider-full}
+% \end{equation}
+
+% Tento odpor bohužel není ve standardní řadě odporů, proto jsem jej zaokrouhlil na nejbližší hodnotu $R_{O2}=\SI{4,7}{\kilo\ohm}$, v~tomto případě bude výstupní napětí $V_{out}=\SI{3,35}{\volt}$, což je naprosto přijatelné, alespoň bude menší rezerva při poklesu napětí se skokovou změnou zátěže.
+
+% Další z~potřebných volených součástek jsou vstupní filtrační kondenzátory, ve schématu na obrázku \ref{fig_Schematic-TPS54331} označovány jako $C1$. Dle katalogového listu je vhodné zvolit hodnotu okolo \SI{10}{\micro\farad}. Já zvolím 2x \SI{4,7}{\micro\farad} keramický kondenzátor z~dielektrika X5R na napětí \SI{16}{\volt} a~k~těmto dvěma ještě jeden \SI{10}{\nano\farad} pro potlačení vysokofrekvenčního rušení.
+
+% Poslední z~hlavních počítaných součástek step-down měniče je výstupní LC filtr. Hlavní součástkou tohoto filtru je cívka, která musí mít správnou velikost indukčnosti i~z~pohledu fungování měniče a~také musí být dostatečně proudově dimenzovaná podle odebíraného výstupního proudu. Minimální hodnota indukčnosti se spočítá z~rovnice \ref{eq_Inductor} kde $V_{OUT(max)}=V_{OUT}=\SI{3,3}{\volt}$, $V_{IN(max)}=\SI{5}{\volt}$, $I_{OUT}=\SI{1,5}{\ampere}$ a~$f_{SW}=\SI{570}{\kilo\hertz}$. Dále je zde přítomen parametr $K_{IND}$, který se volí podle druhu použitých výstupních kondenzátorů. Já budu mít keramické kondenzátory a~ty mají nízké ESR, takže mohu tento parametr volit jako $K_{IND}=0.3$.
+
+% \begin{equation}
+%     L_{MIN}=\frac{V_{OUT(max)}\cdot (V_{IN(max)}-V_{OUT})}{V_{IN(max)}\cdot K_{IND}\cdot I_{OUT}\cdot f_{SW}}=\frac{3.3\cdot (5-3.3)}{5\cdot 0.3\cdot 1.5 \cdot 570000}=\SI{4,37}{\micro\henry}
+%     \label{eq_Inductor}
+% \end{equation}
+
+% Tato vypočítaná hodnota je minimální a~je třeba zvolit alespoň nejbližší vyšší běžně dostupnou hodnotu, takže výsledná hodnota indukčnosti cívky bude $L=\SI{4,7}{\micro\henry}$. 
+
+% Hodnotu výstupních filtračních kondenzátorů jsem zvolil podle tabulky~1 v~katalogovém listu \cite{dat_TPS54331} a~vychází nám z~toho 2x \SI{47}{\micro\farad}. Z~této stejné tabulky jsem určil také hodnoty součástek kompenzační smyčky $C1$,$C2$ a~$R3$.
+
+% Nedílnou součástí měniče je dioda na výstupu $D1$, kterou je třeba dostatečně proudově a~napěťově dimenzovat. Je vhodné také zvolit diodu, která má nízký úbytek napětí (Schottkyho dioda). Já jsem zvolil diodu s~označením SS54 od výrobce Microdiode Electronics. Maximální napětí na této diodě je \SI{40}{\volt}, maximální procházející proud je \SI{5}{\ampere} a~úbytek na této diodě je \SI{550}{\milli\volt}.
+
+% Výsledné zapojení tohoto měniče je vidět na obrázku \ref{fig_StepDown-schematic}.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics{obrazky/stepdown_schematic.pdf}
+%     \caption{Schéma zapojení step-down měniče.}
+%     \label{fig_StepDown-schematic}
+% \end{figure}
 
 \subsection{Výběr lineárního stabilizátoru}
 
