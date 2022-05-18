@@ -283,11 +283,11 @@ Při návrhu hodnot použitích součástek v zapojení step-up měniče budu vy
 %     \label{fig_StepDown-schematic}
 % \end{figure}
 
-\subsection{Výběr lineárního stabilizátoru}
+\subsection{Výběr lineárního stabilizátoru pro \SI{3.3}{\volt}}
 
 Jak již bylo zmíněno v~předchozích kapitolách, pro napájení AD převodníku bude třeba vybrat lineární stabilizátor s~malým úbytkem napětí, tzv. LDO. Bohužel nikde neexistuje přesná definice, co je LDO stabilizátor a~co už ne, je třeba toto označení brát lehce s~rezervou. V praxi se tak obvykle označují stabilizátory s~úbytkem napětí zhruba do \SI{2}{\volt}.
 
-Já jsem pro tuto práci vybral stabilizátor od výrobce Advanced Monolithic Systems AMS1117 \cite{dat_AMS1117} ve variantě s~pevně nastaveným výstupním napětím na \SI{3,3}{\volt}. Stabilizátor jako takový nepotřebuje pro svou funkci kromě filtračních kondenzátorů na vstupu a~výstupu žádné další externí součástky. Podle katalogového listu výrobce zaručuje rozptyl výstupního napětí maximálně $\pm\SI{10}{\milli\volt}$ a~potlačení vstupního rušení o~alespoň \SI{60}{\deci\bel}, což je pro AD převodník žádaná vlastnost. Filtrační kondenzátory byly zvoleny podle doporučení výrobce \SI{22}{\micro\farad} na vstupu i~na výstupu v~keramickém provedení. Kvůli úspoře energie bude možnost vypínat tento stabilizátor a~tím i~následně AD převodník. Výsledné schéma zapojení lineárního stabilizátoru je vidět na obrázku \ref{fig_LDO-schematic}.
+Jako vhodný pro toto zapojení byl vybrán stabilizátor od výrobce Advanced Monolithic Systems AMS1117 \cite{dat_AMS1117} ve variantě s~pevně nastaveným výstupním napětím na \SI{3,3}{\volt}. Stabilizátor jako takový nepotřebuje pro svou funkci kromě filtračních kondenzátorů na vstupu a~výstupu žádné další externí součástky. Podle katalogového listu výrobce zaručuje rozptyl výstupního napětí maximálně $\pm\SI{10}{\milli\volt}$ a~potlačení vstupního rušení o~alespoň \SI{60}{\deci\bel}, což je pro AD převodník žádaná vlastnost. Filtrační kondenzátory byly zvoleny podle doporučení výrobce \SI{22}{\micro\farad} na vstupu i~na výstupu v~keramickém provedení. Kvůli úspoře energie bude možnost vypínat tento stabilizátor a~tím i~následně AD převodník. Výsledné schéma zapojení lineárního stabilizátoru je vidět na obrázku \ref{fig_LDO-schematic}.
 
 \begin{figure}[h]
     \centering
@@ -295,6 +295,19 @@ Já jsem pro tuto práci vybral stabilizátor od výrobce Advanced Monolithic Sy
     \caption{Schéma zapojení lineárního stabilizátoru.}
     \label{fig_LDO-schematic}
 \end{figure}
+
+\subsection{Výběr lineárního stabilizátoru pro \SI{1.8}{\volt}}
+
+Posledním z napájecích zdrojů je lineární stabilizátor pro senzor SGP30 měřící CO$_2$ a TVOC. I zde bude třeba vybrat LDO stabilizátor, ideálně v malém pouzdře s minimem externích součástek. Vstupní napětí bude \SI{3}{\volt} až \SI{3.6}{\volt} z baterie a výstupní napětí musí být \SI{1.8}{\volt}, stabilizátor musí být schopen dodat proud alespoň \SI{50}{\milli\ampere}. Jako nejvhodnější, dostupný a zároveň levný byl vybrán stabilizátor NCP115 s fixním výstupem \SI{1.8}{\volt} od firmy ON Semiconductor \cite{dat_NCP115}. Tento stabilizátor vyžaduje přidání pouze filtračních kondenzátorů na vstup a výstup, ideálně keramické o hodnotě \SI{1}{\micro\farad}. Vstupní napětí může být až \SI{5.5}{\volt} a výstupní proud \SI{300}{\milli\ampere}. Výsledné zapojení tohoto stabilizátoru včetně možnosti vypnutí je vidět na obrázku \ref{fig_LDO1.8-schematic}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{obrazky/ldo18-schematic.pdf}
+    \caption{Zapojení lineárního stabilizátoru s výstupem \SI{1.8}{\volt}.}
+    \label{fig_LDO1.8-schematic}
+\end{figure}
+
+
 
 \section{Výsledné zapojení zařízení}
 
