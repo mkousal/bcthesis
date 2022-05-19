@@ -330,9 +330,41 @@ Vybral jsem řídící čip LT3652 od firmy Analog Devices \cite{dat_LT3652}, kt
 
 \subsection{Návrh nabíjecího obvodu}
 
-Při návrhu zapojení nabíjecího obvodu s čipem LT3652 budu vycházet z datasheetu výrobce \cite{dat_LT3652} a v něm uvedeného typického zapojení. 
+Při návrhu zapojení nabíjecího obvodu s čipem LT3652 budu vycházet z datasheetu výrobce \cite{dat_LT3652} a v něm uvedeného typického zapojení. Výrobce v tomto datasheetu uvádí přímo konkrétní zapojení pro jednu LiFePO4 baterii s maximálním napětím \SI{3.6}{\volt}, ze kterého bdudu vycházet. Toto zapojení je vidět na obrázku \ref{fig_datasheetSchematicLT3652}.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{obrazky/datasheetSchematicLT3652.png}
+    \caption{Zapojení nabíjecího obvodu LT3652 podle doporučení výrobce. \cite{dat_LT3652}}
+    \label{fig_datasheetSchematicLT3652}
+\end{figure}
 
+Jako první bude doplněna možnost využití integrovaného MPPT regulátoru. Tento regulátor funguje tak, že se skrze napěťový dělič přivádí vstupní napětí na pin V$_{IN\_REG}$ obvodu, kde se porovnává s referenčním napětím \SI{2.7}{\volt} a pokud je toto napětí vyšší, umožňuje nabíjení maximálním proudem. Pokud je toto přivedené napětí nižší než \SI{2.7}{\volt}, dochází k omezení nabíjecího proudu tak, aby byl stále zachován největší nabíjecí výkon. Poměr tohoto napěťového děliče lze spočítat dle následující rovnice:
+
+\begin{equation}
+    \frac{R_{IN1}}{R_{IN2}} = \frac{V_{IN\_min}}{2,7} - 1
+    \label{eq_MPPTRegulator}
+\end{equation}
+
+Kde R$_{IN1}$ a R$_{IN2}$ jsou odpory v napěťovém děliči a V$_{IN\_min}$ je minimální hodnota vstupního napětí pro nabíjení maximálním proudem.
+
+Dalším doplněním zapojení od výrobce jsou signalizační LED. Obvod umí generovat na pinech CHRG a FAULT až čtyři různé kombinace stavů. Na každém pinu tedy bude zapojena jedna LED, aby bylo možné tyto stavy rozeznat. Pokud nebude svítit ani jedna, neprobíhá žádné nabíjení a nebo není připojena baterie, pokud svítí LED na pinu CHRG, tak probíhá normální proces nabíjení baterie. Pokud se rozsvítí LED na pinu FAULT, obvod vyhodnotil baterii jako špatnou. Tento stav nastává, pokud přetrvává i přes zahájený nabíjecí cyklus podvybití baterie pod \SI{2.5}{\volt}. Posledním možným stavem je rozsvícení obou LED, které značí přehřívání baterie. V této aplikaci nebude NTC (Negative Temperature Coefficient) senzor pro snímání teploty baterie zapojen a tak nemůže tento stav nastat. Je zde doplněna ještě jedna indikační LED, která se rozsvítí ihned po přivedení napájecího napětí a slouží tak ke kontrole zapnutí celého obvodu.
+
+Poslední možností, jak doporučené zapojení upravit je změna nabíjecího proudu. Velikost nabíjecího proudu je dána velikostí odporu zapojeného v sérii mezi kladným pólem baterie a pinem SENSE obvodu. Velikost tohoto nastavovacího odporu lze vypočítat podle rovnice:
+
+\begin{equation}
+    R_{SENSE} = \frac{0,1}{I_{CHG(max)}}
+    \label{eq_RsenseCharger}
+\end{equation}
+
+Kde I$_{CHG(max)}$ je právě velikost požadovaného nabíjecího proudu. Pro nabíjecí proud \SI{1}{\ampere} by vycházela hodnota odporu na \SI{100}{\milli\ohm}. Při vybírání konkrétních součástek je potřeba uvažovat také výkonovou ztrátu na tomto odporu, jelikož skrze něj protéká veškerý nabíjecí proud, a podle toho jej dostatečně výkonově dimenzovat. Celkové výsledné použité zapojení nabíječky je vidět na obrázku \ref{fig_ChargerSchematic}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{obrazky/batteryCharger_schematic.pdf}
+    \caption{Výsledné zapojení nabíječky LiFePO4 baterie za použití obvodu LT3652.}
+    \label{fig_ChargerSchematic}
+\end{figure}
 
 
 % \subsection{Anténa pro LoRa modul}
