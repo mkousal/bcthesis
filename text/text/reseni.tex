@@ -322,6 +322,19 @@ Jelikož je jedním z hlavních úkolů navrhnout zařízení s co nejmenší sp
     \label{fig_BlockDiagram-full}
 \end{figure}
 
+\section{Nabíjení zařízení}
+
+Jelikož je ve výsledném zařízení obsažena baterie LiFePO4, je vhodné mít k dispozici kompatibilní nabíječku, ideálně připojitelnou k tomuto zařízení aby nebylo nutné vyndávat baterii. Pro tento účel se velmi často využívají moduly postavené na čipu TP5000 \cite{dat_TP5000}. Tento nabíjecí obvod má uvnitř spínaný zdroj a umožňuje tedy nabíjení proudem až \SI{2}{\ampere} při vstupním napětí až \SI{10}{\volt}. Je tedy možné na vstup připojit i solární panel o vhodném výkonu a parametrech a nabíjet baterii z energie jím vyrobené. Toto řešení má ovšem jednu nevýhodu a to absenci MPPT (Maximum Power Point Tracking) obvodu pro maximalizaci získané energie ze solárního panelu. Kvůli absenci tohoto obvodu jsem se rozhodl pro realizaci vlastního nabíjecího modulu.
+
+Vybral jsem řídící čip LT3652 od firmy Analog Devices \cite{dat_LT3652}, který sdružuje funkce nabíjení baterie a MPPT regulátoru na vstupu. Samotný čip umožňuje nabíjení baterie spínaným zdrojem s výstupním proudem až \SI{2}{\ampere} při vstupním napětí až \SI{32}{\volt}. Je možné tedy nabíjet i více baterií zapojených do série. Umožňuje nastavit maximální napětí, do kterého se baterie mají nabíjet, nabíjecí proud a nebo také právě napětí pro MPPT regulátor.
+
+\subsection{Návrh nabíjecího obvodu}
+
+Při návrhu zapojení nabíjecího obvodu s čipem LT3652 budu vycházet z datasheetu výrobce \cite{dat_LT3652} a v něm uvedeného typického zapojení. 
+
+
+
+
 % \subsection{Anténa pro LoRa modul}
 
 % Pro tuto práci jsem se rozhodl v~rámci potenciální minimalizace a~také snížení ceny výsledného produktu využít možnosti integrovat anténu pro LoRa modul přímo na desku plošných spojů. Na internetu existuje mnoho různých návrhů tzv. elektricky malých antén. Já jsem vybral od firmy Texas Instruments jejich návrh antény s~označením DN038 \cite{dat_DN038}. Jedná se o~elektricky malou anténu navrženou pro frekvenci \SI{868}{\mega\hertz} s~velice kompaktními rozměry $12\times\SI{19}{\milli\metre}$. Jedinou nevýhodou a~zároveň nutností je její přizpůsobení. Vysílací modul RFM95W má koncový stupeň o~impedanci \SI{50}{\ohm} a~tomu je třeba přizpůsobit i~danou anténu. Pro tyto účely je zapotřebí na desku plošných spojů umístit přizpůsobovací obvody v~podobě L nebo $\pi$ článku. Jelikož chci, aby bylo možné využít v~případě potřeby lepší externí antény, bude na desce možnost pomocí připájení \SI{100}{\pico\farad} kondenzátoru výběru mezi integrovanou anténou nebo připojením externí přes SMA konektor.
