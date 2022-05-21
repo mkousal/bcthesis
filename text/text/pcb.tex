@@ -8,12 +8,17 @@ Po návrhu schematického zapojení samotného nabíjecího obvodu bylo zapotře
 
 \begin{figure}[h]
     \centering
-    \subfloat[][]{\includegraphics[width=0.45\textwidth]{obrazky/batteryCharger-top_.png}}
-    \subfloat[][]{\includegraphics[width=0.55\textwidth]{obrazky/batteryCharger-final.png}}
-    \caption{}
+    \subfloat[][3D model desky plošného spoje]{\includegraphics[width=0.41\textwidth]{obrazky/batteryCharger-top_.png}}
+    \subfloat[][Vyrobená a osazená deska plošného spoje]{\includegraphics[width=0.59\textwidth]{obrazky/batteryCharger-final.png}}
+    \caption{Deska plošných spojů pro nabíječku.}
     \label{fig_chargerBoardKiCad}
 \end{figure}
 
+\section{Návrh desky plošných spojů hlavní desky}
+
+Po návrhu celkového blokového schématu \ref{fig_BlockDiagram-full} je potřeba provést návrh desky i pro hlavní řídící desku. Tato deska bude rozdělena do dvou, jedna s veškerou elektronikou a většinou senzorů a druhá menší se senzorem intenzity osvětlení a senzorem UV záření. Toto rozdělení je provedeno kvůli možnosti umístění senzorů světla z hlediska mechanické konstrukce na místo, kde nebudou stíněny. Obě dvě tyto desky jsou koncipovány jako dvouvrstvé. Na hlavní desce je převážná většina součástek umístěna na přední straně a na zadní jsou umístěny víceméně ostatní senzory. Deska obsahuje také čtyři LED pro indikaci funkce jednotlivých napájecích větví, tyto LED jsou nezávisle na sobě zapínatelné pomocí pájecí propojky. Programování probíhá pomocí externího programátoru CP2102\footnote{\url{https://www.silabs.com/interface/usb-bridges/classic/device.cp2102}}, který se připojuje k hlavní desce na které jsou pouze dva tranzistory a rezistory potřebné k zajištění přepínání ESP32 do režimu nahrávání firmware. Dále deska obsahuje již zmíněný LoRa modul RFM95W ke kterému lze připojit připájením \SI{100}{\nano\farad} kondenzátoru anténu osazenou přímo na desce nebo U.FL konektor pro připojení externí antény. Celá deska je navržena s ohledem na co nejnižší spotřebu a pro dosažení co nejlepších parametrů bylo dbáno na doporučené zapojení dle datasheetu výrobců. Největší pozornost byla věnována oblasti spínaného zdroje, jelikož je zde potřeba správně rozložit součástky a dimenzovat spoje na desce a také oblasti okolo mikropáskového vedení do k anténám, kde je potřeba minimalizovat rušení a také přizpůsobit spoje na impedanci \SI{50}{\ohm}.
+
+Na menší desce se světelnými senzory jsou umístěny pouze součástky podle datasheetů od výrobců a také konektory pro připojení k hlavní desce. Budou využity tzv. pin headery na kterých je vyvedeno napájení \SI{3.3}{\volt}, analogový výstup ze senzoru UV záření a také signály datové sběrnice I$^2$C.
 
 
 
