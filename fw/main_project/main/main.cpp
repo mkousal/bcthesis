@@ -1,4 +1,4 @@
-#define DEBUG
+//#define DEBUG
 
 #include "main.hpp"
 
@@ -100,8 +100,8 @@ void taskWiFi(void *pvParameters)
 void taskMQTT(void *pvParameters)
 {
     esp_mqtt_client_config_t mqtt_cfg = {
-        .uri = MQTT_BROKER_URL,
-        .port = 2000,
+         .uri = MQTT_BROKER_URL,
+         .port = MQTT_PORT,
     };
     esp_mqtt_client_handle_t client = esp_mqtt_client_init(&mqtt_cfg);
     esp_mqtt_client_start(client);
@@ -191,15 +191,28 @@ extern "C" void app_main(void)
     cJSON_AddNumberToObject(msg, "B", battery);
     xTaskCreatePinnedToCore(taskI2C, "i2c_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
     xTaskCreatePinnedToCore(taskSPI, "spi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
-    // xTaskCreatePinnedToCore(taskWiFi, "wifi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    #ifdef WIFI
+    xTaskCreatePinnedToCore(taskWiFi, "wifi_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    #endif
+    #ifdef LORAWAN
     xTaskCreatePinnedToCore(taskLoRaWAN, "LoRaWAN_join_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+    #endif
     bool pmsMeasured = false;
     while (true) {
+        #ifdef LORAWAN
         if (getTaskChecker(MEAS_DONE_CHECKER | LORAWAN_CHECKER)) {
-            // xTaskCreatePinnedToCore(taskMQTT, "mqtt_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
             xTaskCreatePinnedToCore(taskTTN, "TTN_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
             resetTaskChecker(MEAS_DONE_CHECKER);
         }
+        #endif
+
+        #ifdef WIFI
+        if (getTaskChecker(MEAS_DONE_CHECKER)) {
+            xTaskCreatePinnedToCore(taskMQTT, "mqtt_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
+            resetTaskChecker(MEAS_DONE_CHECKER);
+        }
+        #endif
+
         if (getTaskChecker(PMS_CHECKER) == false) {
             unsigned long timer = clock();
             while(((clock() - timer) / CLOCKS_PER_SEC) < 20){
