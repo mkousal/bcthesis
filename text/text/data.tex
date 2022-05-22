@@ -35,17 +35,57 @@ Tento framework je postaven na projektu realtime operačního systému pro mikro
 
 \subsection{Obsluha senzorů}
 
-Jak již bylo zmíněno, pro obsluhu všech připojených senzorů jsou použity vlastní knihovny založené na frameworku ESP-IDF. Tyto knihovny obsahují pouze potřebné čtení, inicializace a případné restarty senzorů. Není obsažena plná funkčnost dle datasheetu výrobce, jelikož pro tuto aplikaci nejsou všechny funkce senzorů potřebné. Senzory jsou rozděleny do skupin podle druhu použité komunikační sběrnice a je možné je jednotlivě softwarově vypínat, aby byla minimalizována spotřeba celého zařízení. Dále jsou také zajištěny již dříve zmíněné opakované vyčítání ze senzorů pro koncentraci CO$_2$ a senzoru prachových částic. Po ukončení jednotlivých měření jsou naměřená data uložena do datové struktury k pozdějšímu odeslání na server.
+Jak již bylo zmíněno, pro obsluhu všech připojených senzorů jsou použity vlastní knihovny založené na frameworku ESP-IDF. Tyto knihovny obsahují pouze potřebné čtení, inicializace a případné restarty senzorů. Není obsažena plná funkčnost dle datasheetu výrobce, jelikož pro tuto aplikaci nejsou všechny funkce senzorů potřebné. Senzory jsou rozděleny do skupin podle druhu použité komunikační sběrnice a je možné je jednotlivě softwarově vypínat, aby byla minimalizována spotřeba celého zařízení. Dále jsou také zajištěny již dříve zmíněné opakované vyčítání ze senzorů pro koncentraci CO$_2$ a senzoru prachových částic. Po ukončení jednotlivých měření jsou naměřená data uložena do datové struktury k pozdějšímu odeslání na server. Celý proces začínající probuzením zařízení z režimu hlubokého spánku, přes změření dat až po odeslání a uspání trvá zhruba kolem \SI{30}{\second}.
 
 \subsection{Připojení k WiFi}
 
 Pro použití zařízení s WiFi sítí je zapotřebí nakonfigurovat ve zdrojovém kódu použití této sítě a také další potřebné parametry. Konfigurace probíhá v souboru CMakeLists.txt umístěném v hlavní složce se zdrojovými kódy.
 
-\begin{lstlisting}[language=c, caption={Nastavení spojení pomocí WiFi}]
-#define WiFi SSID, password and MQTT broker url
+\begin{lstlisting}[caption={Nastavení spojení pomocí WiFi}]
+add_compile_definitions(WIFI)
+# add_compile_definitions(LORAWAN)
+...
+
 add_compile_definitions(SSID="")
 add_compile_definitions(PWD="")
 add_compile_definitions(MQTT_BROKER_URL="")
+add_compile_definitions(MQTT_PORT=1883)
 \end{lstlisting}
 
-V této konfiguraci je potřeba doplnit SSID (Service Set Identifier) požadované sítě a její heslo aby bylo možné se připojit. Dalším nastavením je spojení s MQTT brokerem. Zde má uživatel na výběr, jestli použije pouze IP adresu brokeru (typicky v lokální síti) nebo použije URL (Uniform Resource Locators) pro spojení skrze síť internet na broker mimo lokální síť. Nastavení probíhá pomocí zakomentování nebo odkomentování jednotlivých řádků konfiguračního souboru. Zakomentování (nepoužití) se provede pomocí znaku '\#' umístěného na začátek daného řádku.
+Nastavení probíhá pomocí zakomentování nebo odkomentování jednotlivých řádků konfiguračního souboru. Zakomentování (nepoužití) se provede pomocí znaku '\#' umístěného na začátek daného řádku. Je tedy třeba takto zakomentovat druhý řádek, který definuje použití sítě LoRaWAN a odkomentovat první s WiFi sítí.
+V této konfiguraci je dále potřeba doplnit SSID (Service Set Identifier) požadované sítě a její heslo aby bylo možné se připojit. A dále nastavení spojení s MQTT brokerem. Zde má uživatel na výběr, jestli použije pouze IP adresu brokeru (typicky v lokální síti) nebo použije URL (Uniform Resource Locators) pro spojení skrze síť internet na broker mimo lokální síť. Poslední z možných nastavení je port MQTT brokeru, který je ve výchozím stavu nastaven na \SI{1883}{}, ale lze jej v případě potřeby změnit.
+
+\subsection{Připojení k LoRaWAN}
+
+Konfigurace připojení k LoRaWAN síti probíhá ve stejném souboru jako WiFi, tedy CMakeLists.txt v hlavní složce s firmware. Bude potřeba vygenerovat klíče pro připojení pomocí portálu The Things Network\footnote{\url{https://www.thethingsnetwork.org/}}. Pro využití této sítě je potřeba si na tomto webu vytvořit účet, který je zdarma. Po přihlášení je potřeba přejít do konzole a zde zvolit záložku aplikace. Pokud uživatel nemá vytvořenou žádnou aplikaci, uvidí pouze tlačítko "\texttt{+} Add application"{} na které je potřeba kliknout a vytvořit tak novou aplikaci. V této aplikaci poté budou sdruženy jednotlivá připojená zařízení a lze na ně aplikovat různé nastavení globálně. Při vytváření aplikace je zapotřebí vyplnit minimálně unikátní id aplikace(bez diakritiky, mezer, \dots), dále je možné vyplnit jméno aplikace, které bude lidsky čitelné a případný popis aplikace.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{obrazky/ttnApps.png}
+    \caption{Vytvořená aplikace v konzoli The Things Network.}
+    \label{fig_TTNApp}
+\end{figure}
+
+Po vytvoření aplikace je možné ji otevřít a vidět veškeré informace, tak jako na obrázku \ref{fig_TTNApp}. Nyní je potřeba pomocí tlačítka "+ Add end device"{} přidat koncové zařízení a vytvořit pro něj připojovací unikátní klíče. Některá zařízení schválená službou The Things Network lze přidat automaticky, ale zde je třeba zvolit manuální možnost registrace. Jako první z nastavení bude třeba zvolit frekvenční plán, pro Evropu je doporučen plán s názvem "Europe 863-870~MHz (SF9 for RX2 - recommended)", který doporučuji zvolit. Dále je potřeba zvolit specifikaci LoRaWAN standardu, kde použité knihovny pro obsluhu této sítě plně podporují LoRaWAN specifikaci verze 1.0.3. Poslední z nastavení jsou již zmíněné aktivační klíče pro metodu OTAA (Over The Air Activation), které necháme vygenerovat pomocí serveru. Je tedy třeba vygenerovat "DevEUI", "AppEUI"{} a "AppKey", k čemuž slouží tlačítka vedle těchto parametrů. Pole "AppEUI"{} necháme vyplnit nulami. Poslední z parametrů, který je možné zvolit je "End device ID", který slouží jako jedinečný identifikátor konkrétního zařízení. Lze jej ponechat na automaticky vygenerované hodnotě, která vychází z DevEUI. Správně navolené a vygenerované klíče lze vidět na obrázku \ref{fig_TTNDeviceGeneration}. Všechny tyto tři vygenerované unikátní klíče jsou potřeba pro následující nastavení v rámci firmwaru mikrokontroleru.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{obrazky/ttnDeviceRegister.png}
+    \caption{Formulář pro registraci koncového zařízení do sítě The Things Network.}
+    \label{fig_TTNDeviceGeneration}
+\end{figure}
+
+V nastavovacím souboru pro firmware je tedy potřeba nastavit zakomentováním řádku s definicí WiFi a odkomentováním LoRaWAN použití této sítě. Dále je potřeba do předchystaných definic do uvozovek vložit již zmiňované vygenerované klíče. Při použití této sítě není potřeba nastavovat žádné IP adresy, zprávy se posílají skrze gateway na servery The Things Network, kde se dále zpracovávají.
+
+\begin{lstlisting}[caption={Nastavení spojení pomocí LoRaWAN}]
+# add_compile_definitions(WIFI)
+add_compile_definitions(LORAWAN)
+...
+
+add_compile_definitions(APPEUI="")
+add_compile_definitions(DEVEUI="")
+add_compile_definitions(APPKEY="")
+\end{lstlisting}
+
+\section{Přijetí dat a jejich zpracování}
+
