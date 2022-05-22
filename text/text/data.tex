@@ -29,3 +29,23 @@ Jak již bylo zmíněno v předchozích kapitolách, zařízení bude moci zasí
 
 \section{Firmware mikrokontroleru}
 
+Celý obslužný firmware pro mikrokontroler je naprogamován za použití frameworku ESP-IDF\footnote{\url{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/}} přímo do výrobce čipu ESP32 Espressif. Tento framework obsahuje spousty knihoven pro obsluhu všech periferií a sběrnic, které čip obsahuje. Programování probíhá buďto v jazyce C nebo C\texttt{++}. Bylo zapotřebí napsat veškeré knihovny pro obsluhu připojených senzorů, tyto knihovny využívají již zmíněné knihovny od výrobce např. pro obsluhu sběrnice I$^2$C, SPI nebo UART.
+
+Tento framework je postaven na projektu realtime operačního systému pro mikrokontrolery FreeRTOS\footnote{\url{https://www.freertos.org/}} a umožňuje tak jednoduše spouštět více vláken, časovače, spravovat fronty a uživatel se o to nemusí starat. Díky tomuto systému je software rozdělen do několika oddělených vláken, kde se starají o inicializaci WiFi rozhraní, spojení s MQTT brokerem, spojení a obsluhu LoRaWAN sítě, obsluhu senzorů na sběrnici I$^2$C, SPI nebo UART. Díky tomuto rozdělení do jednotlivých vláken je velice snadné zajistit správné časování pro jednotlivé čtení ze senzorů a je také možné používat blokující funkce pro čekání, jelikož blokováním jednoho vlákna nedojde k ovlivnění časování vlákna jiného.
+
+\subsection{Obsluha senzorů}
+
+Jak již bylo zmíněno, pro obsluhu všech připojených senzorů jsou použity vlastní knihovny založené na frameworku ESP-IDF. Tyto knihovny obsahují pouze potřebné čtení, inicializace a případné restarty senzorů. Není obsažena plná funkčnost dle datasheetu výrobce, jelikož pro tuto aplikaci nejsou všechny funkce senzorů potřebné. Senzory jsou rozděleny do skupin podle druhu použité komunikační sběrnice a je možné je jednotlivě softwarově vypínat, aby byla minimalizována spotřeba celého zařízení. Dále jsou také zajištěny již dříve zmíněné opakované vyčítání ze senzorů pro koncentraci CO$_2$ a senzoru prachových částic. Po ukončení jednotlivých měření jsou naměřená data uložena do datové struktury k pozdějšímu odeslání na server.
+
+\subsection{Připojení k WiFi}
+
+Pro použití zařízení s WiFi sítí je zapotřebí nakonfigurovat ve zdrojovém kódu použití této sítě a také další potřebné parametry. Konfigurace probíhá v souboru CMakeLists.txt umístěném v hlavní složce se zdrojovými kódy.
+
+\begin{lstlisting}[language=c, caption={Nastavení spojení pomocí WiFi}]
+#define WiFi SSID, password and MQTT broker url
+add_compile_definitions(SSID="")
+add_compile_definitions(PWD="")
+add_compile_definitions(MQTT_BROKER_URL="")
+\end{lstlisting}
+
+V této konfiguraci je potřeba doplnit SSID (Service Set Identifier) požadované sítě a její heslo aby bylo možné se připojit. Dalším nastavením je spojení s MQTT brokerem. Zde má uživatel na výběr, jestli použije pouze IP adresu brokeru (typicky v lokální síti) nebo použije URL (Uniform Resource Locators) pro spojení skrze síť internet na broker mimo lokální síť. Nastavení probíhá pomocí zakomentování nebo odkomentování jednotlivých řádků konfiguračního souboru. Zakomentování (nepoužití) se provede pomocí znaku '\#' umístěného na začátek daného řádku.
