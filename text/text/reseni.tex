@@ -56,6 +56,13 @@ Na poli relativně levných UV senzorů je výběr opět o~něco horší. Existu
 
 Volím tedy druhý zmíněný senzor ML8511. Tento senzor měří pouze intenzitu UV záření pomocí fotodiody, která je citlivá na UVA a~UVB záření. Její největší citlivost je dle katalogového listu \cite{dat_ML8511} na vlnovou délku \SI{365}{\nano\metre}. Pro svou činnost potřebuje napájení \SI{3,3}{\volt} a~během měření je jeho maximální spotřeba \SI{500}{\micro\ampere}. Pokud jej uvedeme pomocí pinu EN do režimu standby, tak může být spotřeba maximálně \SI{1}{\micro\ampere}. Výstup senzoru je opět napěťový, takže musíme jeho výstup přivést na AD převodník. Rozsah těchto napětí je zhruba od \SI{1}{\volt} do \SI{3}{\volt}, což odpovídá rozsahu \SI{0}{} až \SI{15}{\milli\watt\per\centi\metre\squared}.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.25\textwidth]{obrazky/ml8511.jpg}
+    \caption{Senzor pro měření intenzity UV záření ML8511. \cite{picture_ML8511}}
+    \label{fig_ml8511}
+\end{figure}
+
 \subsection{Senzor teploty}
 
 Na poli senzorů pro měření teploty existuje nepřeberné množství různých druhů od spousty výrobců. Pro první základní výběr vhodných senzorů je nutné si definovat alespoň základní parametry a~požadavky na takovýto senzor. Vhodnými parametry jsou cena, rozsah měřených teplot (je třeba měřit i~při teplotách nižších než \SI{0}{\celsius}), spotřeba a~přesnost. Srovnání potenciálně použitelných senzorů se nachází v~tabulce~\ref{tab_TemperatureSensors}. Cena uvedená v~posledním sloupci je brána v~jeden den z~jednoho e-shopu\footnote{\url{https://www.laskarduino.cz/}}, aby bylo možné objektivně porovnat výsledky mezi sebou.
