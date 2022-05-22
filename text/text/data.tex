@@ -90,6 +90,8 @@ add_compile_definitions(APPKEY="")
 
 \section{Přijetí dat a jejich zpracování}
 
+Všechny aplikace pro příjem a zpracování dat včetně databáze jsou nainstalovány na Raspberry Pi 4\footnote{\url{https://www.raspberrypi.com/products/raspberry-pi-4-model-b/}}. Běží zde tedy Eclipse Mosquitto MQTT broker, Node-RED pro zpracování dat, InfluxDB pro uložení dat a Grafana pro grafickou vizualizaci dat. Webové rozhraní je dostupné z lokální sítě, ale lze toto rozhraní zpřístupnit pomocí veřejné IP adresy odkudkoli z internetu.
+
 Naměřená data jsou přímo v mikrokontroleru naformátována do formátu JSON (JavaScript Object Notation) pro snadné zpracování a čitelnost. Takovýto přenos dat není z hlediska přenášeného datového objemu nejefektivnější, ale ani u WiFi ani u LoRaWAN nejsme tak striktně omezeni aby toto řešení nešlo použít. Naměřená data jsou pro zjednodušení programování přenášena jako celá čísla a na straně serveru je tedy potřeba data převést zpět na desetinná čísla. Ve výpisu \ref{code_JSON} je vidět ukázková JSON struktura, kterou zařízení posílá. Na každém řádku je jedna měřená veličina a to napětí baterie, hodnota UV záření, teplota, vlhkost, intenzita osvětlení, tlak, prachové částice o velikosti \SI{1}{\micro\metre}, \SI{2.5}{\micro\metre} a \SI{10}{\micro\metre}, hodnota koncentrace CO$_2$ a poslední hodnotou je TVOC. Je nutné mít na paměti, že zde nejsou respektovány veličiny, jelikož jsou čísla přenášená celočíselně.
 
 \begin{lstlisting}[caption={Příklad zasílané JSON zprávy.}, label={code_JSON}]
@@ -111,4 +113,37 @@ Naměřená data jsou přímo v mikrokontroleru naformátována do formátu JSON
 Jak již bylo zmíněno v předchozích kapitolách, příjem dat na straně serveru je zajištěn MQTT brokerem Eclipse Mosquitto při použití WiFi. MQTT funguje na principu publish-subscribe, což znamená že zařízení se připojí a publikují svá data do přidělených kanálů odkud mohou ostatní zařízení tato data číst. V tomto případě má tento topic název podle definice v konfiguraci firmwaru a vypadá následovně: \lstinline{air-monitor/zvolený_název/values}. Tento název bude potřeba pro konfiguraci v Node-RED rozhraní. Pro příjem dat z portálu The Things Network bude využit jejich MQTT broker ke kterému se připojí Node-RED jako klient a získá data z kanálu pro uplink pro jednotlivá připojená zařízení.
 
 \subsection{Konfigurace Node-RED}
+
+Node-RED je nástroj, který umožňuje navzájem spojit zařízení, API aplikací a provádět jednoduché zpracování dat. Jeho nastavování probíhá skrze webové rozhraní. V této aplikaci bude zpracovávat přijatá data a ukládat je do databáze. Pro konfiguraci toku dat slouží tzv. nody, které mají buďto definovanou funkci a nebo lze vytvořit obecnou funkci v JavaScriptu.
+
+Konfigurace použitá v této konkrétní aplikaci je vidět na obrázku \ref{fig_NodeRED}. Jsou zde dvě hlavní větvě, kde horní zpracovává data přenesená přes WiFi z lokálního MQTT brokeru a spodní přijímá přes MQTT data z The Things Network. V této větvi jsou extrahovány funkcí pouze přijatá data, která se poté převedou na JSON objekt a jsou dále poslány ke zpracování. Jak již bylo zmíněno, data je nutné převést do desetinné podoby, což se děje v node s názvem "Int to float" jejíž definici lze vidět na výpisu \ref{code_intToFloat}. Poslední node pouze zapisuje data do předem zvolené tabulky v InfluxDB databázi.
+
+\begin{lstlisting}[caption={Funkce pro převod naměřených dat do desetinné podoby.}, label={code_intToFloat}]
+msg.payload = [
+{
+    T: (msg.payload["T"] / 10),
+    H: (msg.payload["H"] / 10),
+    L: msg.payload["L"],
+    P: (msg.payload["P"] / 10),
+    C: msg.payload["C"],
+    E: msg.payload["E"],
+    P1: msg.payload["P1"],
+    P25: msg.payload["P25"],
+    P10: msg.payload["P10"],
+    U: (msg.payload["U"] / 1000000),
+    B: (msg.payload["B"] / 1000)
+}]
+return msg;
+\end{lstlisting}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{obrazky/nodered.png}
+    \caption{Konfigurace toku dat v prostředí Node-RED.}
+    \label{fig_NodeRED}
+\end{figure}
+
+\subsection{Grafické uživatelské rozhraní}
+
+O zobrazení dat se stará služba Grafana, která si naměřená data bere přímo z databáze InfluxDB a zobrazuje je podle definice uživatele. Je zde mnoho možností na konfiguraci zobrazených prvků jako jsou grafy, bargrafy, status bary, pouze číselné hodnoty a jiné. Rozložení závisí čistě na uživateli a jeho preferencích. Zároveň se lze v již daném rozložení panelů přepínat v zobrazeném časovém úseku. Služba sama o sobě umožňuje zobrazit např. posledních \SI{5}{\minute} až několik posledních let a nebo lze definovat vlastní časový úsek. Dále lze také zapnout automatické obnovování a mít tak tuto službu v bezobslužném módu kde bude neustále zobrazovat aktuální data.
 
