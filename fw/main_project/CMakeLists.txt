@@ -6,7 +6,7 @@ cmake_minimum_required(VERSION 3.5)
 
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 
-# Uncomment one of these following lines to select WiFi and MQTT broker or LoRaWAN
+# Uncomment one of these following lines to select WiFi or LoRaWAN
 # add_compile_definitions(WIFI)
 add_compile_definitions(LORAWAN)
 
@@ -15,5 +15,14 @@ add_compile_definitions(SSID="")
 add_compile_definitions(PWD="")
 add_compile_definitions(MQTT_BROKER_URL="")
 add_compile_definitions(MQTT_PORT=1883)
+
+# Here define LoRaWAN keys generated from TheThingsNetwork
+add_compile_definitions(APPEUI="")
+add_compile_definitions(DEVEUI="")
+add_compile_definitions(APPKEY="")
+
+# Define sleep time -> period of measuring in minutes (default 10)
+add_compile_definitions(SLEEP_TIME=10)
+
 
 project(main)

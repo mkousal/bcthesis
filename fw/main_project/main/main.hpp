@@ -38,9 +38,9 @@ uint8_t taskChecker = 0;
 xTimerHandle sgpTimer;
 bool ADCCalibrationEnable;
 
-const char *appEui = "";
-const char *devEui = "";
-const char *appKey = "";
+const char *appEui = APPEUI;
+const char *devEui = DEVEUI;
+const char *appKey = APPKEY;
 static TheThingsNetwork ttn;
 
 #define DEBUG

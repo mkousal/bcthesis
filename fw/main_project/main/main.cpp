@@ -122,7 +122,7 @@ void taskMQTT(void *pvParameters)
     vTaskDelay(3000 / portTICK_RATE_MS);
     esp_wifi_stop();
     
-    power.goToSleep(10);
+    power.goToSleep(SLEEP_TIME);
 
     vTaskDelete(NULL);
 }
@@ -165,7 +165,7 @@ void taskTTN(void *pvParameters) {
     ttn.prepareForDeepSleep();
     ESP_LOGI("TTN", "Go to sleep");
 
-    power.goToSleep(10);
+    power.goToSleep(SLEEP_TIME);
 
     vTaskDelete(NULL);
 }
