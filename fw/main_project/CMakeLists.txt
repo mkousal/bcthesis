@@ -15,6 +15,7 @@ add_compile_definitions(SSID="")
 add_compile_definitions(PWD="")
 add_compile_definitions(MQTT_BROKER_URL="")
 add_compile_definitions(MQTT_PORT=1883)
+add_compile_definitions(MQTT_TOPIC="")
 
 # Here define LoRaWAN keys generated from TheThingsNetwork
 add_compile_definitions(APPEUI="")

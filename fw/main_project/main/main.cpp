@@ -8,6 +8,7 @@
 #include "freertos/task.h"
 #include "freertos/event_groups.h"
 #include "freertos/timers.h"
+#include <string>
 
 static void vSGPTimerCallback(xTimerHandle xTimer) {
     static uint8_t cntMeasurement = 0;
@@ -112,7 +113,12 @@ void taskMQTT(void *pvParameters)
     ESP_LOGI("MQTT", "size of JSON message: %d JSON:\n%s\n", json_str_size, json_str);
     #endif
 
-    esp_mqtt_client_publish(client, "AIR_MONITOR_1/values", json_str, json_str_size, 0, false);
+    std::string topic = "air-monitor/";
+    topic.append(MQTT_TOPIC);
+    topic.append("/values");
+    char top [topic.length() + 1];
+    strcpy(top, topic.c_str());
+    esp_mqtt_client_publish(client, top, json_str, json_str_size, 0, false);
     esp_mqtt_client_stop(client);
 
     #ifdef DEBUG
