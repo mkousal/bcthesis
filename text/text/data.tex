@@ -145,5 +145,11 @@ return msg;
 
 \subsection{Grafické uživatelské rozhraní}
 
-O zobrazení dat se stará služba Grafana, která si naměřená data bere přímo z databáze InfluxDB a zobrazuje je podle definice uživatele. Je zde mnoho možností na konfiguraci zobrazených prvků jako jsou grafy, bargrafy, status bary, pouze číselné hodnoty a jiné. Rozložení závisí čistě na uživateli a jeho preferencích. Zároveň se lze v již daném rozložení panelů přepínat v zobrazeném časovém úseku. Služba sama o sobě umožňuje zobrazit např. posledních \SI{5}{\minute} až několik posledních let a nebo lze definovat vlastní časový úsek. Dále lze také zapnout automatické obnovování a mít tak tuto službu v bezobslužném módu kde bude neustále zobrazovat aktuální data.
+O zobrazení dat se stará služba Grafana, která si naměřená data bere přímo z databáze InfluxDB a zobrazuje je podle definice uživatele. Je zde mnoho možností na konfiguraci zobrazených prvků jako jsou grafy, bargrafy, status bary, pouze číselné hodnoty a jiné. Rozložení závisí čistě na uživateli a jeho preferencích. Zároveň se lze v již daném rozložení panelů přepínat v zobrazeném časovém úseku. Služba sama o sobě umožňuje zobrazit např. posledních \SI{5}{\minute} až několik posledních let a nebo lze definovat vlastní časový úsek. Dále lze také zapnout automatické obnovování a mít tak tuto službu v bezobslužném módu kde bude neustále zobrazovat aktuální data. Příklad takového zobrazení je vidět na obrázku \ref{fig_Grafana}, jsou zde v grafech vyneseny aktuální hodnoty a na pravé straně je vidět status bar se stavem baterie a zároveň pro letmou informaci maximální hodnota teploty za posledních \SI{24}{\hour}.
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{obrazky/grafana.png}
+    \caption{Ukázka zobrazení naměřených dat pomocí aplikace Grafana.}
+    \label{fig_Grafana}
+\end{figure}
