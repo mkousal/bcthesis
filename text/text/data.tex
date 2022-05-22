@@ -50,10 +50,11 @@ add_compile_definitions(SSID="")
 add_compile_definitions(PWD="")
 add_compile_definitions(MQTT_BROKER_URL="")
 add_compile_definitions(MQTT_PORT=1883)
+add_compile_definitions(MQTT_TOPIC="")
 \end{lstlisting}
 
 Nastavení probíhá pomocí zakomentování nebo odkomentování jednotlivých řádků konfiguračního souboru. Zakomentování (nepoužití) se provede pomocí znaku '\#' umístěného na začátek daného řádku. Je tedy třeba takto zakomentovat druhý řádek, který definuje použití sítě LoRaWAN a odkomentovat první s WiFi sítí.
-V této konfiguraci je dále potřeba doplnit SSID (Service Set Identifier) požadované sítě a její heslo aby bylo možné se připojit. A dále nastavení spojení s MQTT brokerem. Zde má uživatel na výběr, jestli použije pouze IP adresu brokeru (typicky v lokální síti) nebo použije URL (Uniform Resource Locators) pro spojení skrze síť internet na broker mimo lokální síť. Poslední z možných nastavení je port MQTT brokeru, který je ve výchozím stavu nastaven na \SI{1883}{}, ale lze jej v případě potřeby změnit.
+V této konfiguraci je dále potřeba doplnit SSID (Service Set Identifier) požadované sítě a její heslo aby bylo možné se připojit. A dále nastavení spojení s MQTT brokerem. Zde má uživatel na výběr, jestli použije pouze IP adresu brokeru (typicky v lokální síti) nebo použije URL (Uniform Resource Locators) pro spojení skrze síť internet na broker mimo lokální síť. Další z možných nastavení je port MQTT brokeru, který je ve výchozím stavu nastaven na \SI{1883}{}, ale lze jej v případě potřeby změnit. Posledním nastavením je tzv. topic pro MQTT (kanál pro publikování dat), který musí být unikátní v rámci jednoho MQTT brokeru, jinak bude docházet ke konfliktům.
 
 \subsection{Připojení k LoRaWAN}
 
@@ -88,4 +89,26 @@ add_compile_definitions(APPKEY="")
 \end{lstlisting}
 
 \section{Přijetí dat a jejich zpracování}
+
+Naměřená data jsou přímo v mikrokontroleru naformátována do formátu JSON (JavaScript Object Notation) pro snadné zpracování a čitelnost. Takovýto přenos dat není z hlediska přenášeného datového objemu nejefektivnější, ale ani u WiFi ani u LoRaWAN nejsme tak striktně omezeni aby toto řešení nešlo použít. Naměřená data jsou pro zjednodušení programování přenášena jako celá čísla a na straně serveru je tedy potřeba data převést zpět na desetinná čísla. Ve výpisu \ref{code_JSON} je vidět ukázková JSON struktura, kterou zařízení posílá. Na každém řádku je jedna měřená veličina a to napětí baterie, hodnota UV záření, teplota, vlhkost, intenzita osvětlení, tlak, prachové částice o velikosti \SI{1}{\micro\metre}, \SI{2.5}{\micro\metre} a \SI{10}{\micro\metre}, hodnota koncentrace CO$_2$ a poslední hodnotou je TVOC. Je nutné mít na paměti, že zde nejsou respektovány veličiny, jelikož jsou čísla přenášená celočíselně.
+
+\begin{lstlisting}[caption={Příklad zasílané JSON zprávy.}, label={code_JSON}]
+{
+    "B":3334,
+    "U":0,
+    "T":214,
+    "H":437,
+    "L":0,
+    "P":1013959,
+    "P1":27,
+    "P25":1,
+    "P10":0,
+    "C":400,
+    "E":0
+}
+\end{lstlisting}
+
+Jak již bylo zmíněno v předchozích kapitolách, příjem dat na straně serveru je zajištěn MQTT brokerem Eclipse Mosquitto při použití WiFi. MQTT funguje na principu publish-subscribe, což znamená že zařízení se připojí a publikují svá data do přidělených kanálů odkud mohou ostatní zařízení tato data číst. V tomto případě má tento topic název podle definice v konfiguraci firmwaru a vypadá následovně: \lstinline{air-monitor/zvolený_název/values}. Tento název bude potřeba pro konfiguraci v Node-RED rozhraní. Pro příjem dat z portálu The Things Network bude využit jejich MQTT broker ke kterému se připojí Node-RED jako klient a získá data z kanálu pro uplink pro jednotlivá připojená zařízení.
+
+\subsection{Konfigurace Node-RED}
 
