@@ -230,7 +230,7 @@ Při návrhu hodnot použitích součástek v zapojení step-up měniče budu vy
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.85\textwidth]{obrazky/stepup_schematic.pdf}
+    \includegraphics[scale=1.2]{obrazky/stepup_schematic.pdf}
     \caption{Schéma zapojení step-up měniče.}
     \label{fig_StepUp-kicad}
 \end{figure}
@@ -298,7 +298,7 @@ Jako vhodný pro toto zapojení byl vybrán stabilizátor od výrobce Advanced M
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{obrazky/ldo-schematic.pdf}
+    \includegraphics[scale=1.2]{obrazky/ldo-schematic.pdf}
     \caption{Schéma zapojení lineárního stabilizátoru s výstupem \SI{3.3}{\volt}.}
     \label{fig_LDO-schematic}
 \end{figure}
@@ -309,7 +309,7 @@ Posledním z napájecích zdrojů je lineární stabilizátor pro senzor SGP30 m
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.9\textwidth]{obrazky/ldo18-schematic.pdf}
+    \includegraphics[scale=1.2]{obrazky/ldo18-schematic.pdf}
     \caption{Zapojení lineárního stabilizátoru s výstupem \SI{1.8}{\volt}.}
     \label{fig_LDO1.8-schematic}
 \end{figure}
@@ -322,7 +322,7 @@ Na obrázku \ref{fig_BlockDiagram-full} můžeme vidět finální blokové sché
 
 Jelikož je jedním z hlavních úkolů navrhnout zařízení s co nejmenší spotřebou, bude při návrhu potřeba brát ohled i na mnoho dalších věcí. Všechny senzory a části desky budou navrženy tak, aby je bylo možné nezávisle na sobě vypnout a snížit tak spotřebu v době, kdy není potřeba cokoli měřit. Pokud budou všechny senzory vypnuty, tvoří spotřebu celého zařízení samotný mikrokontroler ESP32 a pasivní prvky, jako například pull-up rezistory a napěťové děliče. Mikrokontroler ESP32 má v deep-sleep (hluboký spánek) režimu spotřebu dle datasheetu \cite{dat_ESP32-WROOM} pouhých \SI{5}{\micro\ampere} a zde již nelze spotřebu snížit. Jediné, co lze tedy ovlivnit jsou pasivní prvky a to tak, že nebudou zapojeny přímo na napájecí větev \SI{3.3}{\volt} ale na vypínatelnou část obvodu a tak nebudou zvyšovat klidovou spotřebu zařízení. Tímto způsobem budou tedy zapojeny všechny pull-up rezistory a také napěťový dělič pro měření napětí na baterii.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{obrazky/block_schematic.png}
     \caption{Celkové blokové schéma navrhovaného zařízení.}
@@ -335,13 +335,11 @@ Jelikož je ve výsledném zařízení obsažena baterie LiFePO4, je vhodné mí
 
 Vybral jsem řídící čip LT3652 od firmy Analog Devices \cite{dat_LT3652}, který sdružuje funkce nabíjení baterie a MPPT regulátoru na vstupu. Samotný čip umožňuje nabíjení baterie spínaným zdrojem s výstupním proudem až \SI{2}{\ampere} při vstupním napětí až \SI{32}{\volt}. Je možné tedy nabíjet i více baterií zapojených do série. Umožňuje nastavit maximální napětí, do kterého se baterie mají nabíjet, nabíjecí proud a nebo také právě napětí pro MPPT regulátor.
 
-\subsection{Návrh nabíjecího obvodu}
-
 Při návrhu zapojení nabíjecího obvodu s čipem LT3652 budu vycházet z datasheetu výrobce \cite{dat_LT3652} a v něm uvedeného typického zapojení. Výrobce v tomto datasheetu uvádí přímo konkrétní zapojení pro jednu LiFePO4 baterii s maximálním napětím \SI{3.6}{\volt}, ze kterého bdudu vycházet. Toto zapojení je vidět na obrázku \ref{fig_datasheetSchematicLT3652}.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{obrazky/datasheetSchematicLT3652.png}
+    \includegraphics[width=0.9\textwidth]{obrazky/datasheetSchematicLT3652.png}
     \caption{Zapojení nabíjecího obvodu LT3652 podle doporučení výrobce. \cite{dat_LT3652}}
     \label{fig_datasheetSchematicLT3652}
 \end{figure}
