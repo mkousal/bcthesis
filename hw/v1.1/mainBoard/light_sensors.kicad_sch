@@ -5,8 +5,10 @@
   (paper "A4")
 
   (title_block
+    (title "iotAirMonitoring")
     (date "2022-05-09")
     (rev "v1.1")
+    (company "Martin Kousal")
   )
 
   (lib_symbols
@@ -201,10 +203,24 @@
     (uuid dc68375d-2253-4c81-98f2-c12f54fc3e36)
   )
 
+  (polyline (pts (xy 143.51 76.835) (xy 99.695 76.835))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 02d35438-dc02-4f5f-b857-e6dc3361e13a)
+  )
+
   (wire (pts (xy 104.14 100.965) (xy 104.14 94.615))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 05503645-d468-4116-b833-0aadb3936c46)
   )
+  (polyline (pts (xy 99.695 43.18) (xy 143.51 43.18))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 1094969d-a86e-4b0d-8d1a-841ccf4fd856)
+  )
+  (polyline (pts (xy 99.695 86.995) (xy 160.655 86.995))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 15e6df35-c0b5-4b84-9f76-3ce2ebc7cf93)
+  )
+
   (wire (pts (xy 149.225 94.615) (xy 147.32 94.615))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 193ac1de-e454-4b76-a426-361d9933759a)
@@ -249,6 +265,11 @@
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 48706913-ef9c-4357-a858-7f545004019a)
   )
+  (polyline (pts (xy 99.695 43.18) (xy 99.695 76.835))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 4f6b77f1-d430-45db-94c7-53f49452f4bc)
+  )
+
   (wire (pts (xy 130.81 63.5) (xy 133.35 63.5))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 5149368d-ff35-4142-999c-96ef70626c8f)
@@ -277,6 +298,11 @@
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 96822e5d-02d9-432e-80e1-ab06b4aca8f4)
   )
+  (polyline (pts (xy 143.51 43.18) (xy 143.51 76.835))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid 9dcba3ce-b264-4016-a24c-6fec8de85063)
+  )
+
   (wire (pts (xy 104.14 108.585) (xy 104.14 113.665))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid 9f96f737-a0e2-4200-bfd4-d2cff7c5805f)
@@ -289,10 +315,20 @@
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid b14d7140-638b-42ad-9b45-bad2c2ab5c20)
   )
+  (polyline (pts (xy 160.655 123.19) (xy 99.695 123.19))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid b18ecb7f-f9f9-4ed1-b016-567d469a271a)
+  )
+
   (wire (pts (xy 133.35 105.41) (xy 147.32 105.41))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid b38411c4-9a5b-4706-8d56-2d867557bb61)
   )
+  (polyline (pts (xy 160.655 86.995) (xy 160.655 123.19))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid b3e88067-9fe5-4bc7-b386-156b6d94f67e)
+  )
+
   (wire (pts (xy 104.14 113.665) (xy 113.665 113.665))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid dbd711fd-5319-41c1-8e31-9d5f53abb2ae)
@@ -301,6 +337,11 @@
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid dcba009d-fbf2-4367-8c9f-229dfc1a6ea3)
   )
+  (polyline (pts (xy 99.695 86.995) (xy 99.695 123.19))
+    (stroke (width 0) (type default) (color 0 0 0 0))
+    (uuid dda8274a-2469-4e58-b989-925766d5443d)
+  )
+
   (wire (pts (xy 125.095 113.665) (xy 125.095 114.935))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid e6bc7249-5422-422b-9052-2610b90553c9)
@@ -308,6 +349,15 @@
   (wire (pts (xy 121.92 52.07) (xy 121.92 53.34))
     (stroke (width 0) (type default) (color 0 0 0 0))
     (uuid e907a113-408b-4f7f-b7dc-a0d1fd62fcbc)
+  )
+
+  (text "LIGHT SENSOR" (at 100.965 46.355 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 8c86306e-96c4-4b0a-8947-81247a67493f)
+  )
+  (text "UV SENSOR" (at 100.965 90.17 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid a29112f3-07f7-4e3e-8fac-c3540f8ffed3)
   )
 
   (hierarchical_label "GND" (shape input) (at 121.92 70.485 270)
