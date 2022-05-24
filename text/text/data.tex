@@ -88,12 +88,18 @@ add_compile_definitions(DEVEUI="")
 add_compile_definitions(APPKEY="")
 \end{lstlisting}
 
+\subsection{Frekvence měření}
+
+Poslední z možností k nastavení v rámci firmwaru mikrokontroleru je frekvence měření. Zařízení se spustí, provede měření a odešle data a poté je v režimu hlubokého spánku, kde jsou vypnuty veškeré nepotřebné periferie a je tak dosahováno co nejnižší spotřeby. Uživatel může nastavení délky tohoto spánku ovlivnit v souboru \texttt{CMakeLists.txt} pomocí parametru \texttt{SLEEP_TIME}. Tento parametr určuje, jak dlouho bude mikrokontroler v režimu spánku a je udáván v minutách. Pro účely testování používám nastavení \SI{10}{\minute}.
+
 \section{Přijetí dat a jejich zpracování}
 
 Všechny aplikace pro příjem a zpracování dat včetně databáze jsou nainstalovány na Raspberry Pi 4. Běží zde tedy Eclipse Mosquitto MQTT broker, Node-RED pro zpracování dat, InfluxDB pro uložení dat a Grafana pro grafickou vizualizaci dat. Webové rozhraní je dostupné z lokální sítě, ale lze toto rozhraní zpřístupnit pomocí veřejné IP adresy odkudkoli z internetu.
 
 Naměřená data jsou přímo v mikrokontroleru naformátována do formátu JSON (JavaScript Object Notation) pro snadné zpracování a čitelnost. Takovýto přenos dat není z hlediska přenášeného datového objemu nejefektivnější, ale ani u WiFi ani u LoRaWAN nejsme tak striktně omezeni, aby toto řešení nešlo použít. Naměřená data jsou pro zjednodušení programování přenášena jako celá čísla a na straně serveru je tedy potřeba data převést zpět na desetinná čísla. Ve výpisu \ref{code_JSON} je vidět ukázková JSON struktura, kterou zařízení posílá. Na každém řádku je jedna měřená veličina a to napětí baterie, hodnota UV záření, teplota, vlhkost, intenzita osvětlení, tlak, prachové částice o velikosti \SI{1}{\micro\metre}, \SI{2.5}{\micro\metre} a \SI{10}{\micro\metre}, hodnota koncentrace CO$_2$ a~poslední hodnotou je TVOC. Je nutné mít na paměti, že zde nejsou respektovány veličiny, jelikož jsou čísla přenášená celočíselně.
 
+\noindent
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Příklad zasílané JSON zprávy.}, label={code_JSON}]
 {
     "B":3334,
@@ -109,6 +115,7 @@ Naměřená data jsou přímo v mikrokontroleru naformátována do formátu JSON
     "E":0
 }
 \end{lstlisting}
+\end{minipage}
 
 Jak již bylo zmíněno v předchozích kapitolách, příjem dat na straně serveru je zajištěn MQTT brokerem Eclipse Mosquitto při použití WiFi. MQTT funguje na principu publish-subscribe, což znamená že zařízení se připojí a publikují svá data do přidělených kanálů odkud mohou ostatní zařízení tato data číst. V tomto případě má tento topic název podle definice v konfiguraci firmwaru a vypadá následovně: \lstinline{air-monitor/zvolený_název/values}. Tento název bude potřeba pro konfiguraci v Node-RED rozhraní. Pro příjem dat z portálu The Things Network bude využit jejich MQTT broker ke kterému se připojí Node-RED jako klient a~získá data z~kanálu pro uplink pro jednotlivá připojená zařízení.
 
@@ -118,30 +125,33 @@ Node-RED je nástroj, který umožňuje navzájem spojit zařízení, API aplika
 
 Konfigurace použitá v této konkrétní aplikaci je vidět na obrázku \ref{fig_NodeRED}. Jsou zde dvě hlavní větvě, kde horní zpracovává data přenesená přes WiFi z lokálního MQTT brokeru a spodní přijímá přes MQTT data z The Things Network. V této větvi jsou extrahovány funkcí pouze přijatá data, která se poté převedou na JSON objekt a jsou dále poslány ke zpracování. Jak již bylo zmíněno, data je nutné převést do desetinné podoby, což se děje v node s názvem "Int to float" jejíž definici lze vidět na výpisu \ref{code_intToFloat}. Poslední node pouze zapisuje data do předem zvolené tabulky v InfluxDB databázi.
 
-\begin{lstlisting}[caption={Funkce pro převod naměřených dat do desetinné podoby.}, label={code_intToFloat}]
-msg.payload = [
-{
-    T: (msg.payload["T"] / 10),
-    H: (msg.payload["H"] / 10),
-    L: msg.payload["L"],
-    P: (msg.payload["P"] / 10),
-    C: msg.payload["C"],
-    E: msg.payload["E"],
-    P1: msg.payload["P1"],
-    P25: msg.payload["P25"],
-    P10: msg.payload["P10"],
-    U: (msg.payload["U"] / 1000000),
-    B: (msg.payload["B"] / 1000)
-}]
-return msg;
-\end{lstlisting}
-
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth]{obrazky/nodered.png}
     \caption{Konfigurace toku dat v prostředí Node-RED.}
     \label{fig_NodeRED}
 \end{figure}
+
+\noindent
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption={Funkce pro převod naměřených dat do desetinné podoby.}, label={code_intToFloat}]
+    msg.payload = [
+    {
+        T: (msg.payload["T"] / 10),
+        H: (msg.payload["H"] / 10),
+        L: msg.payload["L"],
+        P: (msg.payload["P"] / 10),
+        C: msg.payload["C"],
+        E: msg.payload["E"],
+        P1: msg.payload["P1"],
+        P25: msg.payload["P25"],
+        P10: msg.payload["P10"],
+        U: (msg.payload["U"] / 1000000),
+        B: (msg.payload["B"] / 1000)
+    }]
+    return msg;
+\end{lstlisting}
+\end{minipage}
 
 \subsection{Grafické uživatelské rozhraní}
 
