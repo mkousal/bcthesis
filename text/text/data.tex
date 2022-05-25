@@ -94,7 +94,14 @@ Poslední z možností k nastavení v rámci firmwaru mikrokontroleru je frekven
 
 \section{Přijetí dat a jejich zpracování}
 
-Všechny aplikace pro příjem a zpracování dat včetně databáze jsou nainstalovány na Raspberry Pi 4. Běží zde tedy Eclipse Mosquitto MQTT broker, Node-RED pro zpracování dat, InfluxDB pro uložení dat a Grafana pro grafickou vizualizaci dat. Webové rozhraní je dostupné z lokální sítě, ale lze toto rozhraní zpřístupnit pomocí veřejné IP adresy odkudkoli z internetu.
+Všechny aplikace pro příjem a zpracování dat včetně databáze jsou nainstalovány na Raspberry Pi 4. Běží zde tedy Eclipse Mosquitto MQTT broker, Node-RED pro zpracování dat, InfluxDB pro uložení dat a Grafana pro grafickou vizualizaci dat. Webové rozhraní je dostupné z lokální sítě, ale lze toto rozhraní zpřístupnit pomocí veřejné IP adresy nebo jiných služeb odkudkoli z internetu. Zjednodušený diagram procesu přenosu dat je vidět na obrázku \ref{fig_dataFlow}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{obrazky/data_flow.pdf}
+    \caption{Diagram procesu přenosu dat ze zařízení.}
+    \label{fig_dataFlow}
+\end{figure}
 
 Naměřená data jsou přímo v mikrokontroleru naformátována do formátu JSON (JavaScript Object Notation) pro snadné zpracování a čitelnost. Takovýto přenos dat není z hlediska přenášeného datového objemu nejefektivnější, ale ani u WiFi ani u LoRaWAN nejsme tak striktně omezeni, aby toto řešení nešlo použít. Naměřená data jsou pro zjednodušení programování přenášena jako celá čísla a na straně serveru je tedy potřeba data převést zpět na desetinná čísla. Ve výpisu \ref{code_JSON} je vidět ukázková JSON struktura, kterou zařízení posílá. Na každém řádku je jedna měřená veličina a to napětí baterie, hodnota UV záření, teplota, vlhkost, intenzita osvětlení, tlak, prachové částice o velikosti \SI{1}{\micro\metre}, \SI{2.5}{\micro\metre} a \SI{10}{\micro\metre}, hodnota koncentrace CO$_2$ a~poslední hodnotou je TVOC. Je nutné mít na paměti, že zde nejsou respektovány veličiny, jelikož jsou čísla přenášená celočíselně.
 
@@ -135,7 +142,7 @@ Konfigurace použitá v této konkrétní aplikaci je vidět na obrázku \ref{fi
 \noindent
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption={Funkce pro převod naměřených dat do desetinné podoby.}, label={code_intToFloat}]
-    msg.payload = [
+msg.payload = [
     {
         T: (msg.payload["T"] / 10),
         H: (msg.payload["H"] / 10),
@@ -149,7 +156,7 @@ Konfigurace použitá v této konkrétní aplikaci je vidět na obrázku \ref{fi
         U: (msg.payload["U"] / 1000000),
         B: (msg.payload["B"] / 1000)
     }]
-    return msg;
+return msg;
 \end{lstlisting}
 \end{minipage}
 
