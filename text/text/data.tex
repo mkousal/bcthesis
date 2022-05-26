@@ -130,7 +130,7 @@ Jak již bylo zmíněno v~předchozích kapitolách, příjem dat na straně ser
 
 Node-RED je nástroj, který umožňuje navzájem spojit zařízení, API aplikací a~provádět jednoduché zpracování dat. Jeho nastavování probíhá skrze webové rozhraní. V~této aplikaci bude zpracovávat přijatá data a~ukládat je do databáze. Pro konfiguraci toku dat slouží tzv. nody, které mají buďto definovanou funkci a~nebo lze vytvořit obecnou funkci v~JavaScriptu.
 
-Konfigurace použitá v~této konkrétní aplikaci je vidět na obrázku \ref{fig_NodeRED}. Jsou zde dvě hlavní větvě, kde horní zpracovává data přenesená přes WiFi z~lokálního MQTT brokeru a~spodní přijímá přes MQTT data z~The Things Network. V~této větvi jsou extrahovány funkcí pouze přijatá data, která se poté převedou na JSON objekt a~jsou dále poslány ke zpracování. Jak již bylo zmíněno, data je nutné převést do desetinné podoby, což se děje v~node s~názvem "Int to float" jejíž definici lze vidět na výpisu \ref{code_intToFloat}. Poslední node pouze zapisuje data do předem zvolené tabulky v~InfluxDB databázi.
+Konfigurace použitá v~této konkrétní aplikaci je vidět na obrázku \ref{fig_NodeRED}. Jsou zde dvě hlavní větvě, kde horní zpracovává data přenesená přes WiFi z~lokálního MQTT brokeru a~spodní přijímá přes MQTT data z~The Things Network. V~této větvi jsou extrahovány funkcí pouze přijatá data, která se poté převedou na JSON objekt a~jsou dále poslány ke zpracování. Jak již bylo zmíněno, data je nutné převést do desetinné podoby, což se děje v~node s~názvem "Int to float"{} jejíž definici lze vidět na výpisu \ref{code_intToFloat}. Poslední node pouze zapisuje data do předem zvolené tabulky v~InfluxDB databázi.
 
 \begin{figure}[h]
     \centering
