@@ -1,6 +1,6 @@
 % \chapter{Některé příkazy balíčku \texttt{thesis}}
 
-% \section{Příkazy pro sazbu veličin a jednotek}
+% \section{Příkazy pro sazbu veličin a~jednotek}
 
 % \begin{table}[!h]
 %   \caption[Přehled příkazů]{Přehled příkazů pro matematické prostředí }
@@ -114,7 +114,7 @@
 % {\bf Poznámka k~výpisům s~použitím volby jazyka \verb|czech| nebo \verb|slovak|:}\newline
 % Pokud Váš zdrojový kód obsahuje znak spojovníku \verb|-|, pak překlad může skončit chybou.
 % Ta je způsobená tím, že znak \verb|-| je v~českém nebo slovenském nastavení balíčku \verb|babel| tzv.\ aktivním znakem.
-% Přepněte znak \verb|-| na neaktivní příkazem \verb|\shorthandoff{-}| těsně před výpisem a hned za ním jej vraťte na aktivní příkazem \verb|\shorthandon{-}|.
+% Přepněte znak \verb|-| na neaktivní příkazem \verb|\shorthandoff{-}| těsně před výpisem a~hned za ním jej vraťte na aktivní příkazem \verb|\shorthandon{-}|.
 % Podobně jako to je ukázáno ve zdrojovém kódu šablony.
 
 
@@ -136,7 +136,7 @@
 % %% Priklad testovani stability filtru
 
 % % koeficienty polynomu ve jmenovateli
-% a = [ 5, 11.2, 5.44, -0.384, -2.3552, -1.2288];
+% a~= [ 5, 11.2, 5.44, -0.384, -2.3552, -1.2288];
 % disp( 'Polynom:'); disp(poly2str( a, 'z'))
 
 % disp('Kontrola pomoci korenu polynomu:');
@@ -150,7 +150,7 @@
 % disp(' '); disp('Kontrola pomoci Schur-Cohn:');
 % ma = zeros( length(a)-1,length(a));
 % ma(1,:) = a/a(1);
-% for( k = 1:length(a)-2)
+% for( k~= 1:length(a)-2)
 %     aa = ma(k,1:end-k+1);
 %     bb = fliplr( aa);
 %     ma(k+1,1:end-k+1) = (aa-aa(end)*bb)/(1-aa(end)^2);
@@ -178,7 +178,7 @@
 % 	short k;
 
 % 	x = sample;
-% 	for( k = 0; k < SECTIONS; k++){
+% 	for( k~= 0; k~< SECTIONS; k++){
 % 		accu = v1[k] >> 1;
 % 		y = _sadd( accu, _smpy( coef[k][0], x));
 % 		y = _sshl(y, 1) >> 16;
@@ -215,7 +215,7 @@
 % Pokud bylo cílem práce vytvořit hardwarové zařízení,
 % musí elektronická příloha obsahovat veškeré podklady pro výrobu (např.\ soubory s~návrhem DPS v~Eagle).
 
-% Pokud je souborů hodně a jsou organizovány ve více složkách, je možné pro výpis adresářové struktury použít balíček \href{https://www.ctan.org/pkg/dirtree}{\texttt{dirtree}}.
+% Pokud je souborů hodně a~jsou organizovány ve více složkách, je možné pro výpis adresářové struktury použít balíček \href{https://www.ctan.org/pkg/dirtree}{\texttt{dirtree}}.
 
 % \bigskip
 
@@ -223,7 +223,7 @@
 % %
 % \dirtree{%.
 % .1 /\DTcomment{kořenový adresář přiloženého archivu}.
-% .2 logo\DTcomment{loga školy a fakulty}.
+% .2 logo\DTcomment{loga školy a~fakulty}.
 % .3 BUT\_abbreviation\_color\_PANTONE\_EN.pdf.
 % .3 BUT\_color\_PANTONE\_EN.pdf.
 % .3 FEEC\_abbreviation\_color\_PANTONE\_EN.pdf.
@@ -267,13 +267,13 @@
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{obrazky/pcb-blank.jpg}
-	\caption{Foto realizované desky osazené z výroby.}
+	\caption{Foto realizované desky osazené z~výroby.}
 	\label{fig_PCB-blank}
 \end{figure}
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{obrazky/pcb-full.jpg}
-	\caption{Foto realizované desky včetně doosazení součástek a přidání modulů se senzory.}
+	\caption{Foto realizované desky včetně doosazení součástek a~přidání modulů se senzory.}
 	\label{fig_PCB-full}
 \end{figure}
