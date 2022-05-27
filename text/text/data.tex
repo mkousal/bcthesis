@@ -78,6 +78,8 @@ Po vytvoření aplikace je možné ji otevřít a~vidět veškeré informace, ta
 
 V nastavovacím souboru pro firmware je tedy nutné nastavit zakomentováním řádku s~definicí WiFi a~odkomentováním LoRaWAN použití této sítě. Dále je potřeba do předchystaných definic do uvozovek vložit již zmiňované vygenerované klíče. Při použití této sítě zařízení nemusí získávat žádné IP adresy, zprávy se posílají skrze gateway na servery The Things Network, kde se dále zpracovávají.
 
+Pro obsluhu LoRa modulu a~zajištění přenosu zpráv skrze LoRaWAN síť byla použita knihovna s názvem \texttt{ttn-esp32}, která je veřejně dostupná ve službě GitHub\footnote{\url{https://github.com/manuelbl/ttn-esp32}}.
+
 \begin{lstlisting}[caption={Nastavení spojení pomocí LoRaWAN}]
 # add_compile_definitions(WIFI)
 add_compile_definitions(LORAWAN)
