@@ -45,7 +45,7 @@ Prvním z~používaných typů senzorů jsou fotodiody. U~nich se využívá vni
 
 \subsection{Fototranzistory}
 
-Dalším často používaným prvkem pro měření intenzity osvětlení jsou fototranzistory. Zde se využívá nejčastěji bipolární tranzistor NPN, který má volnou bázi. Při výrobě jsou konstruovány tak, aby fotony dopadly do oblasti báze a~způsobily tak zvýšení protékajícího proudu tranzistorem. Díky tomu, že se díky fotonům řídí proud do báze tranzistoru, tak je tranzistor na světlo více citlivější než fotodioda. Nevýhodou fototranzistoru je shora omezené spektrum detekovaného světla a~jeho pomalá reakce. 
+Dalším často používaným prvkem pro měření intenzity osvětlení jsou fototranzistory. Zde se využívá nejčastěji bipolární tranzistor NPN, který má volnou bázi. Při výrobě jsou konstruovány tak, aby fotony dopadly do oblasti báze a~způsobily tak zvýšení protékajícího proudu tranzistorem. Díky tomu, že se dopadem fotonů řídí proud do báze tranzistoru, tak je tranzistor na světlo více citlivější než fotodioda. Nevýhodou fototranzistoru je shora omezené spektrum detekovaného světla a~jeho pomalá reakce. 
 
 \section{Měření UV záření}
 
@@ -61,7 +61,7 @@ Dalším z~UV záření, se kterým se můžeme setkat, je UVB záření s~vlnov
 
 \subsection{UVC záření}
 
-Posledním z~těchto záření je UVC záření, které je, se svou vlnovou délkou menší než \SI{280}{\micro\metre}, nejtvrdším z~těchto záření. Při kontaktu s~kyslíkem začíná vznikat ozon a~je silně karcinogenní pro všechny živé organismy. Díky své krátké vlnové délce dokáže proniknout relativně hluboko do všech organických materiálu a~je tak velice nebezpečné \cite{teor_UVMeas}.
+Posledním z~těchto záření je UVC záření, které je, se svou vlnovou délkou menší než \SI{280}{\micro\metre}, nejtvrdším z~těchto záření. Při kontaktu s~kyslíkem začíná vznikat ozon a~je silně karcinogenní pro všechny živé organismy. Díky své krátké vlnové délce dokáže proniknout relativně hluboko do všech organických materiálů, a~je tak velice nebezpečné \cite{teor_UVMeas}.
 
 \begin{figure}
     \centering
@@ -124,7 +124,7 @@ Při využití principu kondenzátoru je jedna z~elektrod pevně spojená s~pouz
 
 \section{IoT sítě}
 
-IoT (Internet of Things) sítě jsou uzpůsobeny pro přenos relativně krátkých datových zpráv na velmi velké vzdálenosti a~to vše při zachování nízké spotřeby. Dosah je většinou určen podle nosného kmitočtu, na kterém přenos funguje, podle dostupné šířky pásma pro náš přenos a~také vhodně zvolenou modulací. Tyto sítě se většinou nazývají jedním sdruženým pojmem LPWAN (Low Power Wide Area Network). Do této kategorie se řadí především technologie LoRa, Sigfox a~NB-IoT. První dvě zmíněné pracují v~bezlicenčním pásmu, kdežto poslední využívá licenční pásmo. Bezlicenční pásma jsou u~nás regulovány ČTÚ\footnote{Český telekomunikační úřad \url{https://www.ctu.cz/}} a~jejich omezení zpravidla spočívá v~maximálním vyzářeném výkonu a~také klíčovacím poměru. Ten určuje, jaké maximální procento daného času smíme použít pro vysílání. V~následujících částech práce se budu věnovat těmto třem sítím podrobněji.
+IoT (Internet of Things) sítě jsou uzpůsobeny pro přenos relativně krátkých datových zpráv na velmi velké vzdálenosti a~to vše při zachování nízké spotřeby. Dosah je většinou určen podle nosného kmitočtu, na kterém přenos funguje, podle dostupné šířky pásma pro náš přenos a~také vhodně zvolenou modulací. Tyto sítě se většinou nazývají jedním sdruženým pojmem LPWAN (Low Power Wide Area Network). Do této kategorie se řadí především technologie LoRa, Sigfox a~NB-IoT. První dvě zmíněné pracují v~bezlicenčním pásmu, kdežto poslední využívá licenční pásmo. Bezlicenční pásma jsou u~nás regulována ČTÚ\footnote{Český telekomunikační úřad \url{https://www.ctu.cz/}} a~jejich omezení zpravidla spočívá v~maximálním vyzářeném výkonu a~také klíčovacím poměru. Ten určuje, jaké maximální procento daného času smíme použít pro vysílání. V~následujících částech práce se budu věnovat těmto třem sítím podrobněji.
 
 \subsection{LoRa}
 
@@ -160,7 +160,7 @@ Přenos u~nás probíhá v~pásmu \SI{868}{\mega\hertz} se šířkou spektra \SI
 
 \subsection{NB-IoT}
 
-Síť NB-IoT (Narrowband Internet of Things) je LPWAN síť, kde její standardy definuje partnerský projekt 3GPP \cite{3GPP}. I~u~tohoto typu sítě je opět snaha minimalizovat velikosti posílaných zpráv, mít co největší dosah a~to vše za udržení minimálních energetických nároků. Díky tomu, že lze síť provozovat na již existující infrastruktuře LTE vysílačů, je zde možnost velmi rychlé implementace a~její nasazení na velké oblasti, stačí totiž softwarová aktualizace vysílačů. U~nás tuto síť provozuje mobilní operátor Vodafone právě v~pásmu LTE. Síť NB-IoT využívá pouze \SI{200}{\kilo\hertz} pásmo a~tak může existovat vedle již existujících sítích pro mobilní telefony. V~důsledku použití licencovaného pásma nejsme omezeni na vysílací čas a~také je možné vysílat mírně vyšším výkonem, než v~bezlicenčním pásmu ISM. Je však nutné mít podporovaný modul od operátora a~vlastnit jeho SIM kartu pro připojení do sítě. Bohužel momentálně není možné získat tyto SIM karty pro nekomerční využití, nabízí je totiž jen firemním zákazníkům. 
+Síť NB-IoT (Narrowband Internet of Things) je LPWAN síť, kde její standardy definuje partnerský projekt 3GPP \cite{3GPP}. I~u~tohoto typu sítě je opět snaha minimalizovat velikosti posílaných zpráv, mít co největší dosah a~to vše za udržení minimálních energetických nároků. Díky tomu, že lze síť provozovat na již existující infrastruktuře LTE vysílačů, je zde možnost velmi rychlé implementace a~její nasazení na velké oblasti, stačí totiž softwarová aktualizace vysílačů. U~nás tuto síť provozuje mobilní operátor Vodafone právě v~pásmu LTE. Síť NB-IoT využívá pouze \SI{200}{\kilo\hertz} pásmo a~tak může existovat vedle již existujících sítích pro mobilní telefony. V~důsledku použití licencovaného pásma nejsme omezeni vysílacím časem, a~také je možné vysílat mírně vyšším výkonem, než v~bezlicenčním pásmu ISM. Je však nutné mít podporovaný modul od operátora a~vlastnit jeho SIM kartu pro připojení do sítě. Bohužel momentálně není možné získat tyto SIM karty pro nekomerční využití, nabízí je totiž jen firemním zákazníkům. 
 
 Do budoucna mají tyto sítě velký potenciál právě díky jejich rychlému nasazení a~využití stávajících sítí. Jsou energeticky méně náročné něž mobilní datové komunikace přes GSM či LTE avšak dosahují relativně velkých rychlostí až stovky~\SI{}{\kilo\bit/\second}.
 

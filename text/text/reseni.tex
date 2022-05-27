@@ -96,7 +96,7 @@ Na poli senzorů pro měření intenzity osvětlení existuje hned několik dost
 
 Dalším z~možných typů senzorů je využití fototranzistoru nebo fotodiody. Toto měření je přesnější než předchozí zmíněná metoda, ale vyžaduje znalost přechodové charakteristiky součástky a~pro přesnější měření i~kalibraci vůči známé referenční hodnotě intenzity osvětlení.
 
-Mnohem vhodnějším typem senzorů pro toto konkrétní použití je tak integrovaný senzor, který obsahuje jednak samotnou na světlo citlivou vrstvu a~druhak i~řídící logiku, která nám poskytuje digitální výstup ze senzoru například ve formě sériové sběrnice. V~tabulce \ref{tab_LuxIntensitySensors} jsou uvedeny vybrané druhy integrovaných senzorů a~jejich základní vlastnosti.
+Mnohem vhodnějším typem senzorů pro toto konkrétní použití je tak integrovaný senzor, který obsahuje nejen samotnou na světlo citlivou vrstvu, ale také i~řídící logiku, která nám poskytuje digitální výstup ze senzoru například ve formě sériové sběrnice. V~tabulce \ref{tab_LuxIntensitySensors} jsou uvedeny vybrané druhy integrovaných senzorů a~jejich základní vlastnosti.
 
 \begin{table}[h]
     \caption{Srovnání parametrů vybraných senzorů intenzity osvětlení.}
@@ -181,7 +181,7 @@ Z výše uvedené tabulky \ref{tab_MCU} jsem nakonec vybral mikrokontroler ESP32
 
 \subsection{Analogově digitální převodník}
 
-Jak již bylo zmíněno v~předchozích kapitolách o~výběru senzorů, bude potřeba zajistit analogové vstupy na mikrokontroleru. Bohužel ESP32 nemá příliš přesný AD převodník a~je třeba provádět poměrně náročnou kalibraci pro každý zakoupený čip zvlášť, jak je zmíněno přímo v~oficiální dokumentaci\footnote{\url{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html}}. Nelze provádět ani kalibraci na jednom daném vzorku pro danou výrobní sérii.
+Jak již bylo zmíněno v~předchozích kapitolách o~výběru senzorů, bude potřeba zajistit analogové vstupy na mikrokontroleru. Bohužel ESP32 nemá příliš přesný AD převodník a~je třeba provádět poměrně náročnou kalibraci pro každý zakoupený čip zvlášť, jak je zmíněno přímo v~oficiální dokumentaci\footnote{\url{https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc.html}}. Nelze provádět ani kalibraci na jednom vzorku pro konkrétní výrobní sérii.
 
 Kvůli těmto výše uvedeným důvodům jsem se rozhodl pro tuto práci využít externí AD převodník, čímž by se měla zvýšit přesnost měření a~zajistit reprodukovatelné výsledky při použití jiného mikrokontroleru. Hlavním požadavkem na výběr tohoto převodníku byla cena, dostupnost a~spotřeba. Pro tuto práci je zapotřebí aby byl napájen z~\SI{3,3}{\volt} a~měl alespoň 2 vstupní kanály. Těmto požadavkům nejlépe vyhověl AD převodník MCP3202 od firmy Microchip Technology Inc. \cite{dat_MCP3202}. Obsahuje dva kanály s~rozlišením 12 bitů. Připojení k~mikrokontroleru je provedeno přes sběrnici SPI a~maximální spotřeba při čtení je zhruba \SI{320}{\micro\ampere}.
 
@@ -215,9 +215,7 @@ Jelikož je použit senzor prachových částic PMS5003, který potřebuje pro s
 
 \subsection{Výběr step-up měniče}
 
-Step-up měničů existují na trhu stovky různých druhů od všemožných výrobců. Výběr je tedy nutné provést převážně na základě potřebných parametrů jako jsou vstupní napětí, výstupní napětí a~potřebný dodávaný proud. Jelikož je celé zařízení koncipováno jako nízkopříkonové, je vhodné podívat se také na výrobcem udávaný proud potřebný pro provoz samotného měniče. nejdůležitějším parametrem je bohužel v~dnešní době dostupnost daného měniče a~také jeho cena.
-
-Pro tuto práci byl vybrán step-up měnič AP1603 od výrobce Diodes Incorporated \cite{dat_AP1603}. Měnič dokáže fungovat od napětí \SI{0.9}{\volt} až do \SI{5.5}{\volt} a~poskytovat výstupní proud až \SI{200}{\milli\ampere}. Díky tomu, že měnič obsahuje spínací tranzistory přímo na čipu, tak není potřeba pro funkci příliš mnoho externích součástek. Na obrázku \ref{fig_schematic-AP1603} je vidět zapojení pro výstupní napětí \SI{5}{\volt}. 
+Step-up měničů existují na trhu stovky různých druhů od všemožných výrobců. Výběr je tedy nutné provést převážně na základě potřebných parametrů jako jsou vstupní napětí, výstupní napětí a~potřebný dodávaný proud. Jelikož je celé zařízení koncipováno jako nízkopříkonové, je vhodné podívat se také na výrobcem udávaný proud potřebný pro provoz samotného měniče. Nejdůležitějším parametrem je bohužel v~dnešní době dostupnost daného měniče a~také jeho cena.
 
 \begin{figure}[h]
     \centering
@@ -225,6 +223,8 @@ Pro tuto práci byl vybrán step-up měnič AP1603 od výrobce Diodes Incorporat
     \caption{Typické zapojení step-up měniče AP1603 pro výstupní napětí \SI{5}{\volt} \cite{dat_AP1603}.}
     \label{fig_schematic-AP1603}
 \end{figure}
+
+Pro tuto práci byl vybrán step-up měnič AP1603 od výrobce Diodes Incorporated \cite{dat_AP1603}. Měnič dokáže fungovat od napětí \SI{0.9}{\volt} až do \SI{5.5}{\volt} a~poskytovat výstupní proud až \SI{200}{\milli\ampere}. Díky tomu, že měnič obsahuje spínací tranzistory přímo na čipu, tak není potřeba pro funkci příliš mnoho externích součástek. Na obrázku \ref{fig_schematic-AP1603} je vidět zapojení pro výstupní napětí \SI{5}{\volt}. 
 
 Při návrhu hodnot použitích součástek v~zapojení step-up měniče budu vycházet z~katalogového listu poskytnutého výrobcem \cite{dat_AP1603}. Je potřeba připojit k~měniči pouze vstupní a~výstupní elektrolytické filtrační kondenzátory o~hodnotě \SI{47}{\micro\farad}, filtrační kondenzátor o~hodnotě \SI{100}{\nano\farad} na referenční pin měniče a~dále spínací tlumivku velikosti \SI{22}{\micro\henry} s~dostatečným proudovým dimenzováním. U~tohoto měniče není potřeba žádný napěťový dělič ve zpětné vazbě, jelikož výrobce uvažoval použití s~výstupem \SI{5}{\volt}, stačí tedy zpětnou vazbu připojit přímo na výstup měniče. Výsledné zapojení je vidět na obrázku \ref{fig_StepUp-kicad}.
 
@@ -292,7 +292,7 @@ Při návrhu hodnot použitích součástek v~zapojení step-up měniče budu vy
 
 \subsection{Výběr lineárního stabilizátoru pro 3,3~V}
 
-Jak již bylo zmíněno v~předchozích kapitolách, pro napájení AD převodníku bude třeba vybrat lineární stabilizátor s~malým úbytkem napětí, tzv. LDO. Bohužel nikde neexistuje přesná definice, co je LDO stabilizátor a~co už ne, je třeba toto označení brát lehce s~rezervou. V~praxi se tak obvykle označují stabilizátory s~úbytkem napětí zhruba do \SI{2}{\volt}.
+Jak již bylo zmíněno v~předchozích kapitolách, pro napájení AD převodníku bude třeba vybrat lineární stabilizátor s~malým úbytkem napětí, tzv. LDO. Bohužel nikde neexistuje přesná definice, co je LDO stabilizátor a~co už ne, je třeba toto označení považovat za ne zcela objektivní. V~praxi se tak obvykle označují stabilizátory s~úbytkem napětí zhruba do \SI{2}{\volt}.
 
 Jako vhodný pro toto zapojení byl vybrán stabilizátor od výrobce Advanced Monolithic Systems AMS1117 \cite{dat_AMS1117} ve variantě s~pevně nastaveným výstupním napětím na \SI{3,3}{\volt}. Stabilizátor jako takový nepotřebuje pro svou funkci kromě filtračních kondenzátorů na vstupu a~výstupu žádné další externí součástky. Podle katalogového listu výrobce zaručuje rozptyl výstupního napětí maximálně $\pm\SI{10}{\milli\volt}$ a~potlačení vstupního rušení o~alespoň \SI{60}{\deci\bel}, což je pro AD převodník žádaná vlastnost. Filtrační kondenzátory byly zvoleny podle doporučení výrobce \SI{22}{\micro\farad} na vstupu i~na výstupu v~keramickém provedení. Kvůli úspoře energie bude možnost vypínat tento stabilizátor a~tím i~následně AD převodník. Výsledné schéma zapojení lineárního stabilizátoru je vidět na obrázku \ref{fig_LDO-schematic}.
 
@@ -305,7 +305,7 @@ Jako vhodný pro toto zapojení byl vybrán stabilizátor od výrobce Advanced M
 
 \subsection{Výběr lineárního stabilizátoru pro 1,8~V}
 
-Posledním z~napájecích zdrojů je lineární stabilizátor pro senzor SGP30 měřící CO$_2$ a~TVOC. I~zde bude třeba vybrat LDO stabilizátor, ideálně v~malém pouzdře s~minimem externích součástek. Vstupní napětí bude \SI{3}{\volt} až \SI{3.6}{\volt} z~baterie a~výstupní napětí musí být \SI{1.8}{\volt}, stabilizátor musí být schopen dodat proud alespoň \SI{50}{\milli\ampere}. Jako nejvhodnější, dostupný a~zároveň levný byl vybrán stabilizátor NCP115 s~fixním výstupem \SI{1.8}{\volt} od firmy ON Semiconductor \cite{dat_NCP115}. Tento stabilizátor vyžaduje přidání pouze filtračních kondenzátorů na vstup a~výstup, ideálně keramické o~hodnotě \SI{1}{\micro\farad}. Vstupní napětí může být až \SI{5.5}{\volt} a~výstupní proud \SI{300}{\milli\ampere}. Výsledné zapojení tohoto stabilizátoru včetně možnosti vypnutí je vidět na obrázku \ref{fig_LDO1.8-schematic}.
+Posledním z~napájecích zdrojů je lineární stabilizátor pro senzor SGP30 měřící CO$_2$ a~TVOC. I~zde bude třeba vybrat LDO stabilizátor, ideálně v~malém pouzdře s~minimem externích součástek. Vstupní napětí bude \SI{3}{\volt} až \SI{3.6}{\volt} z~baterie a~výstupní napětí musí být \SI{1.8}{\volt}, stabilizátor musí být schopen dodat proud alespoň \SI{50}{\milli\ampere}. Jako nejvhodnější, dostupný a~zároveň levný byl vybrán stabilizátor NCP115 s~fixním výstupem \SI{1.8}{\volt} od firmy ON Semiconductor \cite{dat_NCP115}. Tento stabilizátor vyžaduje přidání pouze filtračních kondenzátorů na vstup a~výstup, ideálně keramických o~hodnotě \SI{1}{\micro\farad}. Vstupní napětí může být až \SI{5.5}{\volt} a~výstupní proud \SI{300}{\milli\ampere}. Výsledné zapojení tohoto stabilizátoru včetně možnosti vypnutí je vidět na obrázku \ref{fig_LDO1.8-schematic}.
 
 \begin{figure}[h]
     \centering
@@ -331,11 +331,11 @@ Jelikož je jedním z~hlavních úkolů navrhnout zařízení s~co nejmenší sp
 
 \section{Nabíjení zařízení}
 
-Jelikož je ve výsledném zařízení obsažena baterie LiFePO4, je vhodné mít k~dispozici kompatibilní nabíječku, ideálně připojitelnou k~tomuto zařízení, aby nebylo nutné vyndávat baterii. Pro tento účel se velmi často využívají moduly postavené na čipu TP5000 \cite{dat_TP5000}. Tento nabíjecí obvod má uvnitř spínaný zdroj a~umožňuje tedy nabíjení proudem až \SI{2}{\ampere} při vstupním napětí až \SI{10}{\volt}. Je tedy možné na vstup připojit i~solární panel o~vhodném výkonu a~parametrech a~nabíjet baterii z~energie jím vyrobené. Toto řešení má ovšem jednu nevýhodu a~to absenci MPPT (Maximum Power Point Tracking) obvodu pro maximalizaci získané energie ze solárního panelu. Kvůli absenci tohoto obvodu jsem se rozhodl pro realizaci vlastního nabíjecího modulu.
+Jelikož je ve výsledném zařízení obsažena baterie LiFePO4, je vhodné mít k~dispozici kompatibilní nabíječku, ideálně připojitelnou k~tomuto zařízení, aby nebylo nutné vydělávat baterii. Pro tento účel se velmi často využívají moduly postavené na čipu TP5000 \cite{dat_TP5000}. Tento nabíjecí obvod má uvnitř spínaný zdroj a~umožňuje tedy nabíjení proudem až \SI{2}{\ampere} při vstupním napětí až \SI{10}{\volt}. Je tedy možné na vstup připojit i~solární panel o~vhodném výkonu a~parametrech a~nabíjet baterii z~energie jím vyrobené. Toto řešení má ovšem jednu nevýhodu a~to absenci MPPT (Maximum Power Point Tracking) obvodu pro maximalizaci získané energie ze solárního panelu. Kvůli absenci tohoto obvodu jsem se rozhodl pro realizaci vlastního nabíjecího modulu.
 
 Vybral jsem řídící čip LT3652 od firmy Analog Devices \cite{dat_LT3652}, který sdružuje funkce nabíjení baterie a~MPPT regulátoru na vstupu. Samotný čip umožňuje nabíjení baterie spínaným zdrojem s~výstupním proudem až \SI{2}{\ampere} při vstupním napětí až \SI{32}{\volt}. Je možné tedy nabíjet i~více baterií zapojených do série. Umožňuje nastavit maximální napětí, do kterého se baterie mají nabíjet, nabíjecí proud a~nebo také právě napětí pro MPPT regulátor.
 
-Při návrhu zapojení nabíjecího obvodu s~čipem LT3652 budu vycházet z~datasheetu výrobce \cite{dat_LT3652} a~v~něm uvedeného typického zapojení. Výrobce v~tomto datasheetu uvádí přímo konkrétní zapojení pro jednu LiFePO4 baterii s~maximálním napětím \SI{3.6}{\volt}, ze kterého bdudu vycházet. Toto zapojení je vidět na obrázku \ref{fig_datasheetSchematicLT3652}.
+Při návrhu zapojení nabíjecího obvodu s~čipem LT3652 budu vycházet z~datasheetu výrobce \cite{dat_LT3652} a~v~něm uvedeného typického zapojení. Výrobce v~tomto datasheetu uvádí přímo konkrétní zapojení pro jednu LiFePO4 baterii s~maximálním napětím \SI{3.6}{\volt}, ze kterého budu vycházet. Toto zapojení je vidět na obrázku \ref{fig_datasheetSchematicLT3652}.
 
 \begin{figure}[h]
     \centering
@@ -362,7 +362,7 @@ Poslední možností, jak doporučené zapojení upravit je změna nabíjecího 
     \label{eq_RsenseCharger}
 \end{equation}
 
-Kde I$_{CHG(max)}$ je právě velikost požadovaného nabíjecího proudu. Pro nabíjecí proud \SI{1}{\ampere} by vycházela hodnota odporu na \SI{100}{\milli\ohm}. Při vybírání konkrétních součástek je potřeba uvažovat také výkonovou ztrátu na tomto odporu, jelikož skrze něj protéká veškerý nabíjecí proud, a~podle toho jej dostatečně výkonově dimenzovat. Celkové výsledné použité zapojení nabíječky je vidět na obrázku \ref{fig_ChargerSchematic}.
+Kde I$_{CHG(max)}$ je právě velikost požadovaného nabíjecího proudu. Pro nabíjecí proud \SI{1}{\ampere} by vycházela hodnota odporu na \SI{100}{\milli\ohm}. Při vybírání konkrétních součástek je potřeba brát v úvahu také výkonovou ztrátu na tomto odporu, jelikož skrze něj protéká veškerý nabíjecí proud, a~podle toho jej dostatečně výkonově dimenzovat. Celkové výsledné použité zapojení nabíječky je vidět na obrázku \ref{fig_ChargerSchematic}.
 
 \begin{figure}
     \centering
