@@ -212,7 +212,7 @@ extern "C" void app_main(void)
         #endif
 
         #ifdef WIFI
-        if (getTaskChecker(MEAS_DONE_CHECKER)) {
+        if (getTaskChecker(MEAS_DONE_CHECKER | WIFI_CHECKER)) {
             xTaskCreatePinnedToCore(taskMQTT, "mqtt_task", configMINIMAL_STACK_SIZE * 8, NULL, 5, NULL, APP_CPU_NUM);
             resetTaskChecker(MEAS_DONE_CHECKER);
         }
