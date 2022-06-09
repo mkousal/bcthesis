@@ -97,7 +97,8 @@
 				\item Prostudovat možnosti přenosu dat
 				\item Navrhnout obvodové zapojení
 				\item Realizovat desku plošných spojů
-				\item Oživit zařízení
+				\item Oživit a naprogramovat zařízení
+    			\item Vizualizovat naměřená data
 			\end{itemize}
 		\end{column}
 
@@ -113,29 +114,32 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-	\frametitle{Výběr senzorů - kritéria a kategorie}
+	\frametitle{Návrh zařízení}
 	\begin{columns}[T]
-		\begin{column}{0.5\columnwidth}
-			Kritéria
+		\begin{column}{0.4\textwidth}
+			Měřené veličiny
 			\begin{itemize}
-				\item Spotřeba
-				\item Cena
-				\item Dostupnost
-				\item Komunikační sběrnice
+				\item Koncentrace CO$_{2}$
+				\item Hodnota Total VOC
+				\item Koncentrace prachových částic
+				\item Intenzita osvětlení
+				\item UV záření
 			\end{itemize}
+			Doplňkové veličiny
+			\begin{itemize}
+				\item Teplota
+				\item Relativní vlhkost vzduchu
+				\item Atmosférický tlak
+			\end{itemize}	
 		\end{column}
 
-		\begin{column}{0.5\columnwidth}
-			Kategorie senzorů
-			\begin{itemize}
-				\item Prachové částice
-				\item Oxid uhelnatý
-				\item UV záření
-				\item Intenzita osvětlení
-				\item Teplota
-				\item Tlak
-				\item Vlhkost
-			\end{itemize}
+		\begin{column}{0.6\textwidth}
+			\begin{figure}
+				\centering
+				\vspace{4ex}
+				\includegraphics[width=\textwidth]{obrazky/block_schematic.png}
+			\end{figure}
+			
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -144,29 +148,38 @@
 
 \begin{frame}
 	\frametitle{Přenos a zpracování dat}
-	\begin{columns}[T]
-		\begin{column}{0.5\columnwidth}
-			Přenosové sítě
+	Uvažované přenosové sítě
+	\begin{itemize}
+		\item Sigfox
+		\item WiFi
+		\item LoRaWAN
+		\item NB-IoT
+	\end{itemize}
+
+	Zpracování dat
+	\begin{itemize}
+		\item Možnost využití platforem - ThingSpeak, ubidots, Arduino Cloud, \dots
+		\item Zvoleno vlastní řešení - \textbf{databáze \texttt{+} Grafana}
+	\end{itemize}
+
+	\vspace{0.5ex}
+	\begin{columns}
+		\begin{column}{0.45\textwidth}
+			LoRaWAN\\[0.5ex]
 			\begin{itemize}
-				\item Sigfox
-				\item WiFi
-				\item LoRaWAN
-				\item NB-IoT
+				\item The Things Network
+				\item Node-RED
+				\item InfluxDB
 			\end{itemize}
+
 		\end{column}
 
-		\begin{column}{0.5\columnwidth}
-			Server pro zpracování dat
+		\begin{column}{0.45\textwidth}
+			WiFi\\[0.5ex]
 			\begin{itemize}
-				\item ThingSpeak
-				\item ubidots
-				\item Arduino Cloud
-				\item Vlastní řešení
-				\begin{itemize}
-					\item MQTT Broker
-					\item InfluxDB
-					\item Grafana
-				\end{itemize}
+				\item MQTT broker (Mosquitto)
+				\item Node-RED
+				\item InfluxDB
 			\end{itemize}
 		\end{column}
 	\end{columns}
@@ -175,44 +188,58 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
-	\frametitle{Návrh elektroniky}
-	\begin{columns}[T]
-		\begin{column}{0.4\columnwidth}
-			\vspace{0.5cm}
-			\begin{itemize}
-				\item Napájení
-				\item Řídící elektronika
-				\item Měniče napětí
-				\item Senzory
-				\item LoRa modul
-			\end{itemize}
-		\end{column}
+	\frametitle{Napájení}
 
-		\begin{column}{0.6\columnwidth}
-			\centering
-			\includegraphics[width=\columnwidth]{obrazky/block_schematic-full.drawio.pdf}
-		\end{column}
-	\end{columns}
+	\vspace{1ex}
+	Při návrhu kladen důraz na:
+	\begin{itemize}
+		\item Možnost bateriového napájení
+		\item Minimalizace počtu měničů napětí
+		\item Co nejnižší spotřeba
+	\end{itemize}
+
+	\vspace{1.5ex}
+	Výsledkem je:
+	\begin{itemize}
+		\item LiFePO4 baterie
+		\item Nabíječka s možností MPPT
+		\item Spotřeba v deep-sleep režimu $5,8~\mu A$
+		\begin{itemize}
+			\item Spotřeba ESP32 dle výrobce $5~\mu A$
+			\item Vypínatelné senzory a pull-up rezistory
+			\item ESP32 napájeno přímo z baterie bez měniče
+		\end{itemize}
+	\end{itemize}
+
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}
 	\frametitle{Návrh DPS}
-	\begin{columns}[T]
-		\begin{column}{0.4\columnwidth}
-			\begin{itemize}
-				\item Dvouvrstvá DPS
-				\item Navrhováno v KiCad
-				\item Výroba JLCPCB
-				\item Strojní osazení
-				\item Velikost $100\times 100mm$
-			\end{itemize}
+	\begin{itemize}
+		\item Výsledkem jsou dvouvrstvé DPS
+	\end{itemize}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\centering
+			Hlavní deska $50x100~mm$
+			\begin{figure}
+				\centering
+				\includegraphics[height=0.65\textheight]{obrazky/mainBoard-kicad.png}
+			\end{figure}
 		\end{column}
 
-		\begin{column}{0.6\columnwidth}
+		\begin{column}{0.5\textwidth}
 			\centering
-			\includegraphics[width=0.85\columnwidth]{obrazky/PCB_top.png}
+			Nabíječka $40x40~mm$
+			\begin{figure}
+				\centering
+				\vspace{3ex}
+				\includegraphics[width=0.7\textwidth]{obrazky/batteryCharger-top_.png}
+			\end{figure}
+
 		\end{column}
 	\end{columns}
 \end{frame}
@@ -221,24 +248,50 @@
 
 \begin{frame}
 	\frametitle{Realizovaná DPS}
-	\begin{columns}[T]
-		\begin{column}{0.4\columnwidth}
-			\vspace{0.5cm}
-			\begin{itemize}
-				\item Osazení součástek
-				\item Možnost vypnutí jednotlivých součástí
-				\item Spotřeba $500\mu A$ při nečinnosti a uspaném mikrokontroleru
-				\item Přizpůsobení antény pro LoRa
-				\item Funkčnost všech senzorů
-			\end{itemize}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\centering
+			Hlavní deska $50x100~mm$
+			\begin{figure}
+				\centering
+				\begin{figure}
+					\includegraphics[width=0.85\textwidth]{obrazky/final_pcb_both.png}
+				\end{figure}
+			\end{figure}
 		\end{column}
 
-		\begin{column}{0.6\columnwidth}
-			\vspace{0.5cm}
+		\begin{column}{0.4\textwidth}
 			\centering
-			\includegraphics[width=1\columnwidth]{obrazky/pcb-full.jpg}
+			Nabíječka $40x40~mm$
+			\begin{figure}
+				\centering
+				\vspace{8ex}
+				\includegraphics[width=0.9\textwidth]{obrazky/batteryCharger-final.png}
+			\end{figure}
 		\end{column}
 	\end{columns}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Finální zařízení}
+	\centering
+	\includegraphics[height=0.8\textheight]{obrazky/finalDevice.jpg}	
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+	\frametitle{Naměřená data}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{obrazky/grafana.png}
+	\end{figure}
+
+
 \end{frame}
 
 %%%%%%%%%%%%%
@@ -319,17 +372,11 @@
 	\frametitle{Závěr}
 	Splněné cíle
 	\begin{itemize}
-		\item Funkční prototyp
-		\item Možnost naprogramovat mikrokontroler
-		\item Správná funkčnost dílčích logických celků
-	\end{itemize}
-	Další postup
-	\begin{itemize}
-		\item Naprogramování firmware za použití ESP-IDF (C/C\texttt{++})
-		\item Vyřešení antény pro LoRa
-		\item Zprovoznění sběru dat
-		\item Další snížení klidové spotřeby
-		\item Provoz na baterie
+		\item Zařízení umožňuje měřit kvalitu ovzduší
+  		\item Uživatel si může zobrazit naměřená data a statistiky
+		\item Výsledná cena je okolo 1600 Kč
+		\item Spotřeba zařízení umožňuje provoz na jednu 3200~mAh baterii s periodou měření 1~hodina po dobu až 160~dní
+		\item Při zapojení solárního panelu je možný neomezeně dlouhý provoz
 	\end{itemize}
 \end{frame}
 
@@ -343,12 +390,29 @@
 	\end{center}
 \end{frame}
 
-% % otázky oponenta
-% \frame{
-% \frametitle{Otázky oponenta}
-% 	\emph{Jaká je souvislost Vašeho vzorce (1.2) s~Maxwellovými rovnicemi v~integrálním tvaru?}\\[2ex]
-% 	%
-% 	Již staří Římané\,\dots
-% }
+% otázky oponenta
+\frame{
+\frametitle{Otázky oponenta}
+	\emph{Jakým způsobem je měřen proudový odběr zařízení v režimu spánku a během aktivity, zmiňovaný v závěru? Uveďte výpočty teoretické životnosti baterie pro WiFi a pro LoRaWAN komunikaci.}\\[2ex]
+	%
+	Průměrná spotřeba při použití LoRaWAN:
+	\begin{equation}
+		I_{avg}= \frac{I_{wake}\cdot t_{wake} + I_{sleep}\cdot t_{sleep}}{t_{wake}+ t_{sleep}} = \frac{0,1 \cdot 30 + 5,8\cdot 10^{-6}\cdot 3600}{30 + 3600} = 832\: \mu A
+	\end{equation}
+	Teoretická výdrž akumulátoru:
+	\begin{equation}
+		\frac{C}{I_{avg}} = \frac{3200 mAh}{832 \mu A} \div 24 = 160,3\: dnů
+	\end{equation}
+	Pro WiFi je $I_{avg} = 997,5\: \mu A$ a teoretická výdrž je tedy $133,7$ dnů
+}
+
+\frame{
+\frametitle{Otázky oponenta}
+	\emph{Popište funkci I2C level shifteru (Q7 a Q8 na str. 67).}\\[2ex]
+
+	\centering
+	\includegraphics[height=0.7\textheight]{obrazky/level_shifter.pdf}
+
+}
 
 \end{document}
